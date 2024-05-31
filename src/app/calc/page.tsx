@@ -1,22 +1,38 @@
 import { NumberAnimator } from "../components/gbf-dmg-formula"
-import { WeaponTile, SummonTile } from "../components/gbf_tile"
+import { GBFWepModal } from "../components/gbf_modal"
+import { WeaponTile, SummonTile } from "../components/tile/gbf_tile"
 
 const formulaMods = {
     'Total': {
       num: 0,
+      mulx: '=',
+      id: 0
     },
     'Magna': {
         num: 0,
+        mulx: 'x',
+        id: 1
       },
     'Normal': {
       num: 25,
+      mulx: 'x',
+      id: 2
     },
     'EX': {
       num: 100,
+      mulx: '',
+      id: 3
     },
 }
 
-export default function CalculatorPage() {
+type SearchParamProps = {
+    searchParams: Record<string, string> | null | undefined
+}
+
+export default function CalculatorPage({ searchParams }: SearchParamProps) {
+
+    const showwep = searchParams?.wepmodal;
+
     return (
         <div>
             <h1 className="font-bold text-2xl">Calculator Page</h1>
@@ -25,17 +41,17 @@ export default function CalculatorPage() {
                     <h2>Weapon Grid</h2>
                     <div className="grid grid-rows-3 grid-cols-4 w-96">
                         <div className="row-span-3">
-                            <WeaponTile />
+                            <WeaponTile basepath="/calc"/>
                         </div>
-                        <WeaponTile />
-                        <WeaponTile />
-                        <WeaponTile />
-                        <WeaponTile />
-                        <WeaponTile />
-                        <WeaponTile />
-                        <WeaponTile />
-                        <WeaponTile />
-                        <WeaponTile />
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
+                        <WeaponTile basepath="/calc"/>
                     </div>
                 </div>
 
@@ -49,17 +65,23 @@ export default function CalculatorPage() {
 
                 <div className="my-12">
                     <h2>Damage Formula</h2>
-                    <div className="flex flex-row gap-4 text-center">
-                        {Object.entries(formulaMods).map(([modName, { num }]) => {
+                    <div className="flex flex-row gap-12 text-center">
+                        {Object.entries(formulaMods).map(([modName, { num, mulx, id }]) => {
                             return (
-                                <div>
-                                    <NumberAnimator initialValue={num} targetValue={100} />
-                                    {modName}
+                                <div key={id} className="flex flex-row gap-12">
+                                    <div>
+                                        <NumberAnimator initialValue={num} targetValue={100} />
+                                        {modName}
+                                    </div>
+                                    {mulx !== '' ? <div>{mulx}</div> : <></>}
                                 </div>
                             )
                         })}
                     </div>
                 </div>
+
+                {showwep && <GBFWepModal />}
+
             </div>
         </div>
     )
