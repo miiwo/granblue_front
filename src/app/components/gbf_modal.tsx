@@ -2,35 +2,39 @@
 
 import { useRouter } from "next/navigation"
 import { DefaultSearch, GBFWeaponSearch } from "./gbf-search"
+import { Tile } from "./base/base-components"
 
 
 interface ModalMeta {
     title?: string
-    children: any
+    children: React.ReactNode
 }
 
 const formulaMods = {
-  'Total': {
+  'Phoenix Torch': {
     num: 0,
-    mulx: '=',
-    id: 0
+    id: 0,
   },
-  'Magna': {
+  'Bahamut Sword': {
       num: 0,
-      mulx: 'x',
-      id: 1
+      id: 1,
     },
-  'Normal': {
+  'Murcielago': {
     num: 25,
-    mulx: 'x',
-    id: 2
+    id: 2,
   },
-  'EX': {
+  'Eresh': {
     num: 100,
-    mulx: '',
-    id: 3
+    id: 3,
   },
 }
+
+const weaponList = [
+  {name: 'Phoenix Torch', id: 0},
+  {name: 'Ereshkigal', id: 1},
+  {name: 'Murcielago', id: 2},
+  {name: 'Photon Blaster', id: 3},
+]
 
 function Modal({title, children}: ModalMeta) {
   const router = useRouter()
@@ -71,16 +75,19 @@ export function DefaultSearchModal() {
   )
 }
 
-export function GBFWepModal() {  
+export function GBFWepGridModal() {  
+  //const {setWeaponTile} = useContext(GBFContext)
+  // const {}
+
   return (
       <Modal title="GBF Weapons">
           <GBFWeaponSearch />
           <div className="grid text-black">
-          {Object.entries(formulaMods).map(([modName, { num, mulx, id }]) => {
+          {weaponList.map( item => {
             return (
-                <div key={id}>
-                    {modName}
-                </div>
+                <Tile key={item.id}>
+                  {item.name}
+                </Tile>
             )
           })}
           </div>
