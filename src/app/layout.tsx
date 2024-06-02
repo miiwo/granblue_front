@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/nav";
+import { GBFWeaponGridContextProvider } from "./calc/gbfcalcContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +26,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        {children}
+          <GBFWeaponGridContextProvider>
+            {children}
+          </GBFWeaponGridContextProvider>
       </body>
     </html>
   );

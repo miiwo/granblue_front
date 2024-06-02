@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation"
 import { DefaultSearch, GBFWeaponSearch } from "./gbf-search"
 import { Tile } from "./base/base-components"
+import { useContext } from "react"
+import { GBFWeaponGridContext } from "../calc/gbfcalcContext"
 
 
 interface ModalMeta {
@@ -76,8 +78,8 @@ export function DefaultSearchModal() {
 }
 
 export function GBFWepGridModal() {  
-  //const {setWeaponTile} = useContext(GBFContext)
-  // const {}
+  const gbfContext = useContext(GBFWeaponGridContext)
+  const router = useRouter()
 
   return (
       <Modal title="GBF Weapons">
@@ -85,7 +87,7 @@ export function GBFWepGridModal() {
           <div className="grid text-black">
           {weaponList.map( item => {
             return (
-                <Tile key={item.id}>
+                <Tile key={item.id} onClick={() => {gbfContext.setWeaponToTile(item); router.back()}}>
                   {item.name}
                 </Tile>
             )

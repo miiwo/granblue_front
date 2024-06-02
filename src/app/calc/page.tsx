@@ -7,15 +7,6 @@ import { GBFWepGridModal } from "../components/gbf_modal"
 import { GBFWeaponGridContext, GBFWeaponGridContextProvider } from "./gbfcalcContext"
 import { WeaponGridTile, SummonTile } from "../components/tile/gbf_tile"
 
-/*
-THOUGHTS:
-Have an iterator generate the Weapon Grid Tiles
-Have it so that each Weapon Grid Tile takes in an optional pre-modal function on click such that it sets a CalcPage variable "weaponKey" to the iterated key of the Weapon Tile Component
-In the GBF Modal, have it so that when a button is clicked, the corresponding weapon is set to the corresponding CalcPage weapon variable
-To do this, the modal needs a function that takes in a weapon, and a key
-Or I setup a grand WeaponGridContext, and pass it in
-*/
-
 const formulaMods = {
     'Total': {
       num: 0,
@@ -48,7 +39,6 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
     return (
         <div>
             <h1 className="font-bold text-2xl">Calculator Page</h1>
-            <GBFWeaponGridContextProvider>
                 <div className="pl-6">
                     <div className="mt-6 mb-12">
                         <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
@@ -58,7 +48,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                             </div>
                             {Object.keys(grid).map((keyName:string) => {
                                 return (
-                                    <WeaponGridTile key={keyName} basepath={"/calc"} weapon={grid[keyName]} />
+                                    <WeaponGridTile key={keyName} weaponlink={keyName} basepath={"/calc"} weapon={grid[keyName]} />
                                 )
                             })}
                         </div>
@@ -97,7 +87,6 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                     {shouldDisplayWeaponModal && <GBFWepGridModal />}
 
                 </div>
-            </GBFWeaponGridContextProvider>
         </div>
     )
 }
