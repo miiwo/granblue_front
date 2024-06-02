@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useContext } from "react"
+import { useState } from "react"
 import { NumberSlider } from "../components/base/base-components"
-import { NumberAnimator } from "../components/gbf-dmg-formula"
-import { GBFWepGridModal } from "../components/gbf_modal"
-import { GBFWeaponGridContext, GBFWeaponGridContextProvider } from "./gbfcalcContext"
-import { WeaponGridTile, SummonTile } from "../components/tile/gbf_tile"
+import { NumberAnimator } from "../components/calc/gbf-dmg-formula"
+import { GBFWepGridModal } from "../components/calc/gbf_modal"
+import { GBFWeaponGridContextProvider } from "./gbfcalcContext"
+import { SummonTile } from "../components/calc/gbf_tile"
+import { WeaponGrid } from "../components/calc/weapon-grid"
 
 const formulaMods = {
     'Total': {
@@ -31,27 +32,17 @@ type SearchParamProps = {
 }
 
 export default function CalculatorPage({ searchParams }: SearchParamProps) {
-
     const shouldDisplayWeaponModal = searchParams?.wepmodal;
     const [hpPercent, setHpPercent] = useState(50)
-    const { grid } = useContext(GBFWeaponGridContext)
 
     return (
         <div>
+            <GBFWeaponGridContextProvider>
             <h1 className="font-bold text-2xl">Calculator Page</h1>
                 <div className="pl-6">
                     <div className="mt-6 mb-12">
                         <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
-                        <div className="grid grid-rows-3 grid-cols-4 w-96">
-                            <div className="row-span-3">
-                                <WeaponGridTile basepath="/calc" weapon={grid.wepOne} weaponlink="wepOne" />
-                            </div>
-                            {Object.keys(grid).map((keyName:string) => {
-                                return (
-                                    <WeaponGridTile key={keyName} weaponlink={keyName} basepath={"/calc"} weapon={grid[keyName]} />
-                                )
-                            })}
-                        </div>
+                        <WeaponGrid />
                     </div>
 
                     <div className="flex gap-5">
@@ -85,8 +76,8 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                     </div>
 
                     {shouldDisplayWeaponModal && <GBFWepGridModal />}
-
                 </div>
+            </GBFWeaponGridContextProvider>
         </div>
     )
 }
