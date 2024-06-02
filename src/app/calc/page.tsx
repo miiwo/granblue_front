@@ -44,7 +44,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                         <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
                         <div className="grid grid-rows-3 grid-cols-4 w-96">
                             <div className="row-span-3">
-                                <WeaponGridTile basepath="/calc" weapon={grid.wepOne} />
+                                <WeaponGridTile basepath="/calc" weapon={grid.wepOne} weaponlink="wepOne" />
                             </div>
                             {Object.keys(grid).map((keyName:string) => {
                                 return (

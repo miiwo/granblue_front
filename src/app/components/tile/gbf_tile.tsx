@@ -10,12 +10,10 @@ import { GBFWeaponGridContext, Weapon } from '@/app/calc/gbfcalcContext'
 interface GBFTileProps {
   basepath?: string
   weapon?: Weapon
-  weaponlink?: string // If attached to a weapon grid, this is the key to corresponding weapon in the weapon grid
-  preModalClick?: () => void
+  weaponlink: string // If attached to a weapon grid, this is the key to corresponding weapon in the weapon grid
 }
 
-export function WeaponGridTile({basepath, weapon, weaponlink, preModalClick}: GBFTileProps) {
-  const preModal = preModalClick ? preModalClick : () => {}
+export function WeaponGridTile({basepath, weapon, weaponlink}: GBFTileProps) {
   const gbfContext = useContext(GBFWeaponGridContext)
 
   let tileImage = '/empty_wep_slot.png'
@@ -24,15 +22,7 @@ export function WeaponGridTile({basepath, weapon, weaponlink, preModalClick}: GB
     tileImage = weapon ? '/empty_wep_slot.png' : '/empty_wep_slot.png'
   }
 
-  /*const setWeaponInGrid = () => {
-    if (weaponlink && gbfContext && gbfContext.keyname) {
-      gbfContext.keyname.current = weaponlink
-      console.log(`active keyname is set to: ${gbfContext.keyname.current}`)
-    }
-  }*/
-
   function onClick() {
-    preModal()
     gbfContext.setActiveWeaponKey(weaponlink)
     openWeaponModal(basepath)
   }
@@ -53,15 +43,3 @@ export function SummonTile() {
     </button>
   )
 }
-
-/*
-<WeaponGridTile basepath="/calc" weapon={weaponGrid.wepTwo} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepThree} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepFour} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepFive} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepSix} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepSeven} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepEight} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepNine} />
-                            <WeaponGridTile basepath="/calc" weapon={weaponGrid.wepTen} />
-                            */
