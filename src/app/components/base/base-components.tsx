@@ -8,9 +8,9 @@ interface TileProps {
     children?: React.ReactNode
 }
 
-interface NumberSliderProps {
+export interface NumberSliderProps {
   initialVal: number
-  onChange?: () => void
+  onMouseUp?: () => void
   children?: React.ReactNode
 }
 
@@ -32,11 +32,11 @@ export function Tile({onClick, children}: TileProps) {
     )
 }
 
-export function NumberSlider({initialVal, onChange, children}: NumberSliderProps) {
+export function NumberSlider({initialVal, onMouseUp = () => {}, children}: NumberSliderProps) {
   const [sliderVal, setSliderVal] = useState(initialVal)
 
   return (
-    <input type='range' min='1' max='100' value={sliderVal} onChange={(event) => { setSliderVal(parseInt(event.target.value)); onChange }} />
+    <input type='range' min='1' max='100' value={sliderVal} onChange={(event) => { setSliderVal(parseInt(event.target.value)) }} onMouseUp={onMouseUp} />
   )
 }
 

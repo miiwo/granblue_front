@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from "react"
 import { NumberSlider } from "../components/base/base-components"
 import { NumberAnimator } from "../components/calc/gbf-dmg-formula"
 import { GBFSumGridModal, GBFWepGridModal } from "../components/calc/gbf_modal"
 import { GBFWeaponGridContextProvider } from "./gbfcalcContext"
 import { SummonGrid, WeaponGrid } from "../components/calc/gbf-grids"
+import { GBFSlider } from "../components/calc/gbf-hp"
 
 const formulaMods = {
     'Total': {
@@ -65,7 +65,6 @@ type SearchParamProps = {
 export default function CalculatorPage({ searchParams }: SearchParamProps) {
     const shouldDisplayWeaponModal = searchParams?.wepmodal
     const shouldDisplaySummonModal = searchParams?.summodal
-    const [hpPercent, setHpPercent] = useState(50)
 
     return (
         <div>
@@ -78,8 +77,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                     </div>
 
                     <div className="flex gap-5">
-                        <p>Health = {hpPercent}</p>
-                        <NumberSlider initialVal={hpPercent}/>
+                        <GBFSlider initialVal={50} />
                     </div>
 
                     <div className="my-12">

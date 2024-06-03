@@ -24,6 +24,7 @@ interface GBFWeaponGridContextData {
     grid: WeaponGrid,
     summonGrid: SummonGrid,
     keyname: MutableRefObject<string | undefined> | undefined,
+    hp: MutableRefObject<number> | undefined,
     setActiveWeaponKey: (weaponlink: string | undefined) => void,
     setActiveSummonKey: (link: string | undefined) => void,
     setWeaponToTile: (weapon: Weapon) => void
@@ -53,6 +54,7 @@ export const GBFWeaponGridContext = createContext<GBFWeaponGridContextData>({
     grid: initialWeaponGrid,
     summonGrid: initialSummonGrid,
     keyname: undefined,
+    hp: undefined,
     setActiveWeaponKey: (weaponlink) => {},
     setActiveSummonKey: (link) => {},
     setWeaponToTile: (weapon) => {},
@@ -63,6 +65,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
     const [grid, setGrid] = useState(initialWeaponGrid)
     const [summonGrid, setSummonGrid] = useState(initialSummonGrid)
     const keyname = useRef<string>()
+    const hp = useRef<number>(50)
 
     const setActiveWeaponKey = (weaponlink: string | undefined) => {
         if (weaponlink) {
@@ -99,6 +102,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             grid,
             summonGrid,
             keyname,
+            hp,
             setActiveWeaponKey,
             setActiveSummonKey,
             setWeaponToTile,
