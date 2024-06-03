@@ -7,6 +7,11 @@ export async function openWeaponModal(basepath: string | undefined) {
     return redirect(clickPath)
 }
 
+export async function openSummonModal(basepath: string | undefined) {
+    const clickPath = basepath ? basepath + '?summodal=true' : '?summodal=true'
+    return redirect(clickPath)
+}
+
 /*const calculateGridMods = (weaponList, summonList, hp) => {
     let magna_atk = 0
     let normal_atk = 0

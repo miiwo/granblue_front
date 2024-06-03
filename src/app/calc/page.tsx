@@ -5,8 +5,7 @@ import { NumberSlider } from "../components/base/base-components"
 import { NumberAnimator } from "../components/calc/gbf-dmg-formula"
 import { GBFWepGridModal } from "../components/calc/gbf_modal"
 import { GBFWeaponGridContextProvider } from "./gbfcalcContext"
-import { SummonTile } from "../components/calc/gbf_tile"
-import { WeaponGrid } from "../components/calc/weapon-grid"
+import { SummonGrid, WeaponGrid } from "../components/calc/gbf-grids"
 
 const formulaMods = {
     'Total': {
@@ -32,7 +31,8 @@ type SearchParamProps = {
 }
 
 export default function CalculatorPage({ searchParams }: SearchParamProps) {
-    const shouldDisplayWeaponModal = searchParams?.wepmodal;
+    const shouldDisplayWeaponModal = searchParams?.wepmodal
+    const shouldDisplaySummonModal = searchParams?.summodal
     const [hpPercent, setHpPercent] = useState(50)
 
     return (
@@ -52,10 +52,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
 
                     <div className="my-12">
                         <h2>Summons</h2>
-                        <div className="grid grid-cols-2  gap-4 w-64">
-                            <SummonTile />
-                            <SummonTile />
-                        </div>
+                        <SummonGrid />
                     </div>
 
                     <div className="my-12">
@@ -76,6 +73,8 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                     </div>
 
                     {shouldDisplayWeaponModal && <GBFWepGridModal />}
+                    {shouldDisplaySummonModal}
+
                 </div>
             </GBFWeaponGridContextProvider>
         </div>

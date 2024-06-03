@@ -2,13 +2,12 @@
 
 import { GBFWeaponGridContext, Weapon } from "@/app/calc/gbfcalcContext"
 import { useContext } from "react"
-import { WeaponGridTile } from "./gbf_tile"
+import { SummonTile, WeaponGridTile } from "./gbf_tile"
 
 export function WeaponGrid() {
-
     const { grid } = useContext(GBFWeaponGridContext)
     let mainhand: Weapon | undefined, rest
-    ({ 'wepOne': mainhand, ...rest} = grid)
+    ({ 'wepOne': mainhand, ...rest} = grid) // Destructuring assignment
     
     
     return (
@@ -21,6 +20,16 @@ export function WeaponGrid() {
                     <WeaponGridTile key={keyName} weaponlink={keyName} basepath={"/calc"} weapon={grid[keyName]} />
                 )
             })}
+        </div>
+    )
+}
+
+export function SummonGrid() {
+    const { summonGrid } = useContext(GBFWeaponGridContext)
+    return (
+        <div className="grid grid-cols-2  gap-4 w-64">
+            <SummonTile link={"sumOne"} summon={summonGrid.sumOne} />
+            <SummonTile link={"sumTwo"} summon={summonGrid.sumTwo} />
         </div>
     )
 }
