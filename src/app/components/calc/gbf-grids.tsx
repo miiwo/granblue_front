@@ -28,8 +28,8 @@ export function SummonGrid() {
     const { summonGrid } = useContext(GBFWeaponGridContext)
     return (
         <div className="grid grid-cols-2  gap-4 w-64">
-            <SummonTile link={"sumOne"} summon={summonGrid.sumOne} />
-            <SummonTile link={"sumTwo"} summon={summonGrid.sumTwo} />
+            <SummonTile basepath="/calc" link={"sumOne"} summon={summonGrid.sumOne} />
+            <SummonTile basepath="/calc" link={"sumTwo"} summon={summonGrid.sumTwo} />
         </div>
     )
 }

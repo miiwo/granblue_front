@@ -46,7 +46,7 @@ export function SummonTile({basepath, summon, link}:SummonTileProps) {
   const tileImage = '/empty_summon_slot.png'
 
   function onClick() {
-    gbfContext.setActiveWeaponKey(link)
+    gbfContext.setActiveSummonKey(link)
     openSummonModal(basepath)
   }
 
@@ -57,7 +57,7 @@ export function SummonTile({basepath, summon, link}:SummonTileProps) {
   )
 }
 
-export function GBFTile(item: Weapon | Summon) {
+/*export function GBFTile(item: Weapon | Summon) {
   let display, tileImage = ''
 
   if ('weaponProperty' in item) {
@@ -73,4 +73,4 @@ export function GBFTile(item: Weapon | Summon) {
       { item ? display : <Image src={tileImage} alt='GBF Image Tile' width={150} height={150} />}
     </Tile>
   )
-}
+}*/

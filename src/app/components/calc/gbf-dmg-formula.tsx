@@ -17,6 +17,6 @@ export function NumberAnimator({initialValue, targetValue}: NumberAnimatorProps)
     //}, [targetValue, initialValue])
 
     return (
-        <div>{count}</div>
+        <div>{count}%</div>
     )
 }

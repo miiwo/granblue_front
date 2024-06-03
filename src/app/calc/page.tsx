@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { NumberSlider } from "../components/base/base-components"
 import { NumberAnimator } from "../components/calc/gbf-dmg-formula"
-import { GBFWepGridModal } from "../components/calc/gbf_modal"
+import { GBFSumGridModal, GBFWepGridModal } from "../components/calc/gbf_modal"
 import { GBFWeaponGridContextProvider } from "./gbfcalcContext"
 import { SummonGrid, WeaponGrid } from "../components/calc/gbf-grids"
 
@@ -22,14 +22,42 @@ const formulaMods = {
     },
     'EX': {
       num: 100,
-      mulx: '',
+      mulx: 'x',
     },
+    'Elemental': {
+        num: 150,
+        mulx: '',
+    }
 } // Move this to gbfcalcContext later
 
 const strengthMods = {
-    'Crit': 25,
     'Might': 125,
+    'Omega Might': 10,
+    'EX Might': 15,
+    'EX Might Sp.': 80,
+    'Stamina': 1,
+    'Omega Stamina': 1,
+    'Enmity': 1,
+    'Omega Enmity': 1,
+    'NA Cap': 10,
+    'Skill DMG Cap': 15,
+    'CA DMG Cap': 1,
+    'DMG Cap': 15,
+    'DMG Supp.': 10000,
+    'Crit': 25,
+    'HP': 350,
+    'DEF': 150,
+    'TA Rate': 25,
+    'Heal Cap': 50,
+    'DMG Cap (Sp.)': 14,
+    'DMG Amp. (Non-elem Foe)': 10,
+    'DMG Amp': 11,
+    'NA Amp (Sp.)': 10,
+    'CA Amp': 10,
+    'Crit Amp': 20,
+    'CA Amp (Arc)': 20,
 }
+
 type SearchParamProps = {
     searchParams: Record<string, string> | null | undefined
 }
@@ -86,13 +114,13 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                                 </tr>
                             </thead>
                             <tbody className="bg-white border-slate-100 dark:bg-slate-700">
-                            {Object.keys(strengthMods).map(key => <tr key={key}><td className="border-b">{key}</td><td className="border-b">{String(strengthMods[key])}</td></tr>)}
+                            {Object.keys(strengthMods).map(key => <tr key={key}><td className="border-b">{key}</td><td className="border-b">{String(strengthMods[key as keyof typeof strengthMods])}%</td></tr>)}
                             </tbody>
                         </table>
                     </div>
 
                     {shouldDisplayWeaponModal && <GBFWepGridModal />}
-                    {shouldDisplaySummonModal}
+                    {shouldDisplaySummonModal && <GBFSumGridModal />}
 
                 </div>
             </GBFWeaponGridContextProvider>

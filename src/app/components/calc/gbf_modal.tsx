@@ -32,6 +32,12 @@ const weaponList = [
   {name: 'Photon Blaster', id: 3},
 ]
 
+const summonList = [
+  {name: 'Zeus', id: 0},
+  {name: 'Zeph', id: 1},
+  {name: 'Bahamut', id: 2},
+]
+
 export function GBFWepGridModal() {  
   const gbfContext = useContext(GBFWeaponGridContext)
   const router = useRouter()
@@ -49,5 +55,25 @@ export function GBFWepGridModal() {
           })}
           </div>
       </Modal>
+  )
+}
+
+export function GBFSumGridModal() {
+  const gbfContext = useContext(GBFWeaponGridContext)
+  const router = useRouter()
+
+  return (
+    <Modal title="GBF Summons">
+      <GBFWeaponSearch />
+      <div className="grid text-black">
+        {summonList.map( item => {
+          return (
+            <Tile key={item.id} onClick={() => {gbfContext.setSummonToTile(item); router.back()}}>
+              {item.name}
+            </Tile>
+          )
+        })}
+      </div>
+    </Modal>
   )
 }
