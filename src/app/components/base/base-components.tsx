@@ -4,7 +4,8 @@ import { useState } from "react"
 
 // INTERFACES / SIGNATURES
 interface TileProps {
-    onClick?: () => void
+    onClick?: () => void,
+    customStyle?: string,
     children?: React.ReactNode
 }
 
@@ -26,9 +27,9 @@ export interface SearchProps {
 
 
 // BASE COMPONENTS
-export function Tile({onClick, children}: TileProps) {
+export function Tile({onClick, customStyle, children}: TileProps) {
     return (
-      <button onClick={onClick}>{children}</button>
+      <button className={customStyle}  onClick={onClick}>{children}</button>
     )
 }
 
