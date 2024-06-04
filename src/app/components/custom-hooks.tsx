@@ -16,7 +16,7 @@ export function useWeaponData() {
         const fetchData = async () => {
             const temp = await fetchWeapons()
             const temp_two = temp.map((d:any, i:number) => {
-                return {name: d.Name, id: i, skillLevel: 10}
+                return {name: d.Name, id: i, skillLevel: 10, skills: [{name: 'hi', description: 'Come back', strength: 100, type: 'Magna'}]}
             })
             setData(temp_two)
         }

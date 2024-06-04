@@ -1,22 +1,23 @@
 'use client'
-import {useEffect, useRef, useState} from 'react'
+import { DMGFormulaPiece, GBFWeaponGridContext } from '@/app/calc/gbfcalcContext'
+import {useContext} from 'react'
 
-interface NumberAnimatorProps {
-    initialValue: number
-    targetValue: number
-}
-
-export function NumberAnimator({initialValue, targetValue}: NumberAnimatorProps) {
-    const [count, setCount] = useState(initialValue)
-    const duration = 4
-
-    //useEffect(() => {
-    //    let star
-
-        
-    //}, [targetValue, initialValue])
+export function DMGFormula() {
+    const {dmgFormulaMods} = useContext(GBFWeaponGridContext)
 
     return (
-        <div>{count}%</div>
+        <div className="flex flex-row gap-12 text-center">
+            {Object.entries(dmgFormulaMods as DMGFormulaPiece).map(([key, value]) => {
+                return (
+                    <div key={key} className="flex flex-row gap-12">
+                        <div>
+                            <div>{value?.num ?? 0}%</div>
+                            {key}
+                        </div>
+                        {value?.mulx !== '' ? <div>{value?.mulx}</div> : <></>}
+                    </div>
+                )
+            })}
+        </div>
     )
 }

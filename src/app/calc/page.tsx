@@ -1,34 +1,10 @@
 'use client'
 
-import { NumberSlider } from "../components/base/base-components"
-import { NumberAnimator } from "../components/calc/gbf-dmg-formula"
 import { GBFSumGridModal, GBFWepGridModal } from "../components/calc/gbf_modal"
 import { GBFWeaponGridContextProvider } from "./gbfcalcContext"
 import { SummonGrid, WeaponGrid } from "../components/calc/gbf-grids"
 import { GBFSlider } from "../components/calc/gbf-hp"
-
-const formulaMods = {
-    'Total': {
-      num: 0,
-      mulx: '=',
-    },
-    'Magna': {
-        num: 0,
-        mulx: 'x',
-      },
-    'Normal': {
-      num: 25,
-      mulx: 'x',
-    },
-    'EX': {
-      num: 100,
-      mulx: 'x',
-    },
-    'Elemental': {
-        num: 150,
-        mulx: '',
-    }
-} // Move this to gbfcalcContext later
+import { DMGFormula } from "../components/calc/gbf-dmg-formula"
 
 const strengthMods = {
     'Might': 125,
@@ -87,19 +63,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
 
                     <div className="my-12">
                         <h2 className="font-bold text-xl mb-6">Damage Formula</h2>
-                        <div className="flex flex-row gap-12 text-center">
-                            {Object.entries(formulaMods).map(([modName, { num, mulx }]) => {
-                                return (
-                                    <div key={modName} className="flex flex-row gap-12">
-                                        <div>
-                                            <NumberAnimator initialValue={num} targetValue={100} />
-                                            {modName}
-                                        </div>
-                                        {mulx !== '' ? <div>{mulx}</div> : <></>}
-                                    </div>
-                                )
-                            })}
-                        </div>
+                        <DMGFormula />
                     </div>
 
                     <div>
