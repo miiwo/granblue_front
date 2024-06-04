@@ -1,16 +1,28 @@
 'use client'
 
-import { MutableRefObject, createContext, useCallback, useRef, useState } from 'react'
+import { MutableRefObject, createContext, useRef, useState } from 'react'
 
 export type Weapon = {
     name: string | undefined,
     id: number,
+    skills?: Skills[],
+    series?: string,
+    skillLevel: number,
     weaponProperty?: string
+}
+
+export type Skills = {
+    name: string,
+    description: string,
+    strength: number,
+    type: string,
 }
 
 export type Summon = {
     name: string | undefined,
     id: number,
+    type: string,
+    strength: number,
     summonProperty?: string
 }
 
@@ -32,7 +44,7 @@ interface GBFWeaponGridContextData {
 }
 
 const initialWeaponGrid: WeaponGrid = {
-    'wepOne': {name: 'Photon Laser', id: 5}, 
+    'wepOne': {name: 'Photon Laser', id: 5, skillLevel: 10}, 
     'wepTwo': undefined,
     'wepThree': undefined,
     'wepFour': undefined,
@@ -40,12 +52,12 @@ const initialWeaponGrid: WeaponGrid = {
     'wepSix': undefined,
     'wepSeven': undefined,
     'wepEight': undefined,
-    'wepNine': {name: 'Phoenix Torch', id: 0},
+    'wepNine': {name: 'Phoenix Torch', id: 0, skillLevel: 15},
     'wepTen': undefined,
 }
 
 const initialSummonGrid: SummonGrid = {
-    'sumOne': {name: 'Zeus', id: 0},
+    'sumOne': {name: 'Zeus', id: 0, type: 'Magna', strength: 100},
     'sumTwo': undefined
 }
 

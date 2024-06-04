@@ -1,5 +1,6 @@
 'use server'
 
+import { Skills, Summon, Weapon } from "@/app/calc/gbfcalcContext"
 import { redirect } from "next/navigation"
 
 export async function openWeaponModal(basepath: string | undefined) {
@@ -27,7 +28,7 @@ export async function fetchWeapons() {
     return weaponList
 }
 
-/*const calculateGridMods = (weaponList, summonList, hp) => {
+export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp: number) => {
     let magna_atk = 0
     let normal_atk = 0
     let ex_atk = 0
@@ -43,59 +44,106 @@ export async function fetchWeapons() {
     let norm_atk_debuffs = 0
     let ancestral_mod = 0
 
+    const skillCalculate = (skill: Skills, name: string | undefined, skill_level: number) => {
+        if (name?.includes('Bahamut')) {
+            bahamut_mod += skill.strength
+        } else if (skill.type.includes('Magna')) {
+            magna_atk += skill.strength
+        } else if (skill.type.includes('Optimus')) {
+            if (name?.includes('Ancestral')) {
+                ancestral_mod += skill.strength
+            } else {
+                normal_atk += skill.strength
+            }
+            
+        } else if (skill.type.includes('EX')) {
+            // Add condition to check for ultima series. Add the mod to ultima mod variable
+            ex_atk += skill.strength
+        } else if (skill.type.includes('M_Stam')) {
+            if (hp >= 25) {
+                if (skill_level <= 15) {
+                    magna_stam_atk += ((hp / (skill.strength - skill_level))**2.9 + 2.1)/100
+                } else { // skill lvl 16 - 20
+                    magna_stam_atk += ((hp / (skill.strength - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100
+                }
+            } 
+        } else if (skill.type.includes('M_Enm')) {
+            magna_enm_atk += skill.strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
+        } else if (skill.type.includes('O_Stam')) {
+            // TODO: Make one for fediel spine 
+            if (hp >= 25) {
+                if (skill_level <= 15) {
+                    normal_stam_atk += ((hp / (skill.strength - skill_level))**2.9 + 2.1)/100
+                } else { // skill lvl 16 - 20
+                    normal_stam_atk += ((hp / (skill.strength - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100
+                }
+            } 
+        } else if (skill.type.includes('O_Enm')) {
+            // TODO: Make one for wilnas fist
+            normal_enm_atk += skill.strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
+        }
+    }
+
     // Sum up all the grid mods
     for (const wep of weaponList) {
-        if (wep !== null) {
+        if (wep) {
+
+            // Skip if no skills
+            if (!wep.skills) {
+                continue
+            }
 
             // Skill 1
-            if (wep.weapon_skill_one !== null) {
-                if (wep.series.includes('Bahamut')) {
-                    bahamut_mod += wep.weapon_skill_one.strength
-                } else if (wep.weapon_skill_one.skill_type.includes('Magna')) {
-                    magna_atk += wep.weapon_skill_one.strength
-                } else if (wep.weapon_skill_one.skill_type.includes('Optimus')) {
-                    if (wep.series.includes('Ancestral')) {
-                        ancestral_mod += wep.weapon_skill_one.strength
+            if (wep.skills[0]) {
+
+                if (wep.name?.includes('Bahamut')) {
+                    bahamut_mod += wep.skills[0].strength
+                } else if (wep.skills[0].type.includes('Magna')) {
+                    magna_atk += wep.skills[0].strength
+                } else if (wep.skills[0].type.includes('Optimus')) {
+                    if (wep.series?.includes('Ancestral')) {
+                        ancestral_mod += wep.skills[0].strength
                     } else {
-                        normal_atk += wep.weapon_skill_one.strength
+                        normal_atk += wep.skills[0].strength
                     }
                     
-                } else if (wep.weapon_skill_one.skill_type.includes('EX')) {
+                } else if (wep.skills[0].type.includes('EX')) {
                     // Add condition to check for ultima series. Add the mod to ultima mod variable
-                    ex_atk += wep.weapon_skill_one.strength
-                } else if (wep.weapon_skill_one.skill_type.includes('M_Stam')) {
+                    ex_atk += wep.skills[0].strength
+                } else if (wep.skills[0].type.includes('M_Stam')) {
                     if (hp < 25) {
                         continue
-                    } else if (wep.skill_level <= 15) {
-                        magna_stam_atk += ((hp / (wep.weapon_skill_one.strength - wep.skill_level))**2.9 + 2.1)/100
+                    } else if (wep.skillLevel <= 15) {
+                        magna_stam_atk += ((hp / (wep.skills[0].strength - wep.skillLevel))**2.9 + 2.1)/100
                     } else { // skill lvl 16 - 20
-                        magna_stam_atk += ((hp / (wep.weapon_skill_one.strength - (15 + (0.4 * (wep.skill_level-15)))))**2.9 + 2.1)/100
+                        magna_stam_atk += ((hp / (wep.skills[0].strength - (15 + (0.4 * (wep.skillLevel-15)))))**2.9 + 2.1)/100
                     }
-                } else if (wep.weapon_skill_one.skill_type.includes('M_Enm')) {
-                    magna_enm_atk += wep.weapon_skill_one.strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
-                } else if (wep.weapon_skill_one.skill_type.includes('O_Stam')) {
+                } else if (wep.skills[0].type.includes('M_Enm')) {
+                    magna_enm_atk += wep.skills[0].strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
+                } else if (wep.skills[0].type.includes('O_Stam')) {
                     // TODO: Make one for fediel spine 
                     if (hp < 25) {
                         continue
-                    } else if (wep.skill_level <= 15) {
-                        normal_stam_atk += ((hp / (wep.weapon_skill_one.strength - wep.skill_level))**2.9 + 2.1)/100
+                    } else if (wep.skillLevel <= 15) {
+                        normal_stam_atk += ((hp / (wep.skills[0].strength - wep.skillLevel))**2.9 + 2.1)/100
                     } else { // skill lvl 16 - 20
-                        normal_stam_atk += ((hp / (wep.weapon_skill_one.strength - (15 + (0.4 * (wep.skill_level-15)))))**2.9 + 2.1)/100
+                        normal_stam_atk += ((hp / (wep.skills[0].strength - (15 + (0.4 * (wep.skillLevel-15)))))**2.9 + 2.1)/100
                     }
-                } else if (wep.weapon_skill_one.skill_type.includes('O_Enm')) {
+                } else if (wep.skills[0].type.includes('O_Enm')) {
                     // TODO: Make one for wilnas fist
-                    normal_enm_atk += wep.weapon_skill_one.strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
+                    normal_enm_atk += wep.skills[0].strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
                 }
             }
             // Skill 2
-            if (wep.weapon_skill_two !== null) {
-                if (wep.series.includes('Bahamut')) {
-                    bahamut_mod += wep.weapon_skill_two.strength
-                } else if (wep.weapon_skill_two.skill_type.includes('Magna')) {
-                    magna_atk += wep.weapon_skill_two.strength
-                } else if (wep.weapon_skill_two.skill_type.includes('Optimus')) {
-                    if (wep.series.includes('Ancestral')) {
-                        ancestral_mod += wep.weapon_skill_two.strength
+            if (wep.skills[1]) {
+                skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
+                /*if (wep.name?.includes('Bahamut')) {
+                    bahamut_mod += wep.skills[1].strength
+                } else if (wep.skills[1].type.includes('Magna')) {
+                    magna_atk += wep.skills[1].strength
+                } else if (wep.skills[1].type.includes('Optimus')) {
+                    if (wep.series?.includes('Ancestral')) {
+                        ancestral_mod += wep.skills[1].strength
                     } else {
                         normal_atk += wep.weapon_skill_two.strength
                     }
@@ -126,6 +174,12 @@ export async function fetchWeapons() {
                     // TODO: Make one for wilnas fist
                     normal_enm_atk += wep.weapon_skill_two.strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
                 }
+                */
+            }
+
+            // Skill 3
+            if (wep.skills[2]) {
+                skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
             }
         } 
     }
@@ -134,20 +188,25 @@ export async function fetchWeapons() {
     let magna_summon = 1 
     let normal_summon = 1
 
-    if (summonList[0] != null) {
-        if (summonList[0].summon_type.includes('Magna')) {
-            magna_summon += summonList[0].strength
-        } else if (summonList[0].summon_type.includes('Normal')) {
-            normal_summon += summonList[0].strength
+    const summonCalculate = (summon: Summon) => {
+        if (summon.type.includes('Magna')) {
+            magna_summon += summon.strength
+        } else if (summon.type.includes('Normal')) {
+            normal_summon += summon.strength
         }
     }
 
-    if (summonList[1] != null) {
-        if (summonList[1].summon_type.includes('Magna')) {
-            magna_summon += summonList[1].strength
-        } else if (summonList[1].summon_type.includes('Normal')) {
-            normal_summon += summonList[1].strength
-        }
+    if (summonList[0]) {
+        summonCalculate(summonList[0])
+        /*if (summonList[0].type.includes('Magna')) {
+            magna_summon += summonList[0].strength
+        } else if (summonList[0].type.includes('Normal')) {
+            normal_summon += summonList[0].strength
+        }*/
+    }
+
+    if (summonList[1]) {
+        summonCalculate(summonList[1])
     }
 
     // Apply mod boosters
@@ -173,9 +232,4 @@ export async function fetchWeapons() {
         magna_enm: magna_enm_atk,
         normal_enm: normal_enm_atk
     }
-}
-*/
-
-const calculateTotalBoosts = () => {
-
 }

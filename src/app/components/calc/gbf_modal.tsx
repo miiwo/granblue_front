@@ -3,35 +3,11 @@
 import { useRouter } from "next/navigation"
 import { GBFWeaponSearch } from "./gbf-search"
 import { Modal, Tile } from "../base/base-components"
-import { useContext, useEffect, useState } from "react"
-import { GBFWeaponGridContext, Weapon} from "../../calc/gbfcalcContext"
-import { fetchWeapons } from "./actions"
-import { useWeaponData } from "../custom-hooks"
+import { useContext } from "react"
+import { GBFWeaponGridContext } from "../../calc/gbfcalcContext"
+import { useSummonData, useWeaponData } from "../custom-hooks"
 
-const formulaMods = {
-  'Phoenix Torch': {
-    num: 0,
-    id: 0,
-  },
-  'Bahamut Sword': {
-      num: 0,
-      id: 1,
-    },
-  'Murcielago': {
-    num: 25,
-    id: 2,
-  },
-  'Eresh': {
-    num: 100,
-    id: 3,
-  },
-}
 
-const summonList = [
-  {name: 'Zeus', id: 0},
-  {name: 'Zeph', id: 1},
-  {name: 'Bahamut', id: 2},
-]
 
 export function GBFWepGridModal() {  
   const gbfContext = useContext(GBFWeaponGridContext)
@@ -57,6 +33,7 @@ export function GBFWepGridModal() {
 export function GBFSumGridModal() {
   const gbfContext = useContext(GBFWeaponGridContext)
   const router = useRouter()
+  const summonList = useSummonData()
 
   return (
     <Modal title="GBF Summons">
