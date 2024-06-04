@@ -12,6 +12,21 @@ export async function openSummonModal(basepath: string | undefined) {
     return redirect(clickPath)
 }
 
+export async function fetchWeapons() {
+    const res = await fetch(`https://skyfaring-domain.xyz/v1/weapons`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${process.env.GBF_API_KEY}`
+        },
+    })
+
+    if (!res.ok) {
+        throw new Error('Failed to fetch data for weapons')
+    }
+    const weaponList = await res.json()
+    return weaponList
+}
+
 /*const calculateGridMods = (weaponList, summonList, hp) => {
     let magna_atk = 0
     let normal_atk = 0
