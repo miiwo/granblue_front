@@ -6,6 +6,7 @@ import { Modal, Tile } from "../base/base-components"
 import { useContext, useEffect, useState } from "react"
 import { GBFWeaponGridContext, Weapon} from "../../calc/gbfcalcContext"
 import { fetchWeapons } from "./actions"
+import { useWeaponData } from "../custom-hooks"
 
 const formulaMods = {
   'Phoenix Torch': {
@@ -26,13 +27,6 @@ const formulaMods = {
   },
 }
 
-const weaponList = [
-  {name: 'Phoenix Torch', id: 0},
-  {name: 'Ereshkigal', id: 1},
-  {name: 'Murcielago', id: 2},
-  {name: 'Photon Blaster', id: 3},
-]
-
 const summonList = [
   {name: 'Zeus', id: 0},
   {name: 'Zeph', id: 1},
@@ -42,26 +36,13 @@ const summonList = [
 export function GBFWepGridModal() {  
   const gbfContext = useContext(GBFWeaponGridContext)
   const router = useRouter()
-  const [weaponListv2, setWeaponList] = useState<Weapon[]>([])
-
-  useEffect(() => {
-    const modalFetch = async () => {
-      const temp = await fetchWeapons()
-      const temp_two = temp.map((d:any, i:number) => {
-        return {name: d.Name, id: i}
-      })
-      setWeaponList(temp_two)
-    }
-
-    modalFetch()
-
-  }, [])
+  const weaponList = useWeaponData()
 
   return (
       <Modal title="GBF Weapons">
           <GBFWeaponSearch />
           <div className="flex flex-col w-1/2 mt-5 text-black">
-          {weaponListv2.map( item => {
+          {weaponList.map( item => {
             return (
                 <Tile key={item.name} customStyle="text-left" onClick={() => {gbfContext.setWeaponToTile(item); router.back()}}>
                   {item.name}
