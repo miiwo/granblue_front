@@ -26,7 +26,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                         <WeaponGrid />
                     </div>
 
-                    <div className="flex gap-5">
+                    <div className="my-12">
                         <GBFSlider initialVal={50} />
                     </div>
 
