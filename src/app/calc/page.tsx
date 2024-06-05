@@ -19,29 +19,29 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
     return (
         <div>
             <GBFWeaponGridContextProvider>
-            <h1 className="font-bold text-2xl text-nordwhite underline underline-offset-4">Calculator</h1>
+            <h1 className="font-bold text-2xl underline underline-offset-4">Calculator</h1>
                 <div className="pl-6">
-                    <div className="mt-6 mb-12 bg-nordtwo rounded px-5 py-5">
-                        <h2 className="font-bold text-xl mb-6 text-nordwhite">Weapon Grid</h2>
+                    <div className="mt-6 mb-12 bg-nordtwo rounded shadow-md px-5 py-5">
+                        <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
                         <WeaponGrid />
                     </div>
 
-                    <div className="my-12 bg-nordtwo rounded px-5 py-5">
+                    <div className="my-12 bg-nordtwo rounded shadow-md px-5 py-5">
                         <GBFSlider initialVal={50} />
                     </div>
 
-                    <div className="my-12 bg-nordtwo rounded px-5 py-5">
-                        <h2 className="font-bold text-xl mb-6 text-nordwhite">Summons</h2>
+                    <div className="my-12 bg-nordtwo rounded shadow-md px-5 py-5">
+                        <h2 className="font-bold text-xl mb-6">Summons</h2>
                         <SummonGrid />
                     </div>
 
-                    <div className="my-12 bg-nordtwo rounded px-5 py-5">
-                        <h2 className="font-bold text-xl mb-6 text-nordwhite">Damage Formula</h2>
+                    <div className="my-12 bg-nordtwo rounded shadow-md px-5 py-5">
+                        <h2 className="font-bold text-xl mb-6">Damage Formula</h2>
                         <DMGFormula />
                     </div>
 
-                    <div className="bg-nordtwo rounded px-5 py-5">
-                        <h2 className="font-bold text-xl mb-6 text-nordwhite">Damage Mods</h2>
+                    <div className="bg-nordtwo rounded shadow-md px-5 py-5">
+                        <h2 className="font-bold text-xl mb-6">Damage Mods</h2>
                         <ActiveModTable />
                     </div>
 
