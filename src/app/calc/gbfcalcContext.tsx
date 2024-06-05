@@ -88,7 +88,35 @@ const formulaMods = {
         num: 150,
         mulx: '',
     }
-} // Move this to gbfcalcContext later
+}
+
+const strengthMods = {
+    'Might': 125,
+    'Omega Might': 10,
+    'EX Might': 15,
+    'EX Might Sp.': 80,
+    'Stamina': 1,
+    'Omega Stamina': 1,
+    'Enmity': 1,
+    'Omega Enmity': 1,
+    'NA Cap': 10,
+    'Skill DMG Cap': 15,
+    'CA DMG Cap': 1,
+    'DMG Cap': 15,
+    'DMG Supp.': 10000,
+    'Crit': 25,
+    'HP': 350,
+    'DEF': 150,
+    'TA Rate': 25,
+    'Heal Cap': 50,
+    'DMG Cap (Sp.)': 14,
+    'DMG Amp. (Non-elem Foe)': 10,
+    'DMG Amp': 11,
+    'NA Amp (Sp.)': 10,
+    'CA Amp': 10,
+    'Crit Amp': 20,
+    'CA Amp (Arc)': 20,
+}
 
 // Create context uses this default values for the context
 export const GBFWeaponGridContext = createContext<GBFWeaponGridContextData>({
@@ -109,7 +137,11 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
     const [grid, setGrid] = useState(initialWeaponGrid)
     const [summonGrid, setSummonGrid] = useState(initialSummonGrid)
     const [dmgFormulaMods, setDmgFormulaMods] = useState(formulaMods)
-    const [utilityMods, setUtilityMods] = useState({})
+    const [utilityMods, setUtilityMods] = useState({
+        'Might': 0, 'Omega Might': 0, 'EX Might': 0, 
+        'Stamina': 0, 'Omega Stamina': 0,
+        'Enmity': 0, 'Omega Enmity': 0,
+        'Crit': 0, 'TA Rate': 0,} )
     const keyname = useRef<string>()
     const hp = useRef<number>(50)
 
