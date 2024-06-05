@@ -21,26 +21,26 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
             <GBFWeaponGridContextProvider>
             <h1 className="font-bold text-2xl">Calculator Page</h1>
                 <div className="pl-6">
-                    <div className="mt-6 mb-12">
+                    <div className="mt-6 mb-12 bg-nordone rounded px-5 py-5">
                         <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
                         <WeaponGrid />
                     </div>
 
-                    <div className="my-12">
+                    <div className="my-12 bg-nordone rounded px-5 py-5">
                         <GBFSlider initialVal={50} />
                     </div>
 
-                    <div className="my-12">
+                    <div className="my-12 bg-nordone rounded px-5 py-5">
                         <h2 className="font-bold text-xl mb-6">Summons</h2>
                         <SummonGrid />
                     </div>
 
-                    <div className="my-12">
+                    <div className="my-12 bg-nordone rounded px-5 py-5">
                         <h2 className="font-bold text-xl mb-6">Damage Formula</h2>
                         <DMGFormula />
                     </div>
 
-                    <div>
+                    <div className="bg-nordone rounded px-5 py-5">
                         <h2 className="font-bold text-xl mb-6">Damage Mods</h2>
                         <ActiveModTable />
                     </div>

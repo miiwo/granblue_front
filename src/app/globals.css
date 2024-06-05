@@ -6,7 +6,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --bg-color: 46 52 64
+  --bg-color: 46 52 64; /* nord 0*/
+  --fg-color: 59 66 82; /* nord 1 */
+  --nord-color: 67 76 94; /* nord 2 */
 }
 
 @media (prefers-color-scheme: dark) {
