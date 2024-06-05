@@ -14,7 +14,10 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        'nordone': 'rgb(var(--fg-color))'
+        'nordzero': 'rgb(var(--nordzero))',
+        'nordone': 'rgb(var(--nordone))',
+        'nordtwo': 'rgb(var(--nordtwo))',
+        'nordwhite': 'rgb(var(--nordfour))',
       },
     },
   },

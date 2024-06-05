@@ -6,9 +6,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --bg-color: 46 52 64; /* nord 0*/
-  --fg-color: 59 66 82; /* nord 1 */
-  --nord-color: 67 76 94; /* nord 2 */
+  --nordzero: 46 52 64; /* nord 0*/
+  --nordone: 59 66 82; /* nord 1 */
+  --nordtwo: 67 76 94; /* nord 2 */
+  --nordfour: 216 222 233; /* nord 4*/
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +21,7 @@
 }
 
 body {
-    background: rgb(var(--bg-color));
+    background: rgb(var(--nordone));
 }
 
 @layer utilities {
@@ -40,5 +41,9 @@ body {
     [&::-moz-range-thumb]:bg-sky-100
     [&::-moz-range-thumb]:[transform:rotate(45deg)]
     [&::-moz-range-thumb]:[border-radius:0]
+  }
+
+  body {
+    @apply dark:text-nordwhite
   }
 }
