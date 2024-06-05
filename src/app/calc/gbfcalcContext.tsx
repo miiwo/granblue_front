@@ -39,6 +39,7 @@ interface GBFWeaponGridContextData {
     grid: WeaponGrid,
     summonGrid: SummonGrid,
     dmgFormulaMods: {},
+    utilityMods: {},
     keyname: MutableRefObject<string | undefined> | undefined,
     hp: MutableRefObject<number> | undefined,
     setActiveWeaponKey: (weaponlink: string | undefined) => void,
@@ -94,6 +95,7 @@ export const GBFWeaponGridContext = createContext<GBFWeaponGridContextData>({
     grid: initialWeaponGrid,
     summonGrid: initialSummonGrid,
     dmgFormulaMods: {},
+    utilityMods: {},
     keyname: undefined,
     hp: undefined,
     setActiveWeaponKey: (weaponlink) => {},
@@ -107,6 +109,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
     const [grid, setGrid] = useState(initialWeaponGrid)
     const [summonGrid, setSummonGrid] = useState(initialSummonGrid)
     const [dmgFormulaMods, setDmgFormulaMods] = useState(formulaMods)
+    const [utilityMods, setUtilityMods] = useState({})
     const keyname = useRef<string>()
     const hp = useRef<number>(50)
 
@@ -130,8 +133,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
         if (keyname.current) {
             _grid = {...grid, [keyname.current]: weapon}
             setGrid(_grid)
-            //Object.values(summonGrid)
-            //Object.keys(summonGrid).filter(key => summonGrid[key] !== undefined).map<Summon>(key => summonGrid[key])
+
             _sumGrid = summonGrid
             const _dmgMods = calculateGridMods(Object.keys(_grid).map<Weapon>(key => _grid[key]), _sumGrid, hp.current)
             setDmgFormulaMods({
@@ -157,8 +159,20 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                   }
             })
             console.log('Changed DMG Formula mods')
-            console.log(_dmgMods)
-            console.log(dmgFormulaMods)
+
+            setUtilityMods({
+                'Might': _dmgMods.normal,
+                'Omega Might': _dmgMods.magna,
+                'EX Might': _dmgMods.ex,
+                'Stamina': _dmgMods.normal_stam,
+                'Omega Stamina': _dmgMods.magna_stam,
+                'Enmity': _dmgMods.normal_enm,
+                'Omega Enmity': _dmgMods.magna_enm,
+                'Crit': 0,
+                'TA Rate': 0,
+            })
+            
+
         }
     }
 
@@ -175,6 +189,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             grid,
             summonGrid,
             dmgFormulaMods,
+            utilityMods,
             keyname,
             hp,
             setActiveWeaponKey,
