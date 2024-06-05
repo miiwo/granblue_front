@@ -10,6 +10,14 @@
   --nordone: 59 66 82; /* nord 1 */
   --nordtwo: 67 76 94; /* nord 2 */
   --nordfour: 216 222 233; /* nord 4*/
+  --nordfive: 229 223 240; /* nord 5*/
+  --nordsix: 236 239 244; /* nord 6*/
+  --nordseven: 143 188 187; /* nord 7*/
+  --nordeight: 136 192 208; /* nord 8*/
+  --nordnine: 129 161 193; /* nord 9*/
+  --nordeleven: 191 97 106; /* nord 11*/
+  --nordtwelve: 208 135 112; /* nord 12*/
+  --nordthirteen: 235 203 139; /* nord 13*/
 }
 
 @media (prefers-color-scheme: dark) {
