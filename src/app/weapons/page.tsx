@@ -3,20 +3,32 @@
 import Image from 'next/image'
 import { Search } from '../components/base/base-components'
 import { useWeaponData } from '../components/custom-hooks'
+import { useEffect, useState } from 'react'
 
 export default function WeaponPage() {
     const [weaponList, refetchData] = useWeaponData()
+    const [query, setQuery] = useState('')
 
     const onClick = () => {
-        refetchData('blah')
+        refetchData(query)
     }
+
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            if (query) {
+                refetchData(query)
+            }
+        }, 1000)
+
+        return () => clearTimeout(timer)
+    }, [query])
 
     return (
         <div>
             <div className="flex flex-col gap-3 bg-nordtwo shadow-md pb-2">
                 <h1 className="font-bold text-2xl underline underline-offset-4 mb-3">Weapons</h1>
                 <div className="bg-nordtwo rounded mx-3 mb-3 py-5 px-3">
-                    <Search onClick={onClick} />
+                    <Search onClick={onClick} placeholderText='Search weapons...' query={query} setQuery={setQuery} />
                 </div>
 
                 <div className="flex flex-row gap-4">

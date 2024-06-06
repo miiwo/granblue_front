@@ -14,8 +14,9 @@ export async function openSummonModal(basepath: string | undefined) {
     return redirect(clickPath)
 }
 
-export async function fetchWeapons() {
-    const res = await fetch(`https://skyfaring-domain.xyz/v1/weapons`, {
+export async function fetchWeapons(searchQuery: string) {
+    console.log(searchQuery)
+    const res = await fetch(`https://skyfaring-domain.xyz/v1/weapons${searchQuery}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${process.env.GBF_API_KEY}`

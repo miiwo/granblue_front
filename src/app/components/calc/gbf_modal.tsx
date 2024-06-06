@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { Modal, Search, Tile } from "../base/base-components"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { GBFWeaponGridContext } from "../../calc/gbfcalcContext"
 import { useSummonData, useWeaponData } from "../custom-hooks"
 
@@ -12,14 +12,25 @@ export function GBFWepGridModal() {
   const gbfContext = useContext(GBFWeaponGridContext)
   const router = useRouter()
   const [weaponList, refetchData] = useWeaponData()
+  const [query, setQuery] = useState('') // Consider putting this into a context?
 
   const onClick = () => {
-    refetchData('blah')
+    refetchData(query)
   }
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+        if (query) {
+            refetchData(query)
+        }
+    }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [query])
 
   return (
       <Modal title="GBF Weapons">
-          <Search onClick={onClick} />
+          <Search onClick={onClick} placeholderText="Search weapons..." query={query} setQuery={setQuery} />
           <div className="flex flex-col w-full mt-5 text-black">
           {weaponList.map( item => {
             return (

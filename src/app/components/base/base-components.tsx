@@ -23,8 +23,10 @@ interface ModalMeta {
 }
 
 export interface SearchProps {
+  query?: string
   placeholderText?: string
   onClick?: () => void
+  setQuery?: (q:string) => void
 }
 
 
@@ -81,11 +83,11 @@ export function DefaultSearchModal() {
   )
 }
 
-export function Search ({onClick, placeholderText}: SearchProps) {
+export function Search ({onClick, placeholderText, query, setQuery}: SearchProps) {
 
   return (
     <div className="flex bg-nordoceanblue rounded">
-        <input type='search' placeholder={placeholderText} className="grow pl-1 rounded"/>
+        <input type='search' value={query} placeholder={placeholderText} className="grow pl-1 rounded text-black" onChange={(e) => {setQuery ? setQuery(e.target.value) : () => {}}} />
         <button className="px-3 text-white" onClick={onClick}><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</button>
     </div>
   )
