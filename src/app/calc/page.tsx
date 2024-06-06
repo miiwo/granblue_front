@@ -20,7 +20,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
         <div>
             <GBFWeaponGridContextProvider>
             <h1 className="font-bold text-2xl underline underline-offset-4">Calculator</h1>
-                <div className="pl-6 grid grid-cols-2 gap-x-4">
+                <div className="pl-6 grid grid-cols-2 gap-x-4 me-6">
                     <div className="col-span-2 md:col-span-1 mt-6 mb-5 bg-nordtwo rounded shadow-md px-5 py-5">
                         <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
                         <WeaponGrid />
