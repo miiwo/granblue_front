@@ -65,13 +65,13 @@ export default function WeaponPage() {
             <div className="flex flex-col gap-3 mt-5 mx-3">
                 {weaponList.map((wep, i) => {
                     return (
-                        <div key={i} className="flex gap-3 bg-nordtwo hover:bg-nordblue ease-in duration-300 shadow-sm rounded-md pl-3 py-4">
+                        <button key={i} className="flex gap-3 bg-nordtwo hover:bg-nordblue ease-in duration-300 shadow-sm rounded-md pl-3 py-4">
                             <Image src="/empty_wep_slot.png" alt="Image of weapon" width={150} height={75} />
                             <span className="content-center">{wep.name}</span>
-                        </div>
+                        </button>
                     )
                 })}
-                Results: 3
+                Results: {weaponList.length}
             </div>
         </div>
     )

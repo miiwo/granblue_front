@@ -19,6 +19,7 @@ const config: Config = {
         'nordtwo': 'rgb(var(--nordtwo))',
         'nordwhite': 'rgb(var(--nordfour))',
         'nordblue': 'rgb(var(--nordeight))',
+        'nordoceanblue': 'rgb(var(--nordnine))',
         'nordgreen': 'rgb(var(--nordseven))',
         'nordred': 'rgb(var(--nordeleven))',
         'nordorange': 'rgb(var(--nordtwelve))',

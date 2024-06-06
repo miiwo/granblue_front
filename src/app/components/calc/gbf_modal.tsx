@@ -17,10 +17,10 @@ export function GBFWepGridModal() {
   return (
       <Modal title="GBF Weapons">
           <GBFWeaponSearch />
-          <div className="flex flex-col w-1/2 mt-5 text-black">
+          <div className="flex flex-col w-full mt-5 text-black">
           {weaponList.map( item => {
             return (
-                <Tile key={item.name} customStyle="text-left" onClick={() => {gbfContext.setWeaponToTile(item); router.back()}}>
+                <Tile key={item.name} customStyle="text-left ease-out duration-300 hover:bg-nordblue" onClick={() => {gbfContext.setWeaponToTile(item); router.back()}}>
                   {item.name}
                 </Tile>
             )

@@ -48,9 +48,9 @@ export function Modal({title, children}: ModalMeta) {
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
-      <div className="p-8 border w-1/2 shadow-lg rounded-md bg-white">
+      <div className="p-8 border w-1/2 shadow-lg rounded-md bg-nordwhite">
         <div className="text-center relative">
-          <h3 className="text-2xl font-bold text-gray-900">{title ? title : 'Modal Title'}</h3>
+          <h3 className="text-2xl font-bold text-nordzero">{title ? title : 'Modal Title'}</h3>
           <div className="mt-2 px-7 py-3 text-start">
             {children}
           </div>
@@ -59,7 +59,7 @@ export function Modal({title, children}: ModalMeta) {
             {/* Using useRouter to dismiss modal*/}
             <button
               onClick={router.back}
-              className="px-4 py-2 bg-blue-500 text-white text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 absolute top-0 right-0"
+              className="px-3 py-1 bg-nordoceanblue text-white text-base font-medium rounded-md shadow-sm ease-out duration-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 absolute top-0 right-0"
             >
               X
             </button>
@@ -81,9 +81,9 @@ export function DefaultSearchModal() {
 
 export function Search ({onClick, placeholderText}: SearchProps) {
   return (
-    <div className="flex gap-4 text-black">
+    <div className="flex bg-nordoceanblue rounded">
         <input type='search' placeholder={placeholderText} className="grow"/>
-        <button onClick={onClick}>Search</button>
+        <button className="px-3 text-white" onClick={onClick}><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />Search</button>
     </div>
   )
 }
