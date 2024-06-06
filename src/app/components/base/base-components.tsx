@@ -1,6 +1,8 @@
 'use client'
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 
 // INTERFACES / SIGNATURES
 interface TileProps {
@@ -80,10 +82,11 @@ export function DefaultSearchModal() {
 }
 
 export function Search ({onClick, placeholderText}: SearchProps) {
+
   return (
     <div className="flex bg-nordoceanblue rounded">
-        <input type='search' placeholder={placeholderText} className="grow"/>
-        <button className="px-3 text-white" onClick={onClick}><FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />Search</button>
+        <input type='search' placeholder={placeholderText} className="grow pl-1 rounded"/>
+        <button className="px-3 text-white" onClick={onClick}><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</button>
     </div>
   )
 }

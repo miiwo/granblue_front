@@ -1,19 +1,23 @@
-import { GBFWeaponSearch } from "../components/calc/gbf-search";
+'use client'
+
 import Image from 'next/image'
+import { Search } from '../components/base/base-components'
+import { useWeaponData } from '../components/custom-hooks'
 
 export default function WeaponPage() {
-    const weaponList = [
-        {name: 'Ereshkigal'},
-        {name: 'Phoenix Torch'},
-        {name: 'Test Weapon'},
-        {name: 'Test Weapon'},
-        {name: 'Test Weapon'},
-    ]
+    const [weaponList, refetchData] = useWeaponData()
+
+    const onClick = () => {
+        refetchData('blah')
+    }
 
     return (
         <div>
-            <div className="flex flex-col gap-3 bg-nordtwo shadow-md">
-                {/* This is where I put the search bar beforehand */}
+            <div className="flex flex-col gap-3 bg-nordtwo shadow-md pb-2">
+                <h1 className="font-bold text-2xl underline underline-offset-4 mb-3">Weapons</h1>
+                <div className="bg-nordtwo rounded mx-3 mb-3 py-5 px-3">
+                    <Search onClick={onClick} />
+                </div>
 
                 <div className="flex flex-row gap-4">
                     <label>Search by:</label>

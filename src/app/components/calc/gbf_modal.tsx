@@ -1,8 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { GBFWeaponSearch } from "./gbf-search"
-import { Modal, Tile } from "../base/base-components"
+import { Modal, Search, Tile } from "../base/base-components"
 import { useContext } from "react"
 import { GBFWeaponGridContext } from "../../calc/gbfcalcContext"
 import { useSummonData, useWeaponData } from "../custom-hooks"
@@ -12,11 +11,15 @@ import { useSummonData, useWeaponData } from "../custom-hooks"
 export function GBFWepGridModal() {  
   const gbfContext = useContext(GBFWeaponGridContext)
   const router = useRouter()
-  const weaponList = useWeaponData()
+  const [weaponList, refetchData] = useWeaponData()
+
+  const onClick = () => {
+    refetchData('blah')
+  }
 
   return (
       <Modal title="GBF Weapons">
-          <GBFWeaponSearch />
+          <Search onClick={onClick} />
           <div className="flex flex-col w-full mt-5 text-black">
           {weaponList.map( item => {
             return (
@@ -37,7 +40,7 @@ export function GBFSumGridModal() {
 
   return (
     <Modal title="GBF Summons">
-      <GBFWeaponSearch />
+      <Search />
       <div className="grid text-black">
         {summonList.map( item => {
           return (

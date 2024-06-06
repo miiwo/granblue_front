@@ -12,6 +12,12 @@ const summonList = [
 export function useWeaponData() {
     const [data, setData] = useState<any[]>([])
 
+    const refetchData = async (url:string) => {
+        setData([
+            {name: 'Refetched Weapon', id: 5, skillLevel: 10, skills:[]}
+        ])
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             const temp = await fetchWeapons()
@@ -24,7 +30,7 @@ export function useWeaponData() {
         fetchData()
     }, [])
 
-    return data
+    return [data, refetchData] as const
 }
 
 export function useSummonData() {
