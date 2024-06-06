@@ -81,13 +81,10 @@ export function DefaultSearchModal() {
 
 export function Search ({onClick, placeholderText}: SearchProps) {
   return (
-      <>
-          <label className="text-black italic">Search the site</label>
-          <div className="flex gap-4 text-black">
-              <input type='search' placeholder={placeholderText} className="grow"/>
-              <button onClick={onClick}>Search</button>
-          </div>
-      </>
+    <div className="flex gap-4 text-black">
+        <input type='search' placeholder={placeholderText} className="grow"/>
+        <button onClick={onClick}>Search</button>
+    </div>
   )
 }
 

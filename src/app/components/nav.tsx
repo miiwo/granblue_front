@@ -7,11 +7,11 @@ const navItems = {
   '/calc': {
     name: 'calculator',
   },
-  '/charas': {
-    name: 'characters',
-  },
   '/weapons': {
     name: 'weapons',
+  },
+  '/charas': {
+    name: 'characters',
   },
   'https://gbf.wiki/Main_Page': {
     name: 'gbf.wiki',
