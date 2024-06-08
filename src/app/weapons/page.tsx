@@ -6,6 +6,7 @@ import { useWeaponData } from '../components/custom-hooks'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
+
 export default function WeaponPage() {
     const [weaponList, refetchData] = useWeaponData()
     const [query, setQuery] = useState('')
@@ -34,21 +35,22 @@ export default function WeaponPage() {
 
                 <div className="flex flex-row gap-4">
                     <label>Search by:</label>
-                    <fieldset className="flex gap-3">
-                        <div>
-                            <input type="radio" name="weapon_search_filters" value="name" defaultChecked />
-                            <label className="ml-1">Name</label>
-                        </div>
+                    <fieldset className="flex relative gap-3 rounded-lg bg-slate-700 w-full">
+                        <input id="wep_name" type="radio" name="weapon_search_filters" value="name" defaultChecked className='hidden peer/name' />
+                        <label htmlFor="wep_name" className="w-1/4 z-10 cursor-pointer px-3 rounded-lg">Name</label>
+
+                    
+                        <input id="wep_skill" type="radio" name="weapon_search_filters" value="skill" className='hidden peer/skill' />
+                        <label htmlFor='wep_skill' className="w-1/4 z-10 cursor-pointer ml-1 px-3 rounded-lg">Weapon Skill</label>
+
                         
-                        <div>
-                            <input type="radio" name="weapon_search_filters" value="skill" />
-                            <label className="ml-1">Weapon Skill</label>
-                        </div>
+
+                        <input id="wep_ougi" type="radio" name="weapon_search_filters" value="ca" className='appearance-none peer/ca' />
+                        <label htmlFor='wep_ougi' className="w-1/4 z-10 cursor-pointer ml-1 px-3 rounded-lg select-none truncate uppercase">Ougi</label>
+
+
+                        <div className='flex w-1/4 px-3 rounded-lg bg-black z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/ca:translate-x-[200%] peer-checked/skill:translate-x-[100%]'></div>
                         
-                        <div>
-                            <input type="radio" name="weapon_search_filters" value="ca" />
-                            <label className="ml-1">Ougi</label>
-                        </div>
                     </fieldset>
                 </div>
                 
