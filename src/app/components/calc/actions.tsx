@@ -16,7 +16,7 @@ export async function openSummonModal(basepath: string | undefined) {
 
 export async function fetchWeapons(searchQuery: string) {
     console.log(searchQuery)
-    const res = await fetch(`https://skyfaring-domain.xyz/v1/weapons${searchQuery}`, {
+    const res = await fetch(`${process.env.GBF_API_HOST}/v1/weapons${searchQuery}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${process.env.GBF_API_KEY}`
