@@ -25,6 +25,9 @@ const config: Config = {
         'nordorange': 'rgb(var(--nordtwelve))',
         'nordyellow': 'rgb(var(--nordthirteen))',
       },
+      zIndex: {
+        '9': '9',
+      },
     },
   },
   plugins: [],
