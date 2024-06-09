@@ -1,8 +1,10 @@
 'use client'
+
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
+import React from "react"
 
 // INTERFACES / SIGNATURES
 interface TileProps {
@@ -104,3 +106,55 @@ export function DefaultSearch({onClick, placeholderText}: SearchProps) {
       </>
   )
 }
+
+export function ToggleButton () {
+  return (
+    <input type="checkbox"
+            className="relative
+                      appearance-none
+                      inline-block
+                      h-[30px]
+                      w-[54px]
+                      cursor-pointer
+                      rounded-full
+                      bg-slate-300
+                      shadow-md
+                      transition-all
+                      after:content-['']
+                      after:absolute
+                      after:top-[3px]
+                      after:h-6
+                      after:w-6
+                      after-rounded-full
+                      after:bg-white
+                      after:shadow-sm
+                      after:transition-all
+                      checked:bg-blue-400
+                      checked:after:translate-x-6"></input>
+  )
+}
+
+/*export function AnimatedRadioGroup({radioName, selectedColor, elementList, classNameList}: {radioName: string, selectedColor: string, elementList: string[], classNameList: string[]}) {
+  const elementWidth = 100 / elementList.length
+  const animationClassNames = elementList.map((item, i) => {
+      return 'peer-checked/' + item + ':translate-x-[' + (i * 100) + '%]'
+  }).join(' ')
+
+  if (elementList.length != classNameList.length) {
+    throw new Error('Mismatching lengths in element and class list')
+  }
+
+  return (
+    <fieldset className="flex relative gap-3 rounded-lg bg-slate-700 w-full">
+      {elementList.map( (item, i) => {
+        return (
+          <React.Fragment key={`input_${radioName}_${item}`}>
+            <input id={`${radioName}${item}`} type="radio" name={radioName} value={item} defaultChecked={i === 0} className={`peer/${item}`} />
+            <label htmlFor={`${radioName}${item}`} className={`w-1/6 z-10 cursor-pointer ml-1 px-3 rounded-lg select-none truncate uppercase`}>{item}</label>
+          </React.Fragment>
+        )
+      })}
+      <div className={`flex w-1/6 px-3 rounded-lg bg-${selectedColor} z-[9] h-full p-0 select-none truncate absolute transform transition-transform ${animationClassNames}`}></div>
+    </fieldset>
+  )
+}*/
