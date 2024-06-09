@@ -51,7 +51,7 @@ interface GBFWeaponGridContextData {
 
 // INITIAL VARIABLE DATA
 const initialWeaponGrid: WeaponGrid = {
-    'wepOne': {name: 'Photon Laser', id: 5, skillLevel: 10}, 
+    'wepOne': undefined, 
     'wepTwo': undefined,
     'wepThree': undefined,
     'wepFour': undefined,
@@ -59,7 +59,7 @@ const initialWeaponGrid: WeaponGrid = {
     'wepSix': undefined,
     'wepSeven': undefined,
     'wepEight': undefined,
-    'wepNine': {name: 'Phoenix Torch', id: 0, skillLevel: 15},
+    'wepNine': undefined,
     'wepTen': undefined,
 }
 

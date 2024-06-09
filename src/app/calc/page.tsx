@@ -26,8 +26,8 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                         <WeaponGrid />
                     </div>
 
-                    <div className="col-span-2 md:col-span-1 mt-6 mb-5 bg-nordtwo rounded shadow-md px-5 py-5">
-                        <h2 className="font-bold text-xl mb-6">Summons</h2>
+                    <div className="col-span-2 md:col-span-1 mt-6 mb-5 bg-nordtwo rounded shadow-md px-5 py-5 flex flex-col">
+                        <h2 className="font-bold text-xl mb-14">Summons</h2>
                         <SummonGrid />
                     </div>
 

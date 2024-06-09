@@ -11,8 +11,8 @@ export function WeaponGrid() {
     
     
     return (
-        <div className="grid grid-rows-3 grid-cols-4 w-96">
-            <div className="row-span-3">
+        <div className="grid grid-rows-3 grid-cols-4 place-items-center">
+            <div className="row-span-3 place-self-start">
                 <WeaponGridTile basepath="/calc" weapon={mainhand} weaponlink="wepOne" />
             </div>
             {Object.keys(rest).map((keyName:string) => {
