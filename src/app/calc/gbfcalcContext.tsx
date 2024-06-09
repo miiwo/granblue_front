@@ -200,8 +200,8 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                 'Omega Stamina': _dmgMods.magna_stam,
                 'Enmity': _dmgMods.normal_enm,
                 'Omega Enmity': _dmgMods.magna_enm,
-                'Crit': 0,
-                'TA Rate': 0,
+                'Crit': _dmgMods.crit,
+                'TA Rate': _dmgMods.ta,
             })
             
 
@@ -244,6 +244,9 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
     let magna_enm_atk = 0
     let normal_enm_atk = 0
 
+    let ta_rate = 0
+    let crit = 0
+
     let bahamut_mod = 0
     let ultima_mod = 0
     let norm_atk_buffs = 0
@@ -252,7 +255,7 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
     let ancestral_mod = 0
 
     const skillCalculate = (skill: Skills, name: string | undefined, skill_level: number) => {
-        if (name?.includes('Bahamut')) {
+        if (name?.includes('Bahamut') && bahamut_mod === 0) {
             bahamut_mod += skill.strength
         } else if (skill.type.includes('Magna')) {
             magna_atk += skill.strength
@@ -302,8 +305,70 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
 
             // Skill 1
             if (wep.skills[0]) {
+                skillCalculate(wep.skills[0], wep.name, wep.skillLevel)
+            }
+            // Skill 2
+            if (wep.skills[1]) {
+                skillCalculate(wep.skills[1], wep.name, wep.skillLevel)
+                
+            }
 
-                if (wep.name?.includes('Bahamut')) {
+            // Skill 3
+            if (wep.skills[2]) {
+                skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
+            }
+        } 
+    }
+
+    // Summon things
+    let magna_summon = 1 
+    let normal_summon = 1
+
+    const summonCalculate = (summon: Summon) => {
+        if (summon.type.includes('Magna')) {
+            magna_summon += summon.strength
+        } else if (summon.type.includes('Normal')) {
+            normal_summon += summon.strength
+        }
+    }
+
+    if (summonList[0]) {
+        summonCalculate(summonList[0])
+    }
+
+    if (summonList[1]) {
+        summonCalculate(summonList[1])
+    }
+
+    // Apply mod boosters
+    magna_atk = magna_atk * magna_summon
+    magna_stam_atk = magna_stam_atk * magna_summon
+    magna_enm_atk = magna_enm_atk * magna_summon
+    normal_atk = normal_atk * normal_summon
+    normal_stam_atk = normal_stam_atk * normal_summon
+    normal_enm_atk = normal_enm_atk * normal_summon
+
+    // Misc random things
+    normal_atk += bahamut_mod + ancestral_mod + norm_atk_buffs + go_aura - norm_atk_debuffs
+    ex_atk += ultima_mod // only on main skill. If key, then it is normal
+    // In case of 6D wep in grid
+
+    return {
+        total: (1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk),
+        magna: magna_atk,
+        normal: normal_atk,
+        ex: ex_atk,
+        magna_stam: magna_stam_atk,
+        normal_stam: normal_stam_atk,
+        magna_enm: magna_enm_atk,
+        normal_enm: normal_enm_atk,
+        ta: ta_rate,
+        crit: crit,
+    }
+}
+
+/* if (weapon.skill[0]) {
+if (wep.name?.includes('Bahamut')) {
                     bahamut_mod += wep.skills[0].strength
                 } else if (wep.skills[0].type.includes('Magna')) {
                     magna_atk += wep.skills[0].strength
@@ -340,11 +405,9 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
                     // TODO: Make one for wilnas fist
                     normal_enm_atk += wep.skills[0].strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
                 }
-            }
-            // Skill 2
-            if (wep.skills[1]) {
-                skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
-                /*if (wep.name?.includes('Bahamut')) {
+}
+*/
+/*if (wep.name?.includes('Bahamut')) {
                     bahamut_mod += wep.skills[1].strength
                 } else if (wep.skills[1].type.includes('Magna')) {
                     magna_atk += wep.skills[1].strength
@@ -382,62 +445,10 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
                     normal_enm_atk += wep.weapon_skill_two.strength * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
                 }
                 */
-            }
 
-            // Skill 3
-            if (wep.skills[2]) {
-                skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
-            }
-        } 
-    }
-
-    // Summon things
-    let magna_summon = 1 
-    let normal_summon = 1
-
-    const summonCalculate = (summon: Summon) => {
-        if (summon.type.includes('Magna')) {
-            magna_summon += summon.strength
-        } else if (summon.type.includes('Normal')) {
-            normal_summon += summon.strength
-        }
-    }
-
-    if (summonList[0]) {
-        summonCalculate(summonList[0])
-        /*if (summonList[0].type.includes('Magna')) {
+                /*if (summonList[0].type.includes('Magna')) {
             magna_summon += summonList[0].strength
         } else if (summonList[0].type.includes('Normal')) {
             normal_summon += summonList[0].strength
         }*/
-    }
-
-    if (summonList[1]) {
-        summonCalculate(summonList[1])
-    }
-
-    // Apply mod boosters
-    magna_atk = magna_atk * magna_summon
-    magna_stam_atk = magna_stam_atk * magna_summon
-    magna_enm_atk = magna_enm_atk * magna_summon
-    normal_atk = normal_atk * normal_summon
-    normal_stam_atk = normal_stam_atk * normal_summon
-    normal_enm_atk = normal_enm_atk * normal_summon
-
-    // Misc random things
-    normal_atk += bahamut_mod + ancestral_mod + norm_atk_buffs + go_aura - norm_atk_debuffs
-    ex_atk += ultima_mod // only on main skill. If key, then it is normal
-    // In case of 6D wep in grid
-
-    return {
-        total: (1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk),
-        magna: magna_atk,
-        normal: normal_atk,
-        ex: ex_atk,
-        magna_stam: magna_stam_atk,
-        normal_stam: normal_stam_atk,
-        magna_enm: magna_enm_atk,
-        normal_enm: normal_enm_atk
-    }
-}
 

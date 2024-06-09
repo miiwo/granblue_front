@@ -14,8 +14,13 @@ export function useWeaponData() {
 
     const refetchData = async (value:string) => {
         const res = await fetchWeapons(`?name=${value}`)
-        const processing = res.map((d:any, i:number) => {
-            return {name: d.Name, id: i, skillLevel: 10, skills: [{name: 'hi', description: 'Come back', strength: 100, type: 'Magna'}]}
+        const processing = res.map((data:any, i:number) => {
+            return {
+                name: data.Name, 
+                id: i, 
+                skillLevel: 1, 
+                skills: adaptToCalculatorModel(data.Skills)
+            }
         })
         setData(processing)
     }
@@ -23,8 +28,13 @@ export function useWeaponData() {
     useEffect(() => {
         const fetchData = async () => {
             const temp = await fetchWeapons('')
-            const temp_two = temp.map((d:any, i:number) => {
-                return {name: d.Name, id: i, skillLevel: 10, skills: [{name: 'hi', description: 'Come back', strength: 100, type: 'Magna'}]}
+            const temp_two = temp.map((data:any, i:number) => {
+                return {
+                    name: data.Name, 
+                    id: i, 
+                    skillLevel: 1, 
+                    skills: adaptToCalculatorModel(data.Skills)
+                }
             })
             setData(temp_two)
         }
@@ -33,6 +43,17 @@ export function useWeaponData() {
     }, [])
 
     return [data, refetchData] as const
+}
+
+function adaptToCalculatorModel(skills:any[]) {
+    return skills.map((skill:any) => {
+        return {
+            name: skill.Name,
+            description: skill.Description,
+            strength: skill.SkillLvlOne,
+            type: skill.BoostType
+        }
+    })
 }
 
 export function useSummonData() {
