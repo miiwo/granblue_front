@@ -19,7 +19,7 @@ export function useWeaponData() {
                 name: data.Name, 
                 id: i, 
                 skillLevel: 1, 
-                skills: adaptToCalculatorModel(data.Skills)
+                skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
             }
         })
         setData(processing)
@@ -33,7 +33,7 @@ export function useWeaponData() {
                     name: data.Name, 
                     id: i, 
                     skillLevel: 1, 
-                    skills: adaptToCalculatorModel(data.Skills)
+                    skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
                 }
             })
             setData(temp_two)
@@ -50,8 +50,9 @@ function adaptToCalculatorModel(skills:any[]) {
         return {
             name: skill.Name,
             description: skill.Description,
-            strength: skill.SkillLvlOne,
-            type: skill.BoostType
+            strength: isNaN(skill.SkillLvlOne) ? 0 : parseFloat(skill.SkillLvlOne),
+            type: skill.BoostType.toLowerCase(),
+            stat: skill.StatAffected.toLowerCase(),
         }
     })
 }

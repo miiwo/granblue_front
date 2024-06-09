@@ -12,7 +12,7 @@ export function GBFSlider ({initialVal, children}: NumberSliderProps) {
         if (gbfContext.hp) {
             gbfContext.hp.current = event.target.value
         } 
-        console.log(gbfContext.hp) //[&::-webkit-slider-thumb]:
+        //[&::-webkit-slider-thumb]:
     }
     
     return (
