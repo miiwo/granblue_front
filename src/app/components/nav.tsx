@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons"
 import Link from 'next/link'
 
 const navItems = {
@@ -20,6 +22,31 @@ const navItems = {
 
 const navDirectionLeft = 'pl-3'
 const navDirectionRight = 'justify-end'
+let isDarkMode = true
+/*
+<button onClick={() => { isDarkMode = !isDarkMode }}>
+            {isDarkMode ? <FontAwesomeIcon icon={faMoon} /> : <FontAwesomeIcon icon={faSun} />}
+          </button>
+          
+        
+export function ThemeToggle
+const [darkMode, setDarkMode] = useState(true)
+
+useEffect(() => {
+  const theme = localStorage.getItem("theme");
+  if (theme === "dark") setDarkMode(true);
+}, [])
+})
+
+useEffect(() => {
+if (darkMode) {
+  document.documentElement.classList.add("dark"); localStorage.setItem("theme", "dark");
+} else {
+  document.documentElement.classList.remove("dark"); localStorage.setItem("theme", "light");
+}, [darkMode])
+
+return <div>onClick={() => setDarkMode(!darkMode)}</div>
+*/
 
 const navDirection = navDirectionRight
 
@@ -32,6 +59,7 @@ export function Navbar() {
           id="nav"
         >
           <h1 className='flex-grow text-2xl pl-5 py-1 pr-2 m-1'>Skyfaring Domain</h1>
+          
           <div className="flex flex-row space-x-0 pr-10">
             {Object.entries(navItems).map(([path, { name }]) => {
               return (

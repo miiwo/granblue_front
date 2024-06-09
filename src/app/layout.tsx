@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "./components/nav";
 import { Footer } from "./components/footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: '--font-inter'
+})
+
+const outfit = Outfit({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-outfit'
+})
 
 export const metadata: Metadata = {
   title: "Skyfaring Domains",
@@ -24,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} ${outfit.className}`}>
         <Navbar />  
         {children}
         <Footer />
