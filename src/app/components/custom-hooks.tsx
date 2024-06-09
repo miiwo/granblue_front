@@ -6,6 +6,7 @@ const summonList = [
     {name: 'Zeus', id: 0, type: 'Optimus', strength: 100},
     {name: 'Zeph', id: 1, type: 'Optimus', strength: 100},
     {name: 'Bahamut', id: 2, type: 'Elemental', strength: 150},
+    {name: 'Lumi', id: 3, type: 'Magna', strength: 100},
 ]
 
 // CUSTOM HOOK

@@ -64,7 +64,7 @@ const initialWeaponGrid: WeaponGrid = {
 }
 
 const initialSummonGrid: SummonGrid = {
-    'sumOne': {name: 'Zeus', id: 0, type: 'Magna', strength: 100},
+    'sumOne': undefined,
     'sumTwo': undefined
 }
 
@@ -326,9 +326,9 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
     let normal_summon = 1
 
     const summonCalculate = (summon: Summon) => {
-        if (summon.type.includes('Magna')) {
+        if (summon.type === 'Magna') {
             magna_summon += summon.strength
-        } else if (summon.type.includes('Normal')) {
+        } else if (summon.type === 'Optimus') {
             normal_summon += summon.strength
         }
     }
