@@ -138,8 +138,8 @@ export default function WeaponPage() {
             <div className="flex flex-col gap-3 mt-5 mx-3">
                 {weaponList.map((wep, i) => {
                     return (
-                        <Link key={i} href= {`/weapons/${encodeURIComponent(wep.name)}`} className="flex gap-3 bg-nordtwo hover:bg-nordblue ease-in duration-300 shadow-sm rounded-md pl-3 py-4">
-                            <button>
+                        <Link key={i} href= {`/weapons/${encodeURIComponent(wep.name)}`} className="gap-3 bg-nordtwo hover:bg-nordblue ease-in duration-300 shadow-sm rounded-md pl-3 py-4">
+                            <button className='flex flex-row gap-3'>
                                 <Image src="/empty_wep_slot.png" alt="Image of weapon" width={150} height={75} />
                                 <span className="content-center">{wep.name}</span>
                             </button>
