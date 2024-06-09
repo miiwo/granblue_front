@@ -22,7 +22,7 @@
 If there are any issues, please [raise an issue](https://github.com/miiwo/granblue_front/issues) on the project page, and I'll look into it!
 
 ## Screenshots
-![-insert screenshot 1=](public/calculator_full_ss.png)
+![-insert screenshot 1=](public/calculator_full_no_dot.png)
 
 ## License
 MIT
