@@ -41,9 +41,7 @@ body {
 @layer base {
   .gbf-slider {
     @apply
-    [&::-webkit-slider-runnable-track]:rounded-full
-    [&::-webkit-slider-thumb]:appearance-none
-
+    /* Webkit / Chrome is stupid to style for! */
     [&::-moz-range-track]:bg-white
     [&::-moz-range-progress]:bg-sky-500
     [&::-moz-range-thumb]:bg-sky-100
@@ -53,7 +51,7 @@ body {
 
   body {
     @apply 
-    dark:text-nordwhite
+    text-nordwhite
     h-screen
   }
 }

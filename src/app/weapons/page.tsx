@@ -47,7 +47,7 @@ export default function WeaponPage() {
                             <label htmlFor='wep_ougi' className="w-1/3 z-10 cursor-pointer ml-1 px-3 rounded-lg select-none truncate">Ougi</label>
 
 
-                            <div className='flex w-1/3 px-3 rounded-lg bg-black z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/ca:translate-x-[200%] peer-checked/skill:translate-x-[100%]'></div>
+                            <div className='flex w-1/3 px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/ca:translate-x-[200%] peer-checked/skill:translate-x-[100%]'></div>
                             
                         </fieldset>
                     </div>
@@ -78,7 +78,7 @@ export default function WeaponPage() {
                             <label htmlFor='elementRadioDark' className="w-1/6 z-10 cursor-pointer ml-1 px-3 rounded-lg">Dark</label>
 
 
-                            <div className='flex w-1/6 px-3 rounded-lg bg-black z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/Fire:translate-x-[0%] peer-checked/Water:translate-x-[100%] peer-checked/Earth:translate-x-[200%] peer-checked/Wind:translate-x-[300%] peer-checked/Light:translate-x-[400%] peer-checked/Dark:translate-x-[500%]'></div>
+                            <div className='flex w-1/6 px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/Fire:translate-x-[0%] peer-checked/Water:translate-x-[100%] peer-checked/Earth:translate-x-[200%] peer-checked/Wind:translate-x-[300%] peer-checked/Light:translate-x-[400%] peer-checked/Dark:translate-x-[500%]'></div>
                         </fieldset>
                     </div>
                     
@@ -120,7 +120,7 @@ export default function WeaponPage() {
 
 
 
-                            <div className='flex w-[10%] px-3 rounded-lg bg-black z-[9] h-full p-0 select-none truncate absolute transform transition-transform 
+                            <div className='flex w-[10%] px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform 
                             peer-checked/Spear:translate-x-[0%] peer-checked/Bow:translate-x-[100%] peer-checked/Axe:translate-x-[200%] 
                             peer-checked/Dagger:translate-x-[300%] peer-checked/Staff:translate-x-[400%] peer-checked/Melee:translate-x-[500%] 
                             peer-checked/Sword:translate-x-[600%] peer-checked/Katana:translate-x-[700%] peer-checked/Harp:translate-x-[800%]

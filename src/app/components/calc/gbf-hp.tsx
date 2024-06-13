@@ -19,7 +19,7 @@ export function GBFSlider ({initialVal, children}: NumberSliderProps) {
         <div className="flex gap-5">
             <p className="flex-initial w-32">Health = {sliderVal}</p>
             <input type='range' min='1' max='100' value={sliderVal} onChange={(event) => { setSliderVal(parseInt(event.target.value)) }} onMouseUp={onMouseUp} 
-            className="basis-1/3 appearance-none bg-transparent gbf-slider" />
+            className="basis-1/3 bg-transparent gbf-slider" />
         </div>
     )
 }
