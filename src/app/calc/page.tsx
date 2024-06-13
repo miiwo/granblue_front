@@ -23,12 +23,13 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                 <div className="pl-6 grid grid-cols-2 gap-x-4 me-6">
                     <div className="col-span-2 md:col-span-1 mt-6 mb-5 bg-nordtwo rounded shadow-md px-5 py-5">
                         <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
-                        <WeaponGrid />
+                        <div className="2xl:mx-[300px]"><WeaponGrid /></div>
+                        
                     </div>
 
                     <div className="col-span-2 md:col-span-1 mt-6 mb-5 bg-nordtwo rounded shadow-md px-5 py-5 flex flex-col">
                         <h2 className="font-bold text-xl mb-14">Summons</h2>
-                        <SummonGrid />
+                        <div><SummonGrid /></div>
                     </div>
 
                     <div className="content-center col-span-2 md:col-span-1 bg-nordtwo rounded shadow-md px-5 py-5 mb-5 md:mb-0">

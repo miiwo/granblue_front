@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import emptyImage from '../../../../public/empty_wep_slot.png'
 
 import { useContext } from 'react'
 import { openSummonModal, openWeaponModal } from './actions'
@@ -12,6 +13,7 @@ interface GBFTileProps {
   weapon?: Weapon
   summon?: Summon
   weaponlink: string // If attached to a weapon grid, this is the key to corresponding weapon in the weapon grid
+  customStyle?: string
 }
 
 interface SummonTileProps {
@@ -20,7 +22,7 @@ interface SummonTileProps {
   link: string // If attached to a weapon grid, this is the key to corresponding weapon in the weapon grid
 }
 
-export function WeaponGridTile({basepath, weapon, weaponlink}: GBFTileProps) {
+export function WeaponGridTile({basepath, weapon, weaponlink, customStyle}: GBFTileProps) {
   const gbfContext = useContext(GBFWeaponGridContext)
 
   let tileImage = '/empty_wep_slot.png'
@@ -35,8 +37,8 @@ export function WeaponGridTile({basepath, weapon, weaponlink}: GBFTileProps) {
   }
 
   return (
-      <Tile onClick={onClick}>
-        { weapon ? weapon.name : <Image src={tileImage} alt='Weapon Tile' width={150} height={150} />}
+      <Tile onClick={onClick} customStyle={customStyle}>
+        { weapon ? weapon.name : <Image src={emptyImage} alt="Picture of weapon in grid" />}
       </Tile>
   )
 }
@@ -52,7 +54,7 @@ export function SummonTile({basepath, summon, link}:SummonTileProps) {
 
   return (
     <Tile onClick={onClick}>
-      { summon ? summon.name : <Image src={tileImage} alt='Weapon Tile' width={150} height={150} />}
+      { summon ? summon.name : <Image src={tileImage} alt='Weapon Tile' width={250} height={150} />}
     </Tile>
   )
 }
