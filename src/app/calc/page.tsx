@@ -31,7 +31,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                         <SummonGrid />
                     </div>
 
-                    <div className="content-center col-span-2 md:col-span-1 bg-nordtwo rounded shadow-md px-5 py-5">
+                    <div className="content-center col-span-2 md:col-span-1 bg-nordtwo rounded shadow-md px-5 py-5 mb-5 md:mb-0">
                         <GBFSlider initialVal={50} />
                     </div>
 
@@ -40,7 +40,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                         <DMGFormula />
                     </div>
 
-                    <div className="col-span-2 bg-nordtwo rounded shadow-md mt-5 px-5 py-5">
+                    <div className="col-span-2 bg-nordtwo rounded shadow-md mt-5 px-5 py-5 mb-5">
                         <h2 className="font-bold text-xl mb-6">Damage Mods</h2>
                         <ActiveModTable />
                     </div>

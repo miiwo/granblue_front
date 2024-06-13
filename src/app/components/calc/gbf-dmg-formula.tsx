@@ -6,7 +6,7 @@ export function DMGFormula() {
     const {dmgFormulaMods} = useContext(GBFWeaponGridContext)
 
     return (
-        <div className="flex flex-row gap-8 text-center">
+        <div className="flex flex-row gap-8 text-center overflow-x-auto">
             {Object.entries(dmgFormulaMods as DMGFormulaPiece).map(([key, value]) => {
                 return (
                     <div key={key} className="flex flex-row gap-8">

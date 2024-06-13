@@ -33,7 +33,7 @@ export default function WeaponPage() {
                     <Search onClick={onClick} placeholderText='Search weapons...' query={query} setQuery={setQuery} />
                 </div>
 
-                <div className="flex">
+                <div className="flex flex-row overflow-x-auto">
                     <span className='basis-32 text-right pr-5'>Search by:</span>
                     <fieldset className="shrink flex relative gap-3 rounded-lg bg-slate-700 w-96 text-center">
                         <input id="wep_name" type="radio" name="weapon_search_filters" value="name" defaultChecked className='hidden peer/name' />
@@ -52,9 +52,9 @@ export default function WeaponPage() {
                 </div>
                 
 
-                <div className="flex flex-row">
-                    <span className='basis-32 text-right pr-5'>Element:</span>
-                    <fieldset className='flex relative gap-3 rounded-lg bg-slate-700 w-3/4 text-center'>
+                <div className="flex flex-row overflow-x-auto">
+                    <span className='basis-32 text-right pr-5 fixed left-0 z-[15] bg-nordtwo'>Element:</span>
+                    <fieldset className='flex relative ml-10 gap-3 rounded-lg bg-slate-700 lg:w-3/4 text-center left-20'>
                         <input id="elementRadioFire" type="radio" name="elementRadio" value="Fire" defaultChecked className='hidden peer/Fire' />
                         <label htmlFor="elementRadioFire" className="w-1/6 z-10 cursor-pointer px-3 rounded-lg">Fire</label>
 
@@ -78,9 +78,9 @@ export default function WeaponPage() {
                     </fieldset>
                 </div>
 
-                <div className="flex">
-                    <span className='basis-32 text-right pr-5'>Weapon Type:</span>
-                    <fieldset className='flex relative gap-3 rounded-lg bg-slate-700 w-[85%] text-center place-items-center'>
+                <div className="flex flex-row overflow-x-auto">
+                    <span className='basis-32 text-right pr-5 fixed left-0 z-[15] bg-nordtwo'>Weapon Type:</span>
+                    <fieldset className='flex relative gap-3 rounded-lg bg-slate-700 lg:w-[85%] text-center place-items-center left-[120px]'>
                         <input id="wepTypeRadioSpear" type="radio" name="wepTypeRadio" value="Spear" defaultChecked className='hidden peer/Spear' />
                         <label htmlFor="wepTypeRadioSpear" className="w-[10%] z-10 cursor-pointer px-3 rounded-lg">Spear</label>
 
@@ -120,17 +120,6 @@ export default function WeaponPage() {
                         peer-checked/Gun:translate-x-[900%]'
                         ></div>
                     </fieldset>
-                    {/*<span>Weapon Type:</span>
-                    <button>Spear</button>
-                    <button>Bow</button>
-                    <button>Axe</button>
-                    <button>Dagger</button>
-                    <button>Staff</button>
-                    <button>Melee</button>
-                    <button>Sword</button>
-                    <button>Katana</button>
-                    <button>Harp</button>
-                    <button>Gun</button>*/}
                 </div>
 
             </div>
