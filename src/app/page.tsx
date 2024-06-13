@@ -1,5 +1,7 @@
 export default function Home() {
-  const latestUpdates = ['2024-06-03', '2024-06-10', '2024-06-15']
+  const latestUpdates: any = {
+    '2024-06-12': 'Launched the website!',
+  }
 
   return (
     <div className="h-screen grid grid-rows-3 justify-center">
@@ -10,11 +12,11 @@ export default function Home() {
       <div className="flex flex-col place-items-center row-span-2 lg:w-96">
         <h1 className="mb-10 lg:mb-20 text-2xl">Latest Updates</h1>
         <div className="flex flex-col mx-3 md:flex-row gap-4 justify-center">
-          {latestUpdates.map((item, i) => {
+          {Object.keys(latestUpdates).map((key, i) => {
             return (
-              <span key={`latest_update_${i}`} className="border px-4 basis-1/3">
-                <h2>{item}</h2>
-                <p>Yadadafasdfasdf</p>
+              <span key={`latest_update_${i}`} className="border px-4 py-3 basis-1/3">
+                <h2>{key}</h2>
+                <p>{latestUpdates[key]}</p>
               </span>
           )})}
         </div>
