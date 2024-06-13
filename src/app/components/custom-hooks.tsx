@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchWeapons } from "./calc/actions";
+import { Weapon } from "../calc/gbfcalcContext";
 
 // TEMPORARY UNTIL I SET UP A SUMMON ENDPOINT
 const summonList = [
@@ -10,7 +11,7 @@ const summonList = [
 ]
 
 // CUSTOM HOOK
-export function useWeaponData() {
+export function useWeaponListData() {
     const [data, setData] = useState<any[]>([])
 
     const refetchData = async (value:string) => {
@@ -20,6 +21,11 @@ export function useWeaponData() {
                 name: data.Name, 
                 id: i, 
                 skillLevel: 1, 
+                element: data.Element,
+                weptype: data.WeaponType,
+                description: data.Description,
+                ouginame: data.OugiName,
+                ougidescription: data.OugiDesc,
                 skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
             }
         })
@@ -34,6 +40,11 @@ export function useWeaponData() {
                     name: data.Name, 
                     id: i, 
                     skillLevel: 1, 
+                    element: data.Element,
+                    weptype: data.WeaponType,
+                    description: data.Description,
+                    ouginame: data.OugiName,
+                    ougidescription: data.OugiDesc,
                     skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
                 }
             })
@@ -44,6 +55,33 @@ export function useWeaponData() {
     }, [])
 
     return [data, refetchData] as const
+}
+
+export function useWeaponData(id: string, setWeapon: any) {
+
+    useEffect(() => {
+        const fetchData = async (value:string) => {
+            const temp = await fetchWeapons(`/${value}`)
+            const temp_two = adaptToWeaponModel(temp)
+            setWeapon(temp_two)
+        }
+
+        fetchData(id)
+    }, [id])
+}
+
+function adaptToWeaponModel(data:any) {
+    return {
+            name: data.Name, 
+            id: 1, 
+            skillLevel: 1, 
+            element: data.Element,
+            weptype: data.WeaponType,
+            description: data.Description,
+            ougi_name: data.OugiName,
+            ougi_desc: data.OugiDesc,
+            skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
+    }
 }
 
 function adaptToCalculatorModel(skills:any[]) {

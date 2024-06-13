@@ -2,6 +2,7 @@
 
 import { Weapon } from "@/app/calc/gbfcalcContext"
 import { Search } from "@/app/components/base/base-components"
+import { useWeaponData } from "@/app/components/custom-hooks"
 import Image from 'next/image'
 import { useState } from "react"
 
@@ -13,7 +14,7 @@ export default function Page({ params }: { params: { slug: string} }) {
         {name: 'Skill 3', type: 'magna', strength: 20, description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
     ]
 
-    const [weapon, setWeapon] = useState<any | null>({
+    /*const [weapon, setWeapon] = useState<Weapon | any | null>({
         id: 0,
         name: 'CPR',
         element: 'Wind',
@@ -21,12 +22,14 @@ export default function Page({ params }: { params: { slug: string} }) {
         ougi_desc: 'This is where the ougi description goes. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien. In fermentum posuere urna nec tincidunt praesent.',
         skillLevel: 10,
         skills: weaponSkills
-    })
+    })*/
+    const [weapon, setWeapon] = useState<Weapon>()
+    useWeaponData(params.slug, setWeapon)
 
     
     const searchOtherWeapons = () => {
         // Retrieve information for the one weapon
-        setWeapon(null)
+        //setWeapon()
     }
 
     // Set some sort of loading state
@@ -51,7 +54,7 @@ export default function Page({ params }: { params: { slug: string} }) {
                 </div>
 
                 <div className="bg-nordtwo rounded py-3 pl-4">
-                    <p>Type: Fist</p>
+                    <p>Type: {weapon.weptype}</p>
                 </div>
 
                 <div className="bg-nordtwo rounded py-3 pl-4">
@@ -60,7 +63,7 @@ export default function Page({ params }: { params: { slug: string} }) {
 
                 <div className="md:row-span-2 md:col-span-3 bg-nordtwo rounded px-5 pt-3 pb-2">
                     <p className="font-bold">Description </p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <p>{weapon.description}</p>
                 </div>
 
                 
@@ -71,9 +74,9 @@ export default function Page({ params }: { params: { slug: string} }) {
                     <p>{weapon.ougi_desc}</p>
                 </div>
 
-                <div className="md:col-span-5 bg-nordtwo rounded pl-3 pt-1">
+                <div className="md:col-span-5 bg-nordtwo rounded pl-3 pt-1 mb-4">
                     <p className="mb-2 font-bold">Weapon Skills</p>
-                    {weaponSkills.map( (item, i) => {
+                    {weapon.skills?.map( (item, i) => {
                         return (
                             <div key={i} className="grid grid-cols-3 mb-3">
                                 <p className="col-span-1">{item.name}</p>

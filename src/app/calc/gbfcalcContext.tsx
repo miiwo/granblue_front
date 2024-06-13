@@ -9,7 +9,12 @@ export type Weapon = {
     skills?: Skills[],
     series?: string,
     skillLevel: number,
-    weaponProperty?: string
+    weaponProperty?: string,
+    element: string,
+    weptype: string,
+    description: string,
+    ougi_name: string,
+    ougi_desc: string,
 }
 
 export type Skills = {
