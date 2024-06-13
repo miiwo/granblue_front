@@ -58,7 +58,7 @@ export function Navbar() {
           className={`flex flex-col md:flex-row items-center md:items-end relative ${navDirection} px-0 pb-0 pt-3 fade md:overflow-auto scroll-pr-6 md:relative`}
           id="nav"
         >
-          <h1 className='flex-grow text-2xl pl-5 py-1 pr-2 m-1'>Skyfaring Domain</h1>
+          <Link href="/" className='flex-grow text-2xl pl-5 py-1 pr-2 m-1'>Skyfaring Domain</Link>
           
           <div className="flex flex-row space-x-0 md:pr-10">
             {Object.entries(navItems).map(([path, { name }]) => {
