@@ -34,9 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} ${outfit.className}`}>
-        <Navbar />  
-        {children}
-        <Footer />
+        <main className="min-h-screen">
+          <Navbar />  
+          {children}
+          <Footer />
+        </main>
+
       </body>
     </html>
   );

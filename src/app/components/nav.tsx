@@ -55,12 +55,12 @@ export function Navbar() {
     <aside className="-ml-[8px] mb-16 tracking-tight">
       <div className="lg:sticky lg:top-20 bg-nordzero pb-4">
         <nav
-          className={`flex flex-row items-end relative ${navDirection} px-0 pb-0 pt-3 fade md:overflow-auto scroll-pr-6 md:relative`}
+          className={`flex flex-col md:flex-row items-center md:items-end relative ${navDirection} px-0 pb-0 pt-3 fade md:overflow-auto scroll-pr-6 md:relative`}
           id="nav"
         >
           <h1 className='flex-grow text-2xl pl-5 py-1 pr-2 m-1'>Skyfaring Domain</h1>
           
-          <div className="flex flex-row space-x-0 pr-10">
+          <div className="flex flex-row space-x-0 md:pr-10">
             {Object.entries(navItems).map(([path, { name }]) => {
               return (
                 <Link

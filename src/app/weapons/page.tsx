@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { AnimatedRadioGroup, AnimatedSixRadioGroup, Search } from '../components/base/base-components'
+import { Search } from '../components/base/base-components'
 import { useWeaponData } from '../components/custom-hooks'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
