@@ -17,7 +17,7 @@
 ## Features
 - Search for weapons in the game
 - Calculator that determines mod strength for weapons that a player doesn't own
-- Responsive Design
+- Responsive Design with mobile-first mindset
 
 ## Issues?
 If there are any issues, please [raise an issue](https://github.com/miiwo/granblue_front/issues) on the project page, and I'll look into it!
