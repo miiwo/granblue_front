@@ -9,8 +9,8 @@
   A website for GBF to calculate the damage formula. Useful for those to plan what resources to invest in!
 </p>
 <p align="center">
-  <a href="">
-    [Link to website here!](https://skyfaring-domain.xyz)
+  <a href="https://skyfaring-domain.xyz">
+    Link to website here!
   </a>
 </p>
 
