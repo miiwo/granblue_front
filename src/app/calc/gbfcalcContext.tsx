@@ -342,6 +342,19 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
             }
 
         }
+
+        // Or consider changing the DB so that instead of MA, i list out DA/TA
+        if (skill.stat.includes('ta') || skill.stat.includes('ma')) {
+            switch (skill.type) {
+                case 'magna':
+                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])*magna_summon // If this doesn't work, change it to check for the keys first
+                    break
+                case 'optimus':
+                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])*normal_summon
+                default:
+                    break
+            }
+        }
     }
 
     // Sum up all the grid mods
