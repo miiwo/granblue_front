@@ -28,7 +28,7 @@ export default function WeaponPage() {
     return (
         <div>
             <div className="flex flex-col gap-3 bg-nordtwo shadow-md pb-4 pt-1">
-                <h1 className="font-bold text-2xl underline underline-offset-4 mb-3">Weapons</h1>
+                <h1 className="font-bold text-2xl underline underline-offset-4 mb-3 pt-3 2xl:pl-3">Weapons</h1>
                 <div className="bg-nordtwo rounded mx-3 py-5 px-3">
                     <Search onClick={onClick} placeholderText='Search weapons...' query={query} setQuery={setQuery} />
                 </div>
@@ -36,7 +36,7 @@ export default function WeaponPage() {
                 <div className="flex flex-row items-center">
                     <span className='basis-32 text-right pr-5'>Search by:</span>
                     <div className='overflow-x-auto rounded-lg'>
-                        <fieldset className="shrink flex relative gap-3 rounded-lg bg-slate-700 w-96 text-center">
+                        <fieldset className="shrink flex relative gap-3 rounded-lg bg-slate-700 w-96 text-center md:w-[500px]">
                             <input id="wep_name" type="radio" name="weapon_search_filters" value="name" defaultChecked className='hidden peer/name' />
                             <label htmlFor="wep_name" className="w-1/3 z-10 cursor-pointer px-3 rounded-lg">Name</label>
 
@@ -55,10 +55,10 @@ export default function WeaponPage() {
                 </div>
                 
 
-                <div className="flex flex-row items-center">
+                <div className="flex flex-row items-center mt-3 md:mt-0">
                     <span className='basis-32 text-right pr-5 bg-nordtwo'>Element:</span>
                     <div className='rounded overflow-x-auto'>
-                        <fieldset className='flex relative gap-3 rounded-lg bg-slate-700 lg:w-[820px] text-center'>
+                        <fieldset className='flex relative gap-3 rounded-lg bg-slate-700 w-[600px] md:w-[600px] lg:w-[820px] text-center'>
                             <input id="elementRadioFire" type="radio" name="elementRadio" value="Fire" defaultChecked className='hidden peer/Fire' />
                             <label htmlFor="elementRadioFire" className="w-1/6 z-10 cursor-pointer px-3 rounded-lg">Fire</label>
 
@@ -87,7 +87,7 @@ export default function WeaponPage() {
                 <div className="flex flex-row items-center">
                     <span className='basis-32 text-right pr-5 bg-nordtwo'>Weapon Type:</span>
                     <div className='rounded-lg overflow-x-auto'>
-                        <fieldset className='flex relative rounded-lg bg-slate-700 gap-3 lg:w-[1200px] text-center place-items-center'>
+                        <fieldset className='flex relative rounded-lg bg-slate-700 gap-3 w-[1500px] md:w-[1300px] lg:w-[1140px] 2xl:w-[1200px] text-center place-items-center'>
                             <input id="wepTypeRadioSpear" type="radio" name="wepTypeRadio" value="Spear" defaultChecked className='hidden peer/Spear' />
                             <label htmlFor="wepTypeRadioSpear" className="w-[10%] z-10 cursor-pointer px-3 rounded-lg">Spear</label>
 

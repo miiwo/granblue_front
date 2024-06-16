@@ -86,10 +86,22 @@ function adaptToWeaponModel(data:any) {
 
 function adaptToCalculatorModel(skills:any[]) {
     return skills.map((skill:any) => {
+        let strengthDict : {[key: string]: number} = {}
+
+        if (skill.StatAffected.includes('/')) {
+            const temp = skill.StatAffected.split('/')
+            const temptwo = skill.SkillLvlOne.split('/')
+            for (let stat_index in temp) {
+                strengthDict[temp[stat_index].toLowerCase()] = parseFloat(temptwo[stat_index])
+            }
+        } else {
+            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlOne)
+        }
+
         return {
             name: skill.Name,
             description: skill.Description,
-            strength: isNaN(skill.SkillLvlOne) ? 0 : parseFloat(skill.SkillLvlOne),
+            strength: strengthDict,
             type: skill.BoostType.toLowerCase(),
             stat: skill.StatAffected.toLowerCase(),
         }
