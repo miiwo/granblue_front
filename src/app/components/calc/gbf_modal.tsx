@@ -15,13 +15,13 @@ export function GBFWepGridModal() {
   const [query, setQuery] = useState('') // Consider putting this into a context?
 
   const onClick = () => {
-    refetchData(query)
+    refetchData('name', query)
   }
 
   useEffect(() => {
     let timer = setTimeout(() => {
         if (query) {
-            refetchData(query)
+            refetchData('name', query)
         }
     }, 1000)
 
