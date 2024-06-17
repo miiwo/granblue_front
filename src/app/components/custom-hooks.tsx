@@ -16,8 +16,8 @@ const summonList = [
 export function useWeaponListData() {
     const [data, setData] = useState<any[]>([])
 
-    const refetchData = async (value:string) => {
-        const res = await fetchWeapons(`?name=${value}`)
+    const refetchData = async (searchby:string, value:string) => {
+        const res = await fetchWeapons(value == '' ? '' : `?${searchby}=${value}`)
         const processing = res.map((data:any, i:number) => {
             return {
                 name: data.Name, 
