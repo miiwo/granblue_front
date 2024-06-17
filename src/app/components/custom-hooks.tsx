@@ -91,13 +91,13 @@ function adaptToCalculatorModel(skills:any[]) {
         let strengthDict : {[key: string]: number} = {}
 
         if (skill.StatAffected.includes('/')) {
-            const temp = skill.StatAffected.split('/')
-            const temptwo = skill.SkillLvlFifteen.split('/')
-            for (let stat_index in temp) {
-                strengthDict[temp[stat_index].toLowerCase()] = parseFloat(temptwo[stat_index])
+            const backendStatList = skill.StatAffected.split('/')
+            const backendStrengthList = skill.SkillLvlOne.split('/')
+            for (let stat_index in backendStatList) {
+                strengthDict[backendStatList[stat_index].toLowerCase()] = parseFloat(backendStrengthList[stat_index])
             }
         } else {
-            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlFifteen)
+            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlOne)
         }
 
         return {
