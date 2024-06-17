@@ -7,7 +7,9 @@ const summonList = [
     {name: 'Zeus', id: 0, type: 'Optimus', strength: 100},
     {name: 'Zeph', id: 1, type: 'Optimus', strength: 100},
     {name: 'Bahamut', id: 2, type: 'Elemental', strength: 150},
-    {name: 'Lumi', id: 3, type: 'Magna', strength: 100},
+    {name: 'Lumi 100', id: 3, type: 'Magna', strength: 100},
+    {name: 'Lumi 140', id: 5, type: 'Magna', strength: 140},
+    {name: 'Lumi 150', id: 4, type: 'Magna', strength: 150},
 ]
 
 // CUSTOM HOOK
@@ -39,7 +41,7 @@ export function useWeaponListData() {
                 return {
                     name: data.Name, 
                     id: i, 
-                    skillLevel: 1, 
+                    skillLevel: 15, 
                     element: data.Element,
                     weptype: data.WeaponType,
                     description: data.Description,
@@ -90,12 +92,12 @@ function adaptToCalculatorModel(skills:any[]) {
 
         if (skill.StatAffected.includes('/')) {
             const temp = skill.StatAffected.split('/')
-            const temptwo = skill.SkillLvlOne.split('/')
+            const temptwo = skill.SkillLvlFifteen.split('/')
             for (let stat_index in temp) {
                 strengthDict[temp[stat_index].toLowerCase()] = parseFloat(temptwo[stat_index])
             }
         } else {
-            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlOne)
+            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlFifteen)
         }
 
         return {

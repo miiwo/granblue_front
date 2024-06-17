@@ -171,8 +171,10 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             setGrid(_grid)
 
             _sumGrid = summonGrid
-            const _dmgMods = calculateGridMods(Object.keys(_grid).map<Weapon>(key => _grid[key]), _sumGrid, hp.current)
-            console.log(_dmgMods)
+            const _dmgMods = calculateGridMods(Object.keys(_grid).map<Weapon>(key => _grid[key]), 
+                                                Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
+                                                hp.current)
+            //console.log(_dmgMods)
             console.log(_grid)
             setDmgFormulaMods({
                 'Total': {
@@ -214,10 +216,52 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
     }
 
     const setSummonToTile = (summon: Summon) => {
-        let _sumGrid
+        let _sumGrid:any
+        let _grid: any
         if (keyname.current) {
             _sumGrid = {...summonGrid, [keyname.current]: summon}
             setSummonGrid(_sumGrid)
+
+            _grid = grid
+            const _dmgMods = calculateGridMods(Object.keys(_grid).map<Weapon>(key => _grid[key]), 
+                                                Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
+                                                hp.current)
+            console.log(_dmgMods)
+            console.log(_sumGrid)
+            setDmgFormulaMods({
+                'Total': {
+                    num: _dmgMods.total,
+                    mulx: '=',
+                  },
+                  'Magna': {
+                      num: _dmgMods.magna,
+                      mulx: 'x',
+                    },
+                  'Normal': {
+                    num: _dmgMods.normal,
+                    mulx: 'x',
+                  },
+                  'EX': {
+                    num: _dmgMods.ex,
+                    mulx: 'x',
+                  },
+                  'Elemental': {
+                      num: 0,
+                      mulx: '',
+                  }
+            })
+
+            setUtilityMods({
+                'Might': _dmgMods.normal,
+                'Omega Might': _dmgMods.magna,
+                'EX Might': _dmgMods.ex,
+                'Stamina': _dmgMods.normal_stam,
+                'Omega Stamina': _dmgMods.magna_stam,
+                'Enmity': _dmgMods.normal_enm,
+                'Omega Enmity': _dmgMods.magna_enm,
+                'Crit': _dmgMods.crit,
+                'TA Rate': _dmgMods.ta,
+            })
         }
     }
 
@@ -266,12 +310,12 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
 
     const summonCalculate = (summon: Summon) => {
         if (summon.type === 'Magna') {
-            magna_summon += summon.strength
+            magna_summon += summon.strength/100
         } else if (summon.type === 'Optimus') {
-            normal_summon += summon.strength
+            normal_summon += summon.strength/100
         }
     }
-
+    // Summon strength must be of 100, 120, 150, etc. Not 1.5 or 1.2
     if (summonList[0]) {
         summonCalculate(summonList[0])
     }
@@ -283,16 +327,16 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
     const skillCalculate = (skill: Skills, name: string | undefined, skill_level: number) => {
         if (skill.stat.includes('atk')) {
             if (name?.includes('Bahamut') && bahamut_mod == 0) {
-                bahamut_mod += skill.strength['atk']
+                bahamut_mod += skill.strength['atk']/100
             } else if (skill.type === 'magna') {
-                magna_atk += skill.strength['atk']
-            } else if (skill.type === 'optimus' && !name?.includes('Bahamut')) {
+                magna_atk += skill.strength['atk']/100
+            } else if (skill.type === 'normal' && !name?.includes('Bahamut')) {
     
                 // Ancestral
                 if (name?.includes('ancestral')) {
-                    ancestral_mod += skill.strength['atk']
+                    ancestral_mod += skill.strength['atk']/100
                 } else {
-                    normal_atk += skill.strength['atk']
+                    normal_atk += skill.strength['atk']/100
                 }
                 
             } else if (skill.type.includes('ex')) {
@@ -301,7 +345,7 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
                 if (name?.includes('Ultima')) {
                     ultima_mod = 0 //todo fix this
                 } else {
-                    ex_atk += skill.strength['atk']
+                    ex_atk += skill.strength['atk']/100
                 }
                 
             } else if (skill.type.includes('M_Stam')) {
@@ -309,7 +353,7 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
                     if (skill_level <= 15) {
                         magna_stam_atk += ((hp / (skill.strength['atk'] - skill_level))**2.9 + 2.1)/100
                     } else { // skill lvl 16 - 20
-                        magna_stam_atk += ((hp / (skill.strength['atk'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100
+                        magna_stam_atk += ((hp / (skill.strength['atk'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100 // Double check division by 100 later
                     }
                 } 
             } else if (skill.type.includes('M_Enm')) {
@@ -332,10 +376,10 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
         if (skill.stat.includes('crit')) {
             switch (skill.type) {
                 case 'magna':
-                    crit += skill.strength['crit']*magna_summon
+                    crit += skill.strength['crit']/100*magna_summon
                     break
                 case 'optimus':
-                    crit += skill.strength['crit']*normal_summon
+                    crit += skill.strength['crit']/100*normal_summon
                     break
                 default:
                     break
@@ -347,10 +391,10 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
         if (skill.stat.includes('ta') || skill.stat.includes('ma')) {
             switch (skill.type) {
                 case 'magna':
-                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])*magna_summon // If this doesn't work, change it to check for the keys first
+                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])/100*magna_summon // If this doesn't work, change it to check for the keys first
                     break
                 case 'optimus':
-                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])*normal_summon
+                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])/100*normal_summon
                 default:
                     break
             }
@@ -399,16 +443,21 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
     // In case of 6D wep in grid
 
     return {
-        total: (1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk),
-        magna: magna_atk,
-        normal: normal_atk,
-        ex: ex_atk,
-        magna_stam: magna_stam_atk,
-        normal_stam: normal_stam_atk,
-        magna_enm: magna_enm_atk,
-        normal_enm: normal_enm_atk,
-        ta: ta_rate,
-        crit: crit,
+        total: roundTo((((1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk))-1)*100, 2),
+        magna: roundTo(magna_atk*100, 2),
+        normal: roundTo(normal_atk*100, 2),
+        ex: roundTo(ex_atk*100, 2),
+        magna_stam: roundTo(magna_stam_atk, 2),
+        normal_stam: roundTo(normal_stam_atk, 2),
+        magna_enm: roundTo(magna_enm_atk, 2),
+        normal_enm: roundTo(normal_enm_atk, 2),
+        ta: roundTo(ta_rate*100, 2),
+        crit: roundTo(crit*100, 2),
     }
+}
+
+const roundTo = function(num: number, places: number) {
+    const factor = 10 ** places
+    return Math.round(num * factor) / factor
 }
 
