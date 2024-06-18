@@ -22,7 +22,7 @@ export function useWeaponListData() {
             return {
                 name: data.Name, 
                 id: i, 
-                skillLevel: 1, 
+                skillLevel: 10, 
                 element: data.Element,
                 weptype: data.WeaponType,
                 description: data.Description,
@@ -41,7 +41,7 @@ export function useWeaponListData() {
                 return {
                     name: data.Name, 
                     id: i, 
-                    skillLevel: 15, 
+                    skillLevel: 10, 
                     element: data.Element,
                     weptype: data.WeaponType,
                     description: data.Description,
@@ -76,7 +76,7 @@ function adaptToWeaponModel(data:any) {
     return {
             name: data.Name, 
             id: 1, 
-            skillLevel: 1, 
+            skillLevel: 10, 
             element: data.Element,
             weptype: data.WeaponType,
             description: data.Description,
@@ -92,12 +92,12 @@ function adaptToCalculatorModel(skills:any[]) {
 
         if (skill.StatAffected.includes('/')) {
             const backendStatList = skill.StatAffected.split('/')
-            const backendStrengthList = skill.SkillLvlOne.split('/')
+            const backendStrengthList = skill.SkillLvlTen.split('/')
             for (let stat_index in backendStatList) {
                 strengthDict[backendStatList[stat_index].toLowerCase()] = parseFloat(backendStrengthList[stat_index])
             }
         } else {
-            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlOne)
+            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlTen)
         }
 
         return {

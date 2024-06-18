@@ -330,50 +330,32 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
 
     const skillCalculate = (skill: Skills, name: string | undefined, skill_level: number) => {
         if (skill.stat.includes('atk')) {
-            if (name?.includes('Bahamut') && bahamut_mod == 0) {
-                bahamut_mod += skill.strength['atk']/100
-            } else if (skill.type === 'magna') {
-                magna_atk += skill.strength['atk']/100
-            } else if (skill.type === 'normal' && !name?.includes('Bahamut')) {
-    
-                // Ancestral
-                if (name?.includes('ancestral')) {
-                    ancestral_mod += skill.strength['atk']/100
-                } else {
-                    normal_atk += skill.strength['atk']/100
-                }
-                
-            } else if (skill.type.includes('ex')) {
-
-                // TODO: Add condition to check for ultima series. Add the mod to ultima mod variable
-                if (name?.includes('Ultima')) {
-                    ultima_mod = 0 //todo fix this
-                } else {
-                    ex_atk += skill.strength['atk']/100
-                }
-                
-            } else if (skill.type.includes('M_Stam')) {
-                if (hp >= 25) {
-                    if (skill_level <= 15) {
-                        magna_stam_atk += ((hp / (skill.strength['atk'] - skill_level))**2.9 + 2.1)/100
-                    } else { // skill lvl 16 - 20
-                        magna_stam_atk += ((hp / (skill.strength['atk'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100 // Double check division by 100 later
+            switch (skill.type) {
+                case 'magna':
+                    magna_atk += skill.strength['atk']/100
+                    break
+                case 'normal':
+                    if (name?.includes('Bahamut')) {
+                        bahamut_mod += bahamut_mod == 0 ? skill.strength['atk']/100 : 0
+                    } else {
+                        if (name?.includes('Ancestral')) {
+                            // TODO: Add to it later
+                            // ancestral_mod += skill.strength['atk']/100
+                        } else {
+                            normal_atk += skill.strength['atk']/100
+                        }
                     }
-                } 
-            } else if (skill.type.includes('M_Enm')) {
-                magna_enm_atk += skill.strength['atk'] * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
-            } else if (skill.type.includes('O_Stam')) {
-                // TODO: Make one for fediel spine 
-                if (hp >= 25) {
-                    if (skill_level <= 15) {
-                        normal_stam_atk += ((hp / (skill.strength['atk'] - skill_level))**2.9 + 2.1)/100
-                    } else { // skill lvl 16 - 20
-                        normal_stam_atk += ((hp / (skill.strength['atk'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100
+                    break
+                case 'ex':
+                    if (name?.includes('Ultima')) {
+                        // TODO DO THIS PROPERLY
+                        // ultima_mod = 0
+                    } else {
+                        ex_atk += skill.strength['atk']/100
                     }
-                } 
-            } else if (skill.type.includes('O_Enm')) {
-                // TODO: Make one for wilnas fist
-                normal_enm_atk += skill.strength['atk'] * ((1 + 2 * ((100 - hp)/100)) * ((100 - hp)/100))
+                    break
+                default:
+                    break
             }
         } 
 
@@ -391,14 +373,61 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
 
         }
 
-        // Or consider changing the DB so that instead of MA, i list out DA/TA
-        if (skill.stat.includes('ta') || skill.stat.includes('ma')) {
+
+        if (skill.stat.includes('ta')) {
             switch (skill.type) {
                 case 'magna':
-                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])/100*magna_summon // If this doesn't work, change it to check for the keys first
+                    ta_rate += skill.strength['ta']/100*magna_summon
                     break
                 case 'optimus':
-                    ta_rate += (skill.strength['ta'] + skill.strength['ma'])/100*normal_summon
+                    ta_rate += skill.strength['ta']/100*normal_summon
+                default:
+                    break
+            }
+        }
+
+        if (skill.stat.includes('stam')) {
+            switch (skill.type) {
+                case 'magna':
+                    if (hp >= 25) {
+                        if (skill_level <= 15) {
+                            console.log(hp)
+                            magna_stam_atk += (hp / (skill.strength['stam'] - skill_level))**2.9 + 2.1
+                        } else { // skill lvl 16 - 20
+                            magna_stam_atk += (hp / (skill.strength['stam'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1
+                        }
+                    }
+                    break
+                case 'normal':
+                    if (hp >= 25) {
+                        if (name?.includes('Fediel Spine')) {
+                            // TODO: Implement this later
+                        } else {
+                            if (skill_level <= 15) {
+                                normal_stam_atk += (hp / (skill.strength['stam'] - skill_level))**2.9 + 2.1
+                            } else { // skill lvl 16 - 20
+                                normal_stam_atk += (hp / (skill.strength['stam'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1
+                            }
+                        }
+                    }
+                    break
+                default:
+                    break
+            }
+        }
+
+        if (skill.stat.includes('enmity')) {
+            switch (skill.type) {
+                case 'magna':
+                    magna_enm_atk += skill.strength['enmity'] * ((1+2*((100-hp)/100)) * ((100 - hp)/100))
+                    break
+                case 'normal':
+                    if (name?.includes('Wilnas Fist')) {
+                        // TODO: Implement this later
+                    } else {
+                        normal_enm_atk += skill.strength['enmity'] * ((1+2*((100-hp)/100)) * ((100 - hp)/100))
+                    }
+                    break
                 default:
                     break
             }
