@@ -48,6 +48,7 @@ interface GBFWeaponGridContextData {
     utilityMods: {},
     keyname: MutableRefObject<string | undefined> | undefined,
     hp: MutableRefObject<number> | undefined,
+    mcElement: MutableRefObject<string> | undefined,
     setActiveWeaponKey: (weaponlink: string | undefined) => void,
     setActiveSummonKey: (link: string | undefined) => void,
     setWeaponToTile: (weapon: Weapon) => void
@@ -132,6 +133,7 @@ export const GBFWeaponGridContext = createContext<GBFWeaponGridContextData>({
     utilityMods: {},
     keyname: undefined,
     hp: undefined,
+    mcElement: undefined,
     setActiveWeaponKey: (weaponlink) => {},
     setActiveSummonKey: (link) => {},
     setWeaponToTile: (weapon) => {},
@@ -150,6 +152,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
         'Crit': 0, 'TA Rate': 0,} )
     const keyname = useRef<string>()
     const hp = useRef<number>(50)
+    const mcElement = useRef<string>('Fire')
 
     const setActiveWeaponKey = (weaponlink: string | undefined) => {
         if (weaponlink) {
@@ -273,6 +276,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             utilityMods,
             keyname,
             hp,
+            mcElement,
             setActiveWeaponKey,
             setActiveSummonKey,
             setWeaponToTile,
