@@ -12,6 +12,7 @@ export function GBFSlider ({initialVal, children}: NumberSliderProps) {
     function onMouseUp(event:any) {
         if (gbfContext.hp) {
             gbfContext.hp.current = event.target.value
+            gbfContext.updateDamageCalcs()
         } 
         //[&::-webkit-slider-thumb]:
     }

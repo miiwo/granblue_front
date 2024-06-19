@@ -53,6 +53,7 @@ interface GBFWeaponGridContextData {
     setActiveSummonKey: (link: string | undefined) => void,
     setWeaponToTile: (weapon: Weapon) => void
     setSummonToTile: (summon: Summon) => void
+    updateDamageCalcs: () => void
 }
 
 // INITIAL VARIABLE DATA
@@ -137,7 +138,8 @@ export const GBFWeaponGridContext = createContext<GBFWeaponGridContextData>({
     setActiveWeaponKey: (weaponlink) => {},
     setActiveSummonKey: (link) => {},
     setWeaponToTile: (weapon) => {},
-    setSummonToTile: (summon) => {}
+    setSummonToTile: (summon) => {},
+    updateDamageCalcs: () => {},
 })
 
 // PROVIDER
@@ -177,7 +179,6 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             const _dmgMods = calculateGridMods(Object.keys(_grid).map<Weapon>(key => _grid[key]), 
                                                 Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
                                                 hp.current)
-            //console.log(_dmgMods)
             console.log(_grid)
             setDmgFormulaMods({
                 'Total': {
@@ -185,11 +186,11 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                     mulx: '=',
                   },
                   'Magna': {
-                      num: _dmgMods.magna,
+                      num: roundTo( ((1+(_dmgMods.magna/100)) * (1+(_dmgMods.magna_enm/100)) * (1+(_dmgMods.magna_stam/100)))*100 - 100, 2),
                       mulx: 'x',
                     },
                   'Normal': {
-                    num: _dmgMods.normal,
+                    num: roundTo( ((1+(_dmgMods.normal/100)) * (1+(_dmgMods.normal_enm/100)) * (1+(_dmgMods.normal_stam/100)))*100 - 100, 2),
                     mulx: 'x',
                   },
                   'EX': {
@@ -237,11 +238,11 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                     mulx: '=',
                   },
                   'Magna': {
-                      num: _dmgMods.magna,
+                      num: roundTo( ((1+(_dmgMods.magna/100)) * (1+(_dmgMods.magna_enm/100)) * (1+(_dmgMods.magna_stam/100)))*100 - 100, 2),
                       mulx: 'x',
                     },
                   'Normal': {
-                    num: _dmgMods.normal,
+                    num: roundTo( ((1+(_dmgMods.normal/100)) * (1+(_dmgMods.normal_enm/100)) * (1+(_dmgMods.normal_stam/100)))*100 - 100, 2),
                     mulx: 'x',
                   },
                   'EX': {
@@ -268,6 +269,47 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
         }
     }
 
+    const updateDamageCalcs = () => {
+        const _dmgMods = calculateGridMods(Object.keys(grid).map<Weapon|undefined>(key => grid[key]), 
+                                            Object.keys(summonGrid).map<Summon|undefined>(key => summonGrid[key]), 
+                                            hp.current)
+
+        // roundTo((((1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk))-1)*100, 2)                                      
+        setDmgFormulaMods({
+            'Total': {
+                num: _dmgMods.total,
+                mulx: '=',
+                },
+                'Magna': {
+                    num: roundTo( ((1+(_dmgMods.magna/100)) * (1+(_dmgMods.magna_enm/100)) * (1+(_dmgMods.magna_stam/100)))*100 - 100, 2),
+                    mulx: 'x',
+                },
+                'Normal': {
+                num: roundTo( ((1+(_dmgMods.normal/100)) * (1+(_dmgMods.normal_enm/100)) * (1+(_dmgMods.normal_stam/100)))*100 - 100, 2),
+                mulx: 'x',
+                },
+                'EX': {
+                num: _dmgMods.ex,
+                mulx: 'x',
+                },
+                'Elemental': {
+                    num: 0,
+                    mulx: '',
+                }
+        })
+
+        setUtilityMods({
+            'Might': _dmgMods.normal,
+            'Omega Might': _dmgMods.magna,
+            'EX Might': _dmgMods.ex,
+            'Stamina': _dmgMods.normal_stam,
+            'Omega Stamina': _dmgMods.magna_stam,
+            'Enmity': _dmgMods.normal_enm,
+            'Omega Enmity': _dmgMods.magna_enm,
+            'Crit': _dmgMods.crit,
+            'TA Rate': _dmgMods.ta,
+        })
+    }
     return (
         <GBFWeaponGridContext.Provider value={{
             grid,
@@ -281,6 +323,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             setActiveSummonKey,
             setWeaponToTile,
             setSummonToTile,
+            updateDamageCalcs,
         }}
         >
             {children}
@@ -288,7 +331,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
     )
 }
 
-export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp: number) => {
+export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList: (Summon|undefined)[], hp: number) => {
     let magna_atk = 0
     let normal_atk = 0
     let ex_atk = 0
@@ -374,7 +417,7 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
         }
 
 
-        if (skill.stat.includes('ta')) {
+        if (skill.stat.includes('ta') && !skill.stat.includes('stam')) {
             switch (skill.type) {
                 case 'magna':
                     ta_rate += skill.strength['ta']/100*magna_summon
@@ -392,9 +435,9 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
                     if (hp >= 25) {
                         if (skill_level <= 15) {
                             console.log(hp)
-                            magna_stam_atk += (hp / (skill.strength['stam'] - skill_level))**2.9 + 2.1
+                            magna_stam_atk += ((hp / (skill.strength['stam'] - skill_level))**2.9 + 2.1)/100
                         } else { // skill lvl 16 - 20
-                            magna_stam_atk += (hp / (skill.strength['stam'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1
+                            magna_stam_atk += ((hp / (skill.strength['stam'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100
                         }
                     }
                     break
@@ -404,9 +447,9 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
                             // TODO: Implement this later
                         } else {
                             if (skill_level <= 15) {
-                                normal_stam_atk += (hp / (skill.strength['stam'] - skill_level))**2.9 + 2.1
+                                normal_stam_atk += ((hp / (skill.strength['stam'] - skill_level))**2.9 + 2.1)/100
                             } else { // skill lvl 16 - 20
-                                normal_stam_atk += (hp / (skill.strength['stam'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1
+                                normal_stam_atk += ((hp / (skill.strength['stam'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100
                             }
                         }
                     }
@@ -480,8 +523,8 @@ export const calculateGridMods = (weaponList: Weapon[], summonList: Summon[], hp
         magna: roundTo(magna_atk*100, 2),
         normal: roundTo(normal_atk*100, 2),
         ex: roundTo(ex_atk*100, 2),
-        magna_stam: roundTo(magna_stam_atk, 2),
-        normal_stam: roundTo(normal_stam_atk, 2),
+        magna_stam: roundTo(magna_stam_atk*100, 2),
+        normal_stam: roundTo(normal_stam_atk*100, 2),
         magna_enm: roundTo(magna_enm_atk, 2),
         normal_enm: roundTo(normal_enm_atk, 2),
         ta: roundTo(ta_rate*100, 2),
