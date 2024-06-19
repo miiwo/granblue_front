@@ -53,7 +53,12 @@ export function useWeaponListData() {
             setData(temp_two)
         }
 
-        fetchData()
+        try {
+            fetchData()
+        } catch(err) {
+            // DO SOMETHING ON ERROR. ERROR IM LOOKING FOR IS NETWORK ERROR
+        }
+        
     }, [])
 
     return [data, refetchData] as const
@@ -68,7 +73,12 @@ export function useWeaponData(id: string, setWeapon: any) {
             setWeapon(temp_two)
         }
 
-        fetchData(id)
+        try {
+            fetchData(id)
+        } catch(err) {
+            // DO SOMETHING ON ERROR. ERROR IM LOOKING FOR IS NETWORK
+        }
+        
     }, [id])
 }
 
