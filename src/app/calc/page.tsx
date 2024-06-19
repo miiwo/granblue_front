@@ -17,7 +17,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
     const shouldDisplaySummonModal = searchParams?.summodal
 
     return (
-        <div>
+        <div className="">
             <GBFWeaponGridContextProvider>
             <h1 className="font-bold text-2xl underline underline-offset-4">Calculator</h1>
                 <div className="pl-6 grid grid-cols-2 gap-x-4 me-6">
