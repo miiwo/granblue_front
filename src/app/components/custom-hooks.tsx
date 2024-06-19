@@ -19,7 +19,10 @@ export function useWeaponListData() {
     const refetchData = async (searchby:string, value:string) => {
         const res = await fetchWeapons(value == '' ? '' : `?${searchby}=${value}`)
         const processing = res.map((data:any, i:number) => {
-            return {
+            let weapon = adaptToWeaponModel(data)
+            weapon.id = i
+            return weapon
+            /*return {
                 name: data.Name, 
                 id: i, 
                 skillLevel: 10, 
@@ -29,7 +32,7 @@ export function useWeaponListData() {
                 ouginame: data.OugiName,
                 ougidescription: data.OugiDesc,
                 skills: data.Skills ? adaptToCalculatorModel(data.Skills, 10) : []
-            }
+            }*/
         })
         setData(processing)
     }
@@ -38,7 +41,10 @@ export function useWeaponListData() {
         const fetchData = async () => {
             const temp = await fetchWeapons('')
             const temp_two = temp.map((data:any, i:number) => {
-                return {
+                let weapon = adaptToWeaponModel(data)
+                weapon.id = i
+                return weapon
+                /*return {
                     name: data.Name, 
                     id: i, 
                     skillLevel: 10, 
@@ -47,8 +53,8 @@ export function useWeaponListData() {
                     description: data.Description,
                     ouginame: data.OugiName,
                     ougidescription: data.OugiDesc,
-                    skills: data.Skills ? adaptToCalculatorModel(data.Skills, 10) : []
-                }
+                    skills: data.Skills ? adaptToSkillModel(data.Skills, 10) : []
+                }*/
             })
             setData(temp_two)
         }
@@ -68,9 +74,9 @@ export function useWeaponData(id: string, setWeapon: any) {
 
     useEffect(() => {
         const fetchData = async (value:string) => {
-            const temp = await fetchWeapons(`/${value}`)
-            const temp_two = adaptToWeaponModel(temp)
-            setWeapon(temp_two)
+            const rawData = await fetchWeapons(`/${value}`)
+            const weaponResult = adaptToWeaponModel(rawData)
+            setWeapon(weaponResult)
         }
 
         try {
@@ -96,7 +102,7 @@ export function useSummonData() {
     return data
 }
 
-function adaptToWeaponModel(data:any) {
+function adaptToWeaponModel(data:any) : Weapon {
     let skill_level = 10
     if (data.LvlOnefiftyAtk != '') {
         skill_level = 15
@@ -106,21 +112,22 @@ function adaptToWeaponModel(data:any) {
 
     return {
             name: data.Name, 
-            id: 1, 
+            id: 1, // Default value for id, change it if need be
             skillLevel: skill_level, 
             element: data.Element,
             weptype: data.WeaponType,
             description: data.Description,
             ougi_name: data.OugiName,
             ougi_desc: data.OugiDesc,
-            skills: data.Skills ? adaptToCalculatorModel(data.Skills, skill_level) : []
+            skills: data.Skills ? adaptToSkillModel(data.Skills, skill_level) : []
     }
 }
 
-function adaptToCalculatorModel(skills:any[], level:number) {
+function adaptToSkillModel(skills:any[], level:number) {
     return skills.map((skill:any) => {
         let strengthDict : {[key: string]: number} = {}
 
+        // Grab the strongest level of skill
         let skill_strength = skill.SkillLvlTen
         switch (level) {
             case 15:

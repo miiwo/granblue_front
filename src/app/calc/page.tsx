@@ -52,7 +52,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
 
                     <div className="col-span-2 bg-nordtwo rounded shadow-md px-3 py-3 mb-5 flex flex-col gap-3">
                         <h3 className="font-bold">Calculator Assumptions</h3>
-                        <p><i>Current skill levels are assumed to be at 10 for the time being until they get implemented.</i></p>
+                        <p><i>Current skill levels are assumed to be at the max level of their max weapon level.</i></p>
                         <p><i>Backend data is not fully there, so there will be weapons with missing skills for the time being until they get implemented.</i></p>
                         <p><i>Summons are currently to be assumed to be the same element as MC in case of calculations until implementation happens.</i></p>
                     </div>
