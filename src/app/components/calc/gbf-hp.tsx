@@ -28,18 +28,24 @@ export function GBFSlider ({initialVal, children}: NumberSliderProps) {
 
 export function GBFMCElement () {
     const gbfContext = useContext(GBFWeaponGridContext)
+    const [elementSelect, setElementSelect] = useState(gbfContext.mcElement?.current)
 
     return (
         <React.Fragment>
             <span>MC Element: </span>
-        <select className="h-10 text-nordzero rounded px-2" value={gbfContext.mcElement?.current} onChange={e => { if (gbfContext.mcElement) gbfContext.mcElement.current = e.target.value }}>
-            <option value='Fire'>Fire</option>
-            <option value='Water'>Water</option>
-            <option value='Earth'>Earth</option>
-            <option value='Wind'>Wind</option>
-            <option value='Light'>Light</option>
-            <option value='Dark'>Dark</option>
-        </select>
+            <select className="h-10 text-nordzero rounded px-2 text-center" value={elementSelect} 
+                onChange={e => { 
+                    if (gbfContext.mcElement) {
+                        setElementSelect(e.target.value); 
+                        gbfContext.mcElement.current = e.target.value 
+                }}}>
+                <option value='Fire'>Fire</option>
+                <option value='Water'>Water</option>
+                <option value='Earth'>Earth</option>
+                <option value='Wind'>Wind</option>
+                <option value='Light'>Light</option>
+                <option value='Dark'>Dark</option>
+            </select>
         </React.Fragment>
         
     )

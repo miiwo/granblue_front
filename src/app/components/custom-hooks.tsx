@@ -28,7 +28,7 @@ export function useWeaponListData() {
                 description: data.Description,
                 ouginame: data.OugiName,
                 ougidescription: data.OugiDesc,
-                skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
+                skills: data.Skills ? adaptToCalculatorModel(data.Skills, 10) : []
             }
         })
         setData(processing)
@@ -47,7 +47,7 @@ export function useWeaponListData() {
                     description: data.Description,
                     ouginame: data.OugiName,
                     ougidescription: data.OugiDesc,
-                    skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
+                    skills: data.Skills ? adaptToCalculatorModel(data.Skills, 10) : []
                 }
             })
             setData(temp_two)
@@ -82,44 +82,6 @@ export function useWeaponData(id: string, setWeapon: any) {
     }, [id])
 }
 
-function adaptToWeaponModel(data:any) {
-    return {
-            name: data.Name, 
-            id: 1, 
-            skillLevel: 10, 
-            element: data.Element,
-            weptype: data.WeaponType,
-            description: data.Description,
-            ougi_name: data.OugiName,
-            ougi_desc: data.OugiDesc,
-            skills: data.Skills ? adaptToCalculatorModel(data.Skills) : []
-    }
-}
-
-function adaptToCalculatorModel(skills:any[]) {
-    return skills.map((skill:any) => {
-        let strengthDict : {[key: string]: number} = {}
-
-        if (skill.StatAffected.includes('/')) {
-            const backendStatList = skill.StatAffected.split('/')
-            const backendStrengthList = skill.SkillLvlTen.split('/')
-            for (let stat_index in backendStatList) {
-                strengthDict[backendStatList[stat_index].toLowerCase()] = parseFloat(backendStrengthList[stat_index])
-            }
-        } else {
-            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill.SkillLvlTen)
-        }
-
-        return {
-            name: skill.Name,
-            description: skill.Description,
-            strength: strengthDict,
-            type: skill.BoostType.toLowerCase(),
-            stat: skill.StatAffected.toLowerCase(),
-        }
-    })
-}
-
 export function useSummonData() {
     const [data, setData] = useState<any[]>([])
 
@@ -133,3 +95,61 @@ export function useSummonData() {
 
     return data
 }
+
+function adaptToWeaponModel(data:any) {
+    let skill_level = 10
+    if (data.LvlOnefiftyAtk != '') {
+        skill_level = 15
+    } else if (data.LvlTwoHundredAtk != '') {
+        skill_level = 20
+    }
+
+    return {
+            name: data.Name, 
+            id: 1, 
+            skillLevel: skill_level, 
+            element: data.Element,
+            weptype: data.WeaponType,
+            description: data.Description,
+            ougi_name: data.OugiName,
+            ougi_desc: data.OugiDesc,
+            skills: data.Skills ? adaptToCalculatorModel(data.Skills, skill_level) : []
+    }
+}
+
+function adaptToCalculatorModel(skills:any[], level:number) {
+    return skills.map((skill:any) => {
+        let strengthDict : {[key: string]: number} = {}
+
+        let skill_strength = skill.SkillLvlTen
+        switch (level) {
+            case 15:
+                skill_strength = skill.SkillLvlFifteen
+                break
+            case 20:
+                skill_strength = skill.SkillLvlTwenty
+                break
+            default:
+                break
+        }
+
+        if (skill.StatAffected.includes('/')) {
+            const backendStatList = skill.StatAffected.split('/')
+            const backendStrengthList = skill_strength.split('/')
+            for (let stat_index in backendStatList) {
+                strengthDict[backendStatList[stat_index].toLowerCase()] = parseFloat(backendStrengthList[stat_index])
+            }
+        } else {
+            strengthDict[skill.StatAffected.toLowerCase()] = parseFloat(skill_strength)
+        }
+
+        return {
+            name: skill.Name,
+            description: skill.Description,
+            strength: strengthDict,
+            type: skill.BoostType.toLowerCase(),
+            stat: skill.StatAffected.toLowerCase(),
+        }
+    })
+}
+
