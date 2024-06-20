@@ -345,6 +345,9 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     let m_crit = 0
     let o_crit = 0
 
+    let m_exalto = 0
+    let o_exalto = 0
+
     let bahamut_mod = 0
     let ultima_mod = 0
 
@@ -352,6 +355,8 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     let go_aura = 0
     let norm_atk_debuffs = 0
     let ancestral_mod = 0
+    let o_awakening = 0
+    let e_awakening = 0
 
     // Summon things
     let magna_summon = 1 
@@ -395,6 +400,7 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
                     if (name?.includes('Ultima')) {
                         // TODO DO THIS PROPERLY
                         // ultima_mod = 0
+                        // only on main skill. If key, then it is normal
                     } else {
                         ex_atk += skill.strength['atk']/100
                     }
@@ -417,7 +423,6 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
             }
 
         }
-
 
         if (skill.stat.includes('ta') && !skill.stat.includes('stam')) {
             switch (skill.type) {
@@ -477,6 +482,36 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
                     break
             }
         }
+
+        if (skill.stat.includes('exalto')) {
+            switch (skill.type) {
+                case 'magna':
+                    m_exalto += skill.strength['exalto']
+                    break
+                case 'normal':
+                    o_exalto += skill.strength['exalto']
+                    break
+                default:
+                    break
+            }
+        }
+    }
+
+    // TODO: Flesh this out more
+    const awakeningCalculate = (awakening:any) => {
+        if (awakening == null) {
+            return
+        }
+        if (awakening['atk']) {
+            switch (awakening['atk'].type) {
+                case 'ex main':
+                    break
+                case 'normal':
+                    break
+                default:
+                    break
+            }
+        }
     }
 
     // Sum up all the grid mods
@@ -491,21 +526,26 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
             // Skill 1
             if (wep.skills[0]) {
                 skillCalculate(wep.skills[0], wep.name, wep.skillLevel)
+                awakeningCalculate(null)
             }
             // Skill 2
             if (wep.skills[1]) {
                 skillCalculate(wep.skills[1], wep.name, wep.skillLevel)
-                
+                awakeningCalculate(null)
             }
 
             // Skill 3
             if (wep.skills[2]) {
                 skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
+                awakeningCalculate(null)
             }
         } 
     }
 
     
+    // Do exalto shit
+    magna_summon += m_exalto > 100 ? 1 : m_exalto/100
+    normal_summon += o_exalto > 90 ? 0.9 : o_exalto/100
 
     // Apply mod boosters
     magna_atk = magna_atk * magna_summon
@@ -521,10 +561,9 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     m_crit = m_crit*magna_summon
     o_crit = o_crit*normal_summon
 
-    // Misc random things
-    normal_atk += bahamut_mod + ancestral_mod + norm_atk_buffs + go_aura - norm_atk_debuffs
-    ex_atk += ultima_mod // only on main skill. If key, then it is normal
-    // In case of 6D wep in grid
+    // Misc flat additions (Ultima, Baha, Awakening, etc.)
+    normal_atk += o_awakening + bahamut_mod + ancestral_mod + norm_atk_buffs + go_aura - norm_atk_debuffs
+    ex_atk += e_awakening + ultima_mod 
 
     return {
         total: roundTo((((1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk))-1)*100, 2),
