@@ -340,8 +340,10 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     let magna_enm_atk = 0
     let normal_enm_atk = 0
 
-    let ta_rate = 0
-    let crit = 0
+    let m_ta_rate = 0
+    let o_ta_rate = 0
+    let m_crit = 0
+    let o_crit = 0
 
     let bahamut_mod = 0
     let ultima_mod = 0
@@ -405,10 +407,10 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
         if (skill.stat.includes('crit')) {
             switch (skill.type) {
                 case 'magna':
-                    crit += skill.strength['crit']/100*magna_summon
+                    m_crit += skill.strength['crit']/100
                     break
                 case 'optimus':
-                    crit += skill.strength['crit']/100*normal_summon
+                    o_crit += skill.strength['crit']/100
                     break
                 default:
                     break
@@ -420,10 +422,10 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
         if (skill.stat.includes('ta') && !skill.stat.includes('stam')) {
             switch (skill.type) {
                 case 'magna':
-                    ta_rate += skill.strength['ta']/100*magna_summon
+                    m_ta_rate += skill.strength['ta']/100
                     break
                 case 'optimus':
-                    ta_rate += skill.strength['ta']/100*normal_summon
+                    o_ta_rate += skill.strength['ta']/100
                 default:
                     break
             }
@@ -513,6 +515,12 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     normal_stam_atk = normal_stam_atk * normal_summon
     normal_enm_atk = normal_enm_atk * normal_summon
 
+    m_ta_rate = m_ta_rate*magna_summon
+    o_ta_rate = o_ta_rate*normal_summon
+
+    m_crit = m_crit*magna_summon
+    o_crit = o_crit*normal_summon
+
     // Misc random things
     normal_atk += bahamut_mod + ancestral_mod + norm_atk_buffs + go_aura - norm_atk_debuffs
     ex_atk += ultima_mod // only on main skill. If key, then it is normal
@@ -527,8 +535,8 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
         normal_stam: roundTo(normal_stam_atk*100, 2),
         magna_enm: roundTo(magna_enm_atk, 2),
         normal_enm: roundTo(normal_enm_atk, 2),
-        ta: roundTo(ta_rate*100, 2),
-        crit: roundTo(crit*100, 2),
+        ta: roundTo((m_ta_rate + o_ta_rate)*100, 2),
+        crit: roundTo((m_crit + o_crit)*100, 2),
     }
 }
 
