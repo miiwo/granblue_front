@@ -198,7 +198,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                     mulx: 'x',
                   },
                   'Elemental': {
-                      num: 0,
+                      num: roundTo((_dmgMods.elemental-1)*100, 2),
                       mulx: '',
                   }
             })
@@ -250,7 +250,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                     mulx: 'x',
                   },
                   'Elemental': {
-                      num: 0,
+                      num: roundTo((_dmgMods.elemental-1)*100, 2),
                       mulx: '',
                   }
             })
@@ -274,7 +274,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                                             Object.keys(summonGrid).map<Summon|undefined>(key => summonGrid[key]), 
                                             hp.current)
 
-        // roundTo((((1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk))-1)*100, 2)                                      
+        console.log(_dmgMods)                                  
         setDmgFormulaMods({
             'Total': {
                 num: _dmgMods.total,
@@ -289,11 +289,11 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                 mulx: 'x',
                 },
                 'EX': {
-                num: _dmgMods.ex,
+                num: roundTo(_dmgMods.ex, 2),
                 mulx: 'x',
                 },
                 'Elemental': {
-                    num: 0,
+                    num: roundTo((_dmgMods.elemental-1)*100, 2),
                     mulx: '',
                 }
         })
@@ -361,6 +361,7 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     // Summon things
     let magna_summon = 1 
     let normal_summon = 1
+    let ele_summon = 1
 
     const summonCalculate = (summon: Summon) => {
         if (summon.type === 'Magna') {
@@ -498,8 +499,16 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     }
 
     // TODO: Flesh this out more
-    const awakeningCalculate = (awakening:any) => {
-        if (awakening == null) {
+    const awakeningCalculate = (weapon: Weapon) => {
+        if (weapon.name?.includes('Forbidden Agastia')) {
+            o_awakening += 0.35 // Hard coding for the time being to check on things
+            if (weapon.name?.includes('Mk II')) {
+                e_awakening += .1
+                ele_summon += .15
+            }
+        }
+        
+        /*if (awakening == null) {
             return
         }
         if (awakening['atk']) {
@@ -511,7 +520,7 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
                 default:
                     break
             }
-        }
+        }*/
     }
 
     // Sum up all the grid mods
@@ -526,19 +535,19 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
             // Skill 1
             if (wep.skills[0]) {
                 skillCalculate(wep.skills[0], wep.name, wep.skillLevel)
-                awakeningCalculate(null)
             }
             // Skill 2
             if (wep.skills[1]) {
                 skillCalculate(wep.skills[1], wep.name, wep.skillLevel)
-                awakeningCalculate(null)
             }
 
             // Skill 3
             if (wep.skills[2]) {
                 skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
-                awakeningCalculate(null)
             }
+
+            // Awakening
+            awakeningCalculate(wep)
         } 
     }
 
@@ -566,7 +575,7 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     ex_atk += e_awakening + ultima_mod 
 
     return {
-        total: roundTo((((1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk))-1)*100, 2),
+        total: roundTo((((ele_summon) * (1 + magna_atk) * (1 + normal_atk) * (1 + ex_atk) * (1 + normal_stam_atk) * (1 + normal_enm_atk) * (1 + magna_stam_atk) * (1 + magna_enm_atk))-1)*100, 2),
         magna: roundTo(magna_atk*100, 2),
         normal: roundTo(normal_atk*100, 2),
         ex: roundTo(ex_atk*100, 2),
@@ -576,6 +585,7 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
         normal_enm: roundTo(normal_enm_atk, 2),
         ta: roundTo((m_ta_rate + o_ta_rate)*100, 2),
         crit: roundTo((m_crit + o_crit)*100, 2),
+        elemental: roundTo(ele_summon, 2),
     }
 }
 

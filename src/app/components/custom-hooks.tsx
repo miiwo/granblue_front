@@ -106,9 +106,10 @@ export function useSummonData() {
 
 function adaptToWeaponModel(data:any) : Weapon {
     let skill_level = 10
-    if (data.LvlTwoHundredAtk != '') {
+    console.log(data.LvlTwoHundredAtk)
+    if (data.LvlTwoHundredAtk != undefined) {
         skill_level = 20
-    } else if (data.LvlOnefiftyAtk != '') {
+    } else if (data.LvlOnefiftyAtk != undefined) {
         skill_level = 15
     }
 
@@ -140,6 +141,11 @@ function adaptToSkillModel(skills:any[], level:number) {
                 break
             default:
                 break
+        }
+
+        // In case my backend is lacking. Remove at a later date potentially? Or change the response to it
+        if (skill_strength === undefined) {
+            throw Error(`Missing skill strength for the skill: ${skill.Name} at ${level} in database. Please fix backend.`)
         }
 
         if (skill.StatAffected.includes('/')) {
