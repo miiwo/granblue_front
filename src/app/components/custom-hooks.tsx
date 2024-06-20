@@ -4,12 +4,14 @@ import { Weapon } from "../calc/gbfcalcContext";
 
 // TEMPORARY UNTIL I SET UP A SUMMON ENDPOINT
 const summonList = [
-    {name: 'Zeus', id: 0, type: 'Optimus', strength: 100},
-    {name: 'Zeph', id: 1, type: 'Optimus', strength: 100},
-    {name: 'Bahamut', id: 2, type: 'Elemental', strength: 150},
-    {name: 'Lumi 100', id: 3, type: 'Magna', strength: 100},
-    {name: 'Lumi 140', id: 5, type: 'Magna', strength: 140},
-    {name: 'Lumi 150', id: 4, type: 'Magna', strength: 150},
+    {name: 'Optimus 150', id: 0, type: 'Optimus', strength: 150},
+    {name: 'Optimus 160', id: 1, type: 'Optimus', strength: 160},
+    {name: 'Optimus 170', id: 2, type: 'Optimus', strength: 170},
+    {name: 'Elemental 150', id: 3, type: 'Elemental', strength: 150},
+    {name: 'Magna 140', id: 4, type: 'Magna', strength: 140},
+    {name: 'Magna 150', id: 5, type: 'Magna', strength: 150},
+    {name: 'Magna 150', id: 6, type: 'Magna', strength: 160},
+    {name: 'Magna 170', id: 7, type: 'Magna', strength: 170},
 ]
 
 // CUSTOM HOOK
