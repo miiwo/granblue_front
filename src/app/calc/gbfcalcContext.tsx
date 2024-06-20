@@ -559,10 +559,15 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     // Apply mod boosters
     magna_atk = magna_atk * magna_summon
     magna_stam_atk = magna_stam_atk * magna_summon
-    magna_enm_atk = magna_enm_atk * magna_summon
     normal_atk = normal_atk * normal_summon
     normal_stam_atk = normal_stam_atk * normal_summon
-    normal_enm_atk = normal_enm_atk * normal_summon
+
+    // CAPPED WEAPON SKILLS
+    magna_enm_atk = (magna_enm_atk > 8 ? 8 : magna_enm_atk) * magna_summon
+    normal_enm_atk = (normal_enm_atk > 8 ? 8 : normal_enm_atk) * normal_summon
+    // Until I can determine element attack coming from grid
+    ele_summon = ele_summon > 1.4 ? 1.4 : ele_summon
+    //CRIT and TA are capped, but since they are not part of the damage formula, I will show them past their cap
 
     m_ta_rate = m_ta_rate*magna_summon
     o_ta_rate = o_ta_rate*normal_summon
