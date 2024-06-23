@@ -23,7 +23,7 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                 <div className="pl-6 grid grid-cols-2 gap-x-4 me-6">
                     <div className="col-span-2 md:col-span-1 mt-6 mb-5 bg-nordtwo rounded shadow-md px-5 py-5">
                         <h2 className="font-bold text-xl mb-6">Weapon Grid</h2>
-                        <div className="2xl:mx-[300px]"><WeaponGrid /></div>
+                        <div className="2xl:mx-[10vw]"><WeaponGrid /></div>
                         
                     </div>
 

@@ -106,7 +106,6 @@ export function useSummonData() {
 
 function adaptToWeaponModel(data:any) : Weapon {
     let skill_level = 10
-    console.log(data.LvlTwoHundredAtk)
     if (data.LvlTwoHundredAtk != undefined) {
         skill_level = 20
     } else if (data.LvlOnefiftyAtk != undefined) {

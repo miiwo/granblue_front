@@ -442,7 +442,6 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
                 case 'magna':
                     if (hp >= 25) {
                         if (skill_level <= 15) {
-                            console.log(hp)
                             magna_stam_atk += ((hp / (skill.strength['stam'] - skill_level))**2.9 + 2.1)/100
                         } else { // skill lvl 16 - 20
                             magna_stam_atk += ((hp / (skill.strength['stam'] - (15 + (0.4 * (skill_level-15)))))**2.9 + 2.1)/100

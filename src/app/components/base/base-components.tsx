@@ -54,7 +54,7 @@ export function Modal({title, children}: ModalMeta) {
 
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
-      <div className="p-8 border w-1/2 shadow-lg rounded-md bg-nordwhite h-2/4">
+      <div className="p-8 border md:w-1/2 shadow-lg rounded-md bg-nordwhite 2xl:h-[56vh]">
         <div className="text-center relative">
           <h3 className="text-2xl font-bold text-nordzero">{title ? title : 'Modal Title'}</h3>
           <div className="mt-2 px-7 py-3 text-start">
@@ -65,7 +65,7 @@ export function Modal({title, children}: ModalMeta) {
             {/* Using useRouter to dismiss modal*/}
             <button
               onClick={router.back}
-              className="px-3 py-1 bg-nordoceanblue text-white text-base font-medium rounded-md shadow-sm ease-out duration-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 absolute top-0 right-0"
+              className="px-3 py-1 bg-nordoceanblue text-white text-base font-medium rounded-md shadow-sm ease-out duration-200 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 absolute top-0 right-10 md:right-0"
             >
               X
             </button>

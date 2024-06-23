@@ -31,7 +31,7 @@ export function GBFWepGridModal() {
   return (
       <Modal title="GBF Weapons">
           <Search onClick={onClick} placeholderText="Search weapons..." query={query} setQuery={setQuery} />
-          <div className="flex flex-col w-full mt-5 text-black">
+          <div className="flex flex-col w-[100vw] 2xl:h-[40vh] overflow-y-auto mt-5 text-black pl-4 md:pl-0">
           {weaponList.map( item => {
             return (
                 <Tile key={item.name} customStyle="text-left ease-out duration-300 hover:bg-nordblue" onClick={() => {gbfContext.setWeaponToTile(item); router.back()}}>
