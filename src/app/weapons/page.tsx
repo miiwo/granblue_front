@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { Search } from '../components/base/base-components'
 import { useWeaponListData } from '../components/custom-hooks'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 

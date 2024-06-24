@@ -47,11 +47,10 @@ export function useWeaponListData() {
 
 export function useWeaponData(id: string) {
     const [data, setData] = useState<Weapon | null>(null)
-    const [query, setQuery] = useState<string>(id)
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetchWeapons(`/${query}`)
+            const response = await fetchWeapons(`/${id}`)
             const weaponResult = adaptToWeaponModel(response)
             setData(weaponResult)
         }
@@ -61,7 +60,7 @@ export function useWeaponData(id: string) {
             console.log("There was an error :(")
         })
         
-    }, [query])
+    }, [id])
 
     return data
 }

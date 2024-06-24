@@ -1,19 +1,12 @@
 'use client'
 
-import { Weapon } from "@/app/calc/gbfcalcContext"
 import { Search } from "@/app/components/base/base-components"
 import { useWeaponData, useWeaponListData } from "@/app/components/custom-hooks"
 import Image from 'next/image'
-import { useState } from "react"
 
 export default function Page({ params }: { params: { slug: string} }) {
     const weapon = useWeaponData(params.slug)
     const [weaponSearchList, query, setQuery] = useWeaponListData()
-    
-    const searchOtherWeapons = () => {
-        // Retrieve information for the one weapon
-        //setWeapon()
-    }
 
     // Set some sort of loading state
     if (!weapon) {
@@ -24,7 +17,7 @@ export default function Page({ params }: { params: { slug: string} }) {
 
     return (
         <div className="mx-6">
-            <Search onClick={searchOtherWeapons} query={query} setQuery={setQuery} />
+            <Search query={query} setQuery={setQuery} />
             <div className="z-20">
                 Suggestions dropdown list appears here.
                 {weaponSearchList.map((item, i) => {

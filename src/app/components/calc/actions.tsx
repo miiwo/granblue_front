@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation"
 
-// Anything in this file will return as a promise
+// Anything in this file should return as a promise
 
 export async function openWeaponModal(basepath: string | undefined) {
     const clickPath = basepath ? basepath+'?wepmodal=true' : '?wepmodal=true'
