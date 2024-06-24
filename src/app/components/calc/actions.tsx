@@ -15,16 +15,31 @@ export async function openSummonModal(basepath: string | undefined) {
 }
 
 export async function fetchWeapons(searchQuery: string) {
+    const cancelObj = new AbortController()
+    const signal = cancelObj.signal
+    let weaponList:any = []
+
     const res = await fetch(`${process.env.GBF_API_HOST}/v1/weapons${searchQuery}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${process.env.GBF_API_KEY}`
         },
+        signal
+    }).then(res => {
+        if (!res.ok) {
+            throw new Error('Failed to fetch data for weapons')
+        }
+        weaponList = res.json()
+    }).catch(error => {
+        if (error.name === 'AbortError') {
+            // Handle cancellations
+        } else {
+            // Handle other errors
+        }
+    }).finally(() => {
+
     })
 
-    if (!res.ok) {
-        throw new Error('Failed to fetch data for weapons')
-    }
-    const weaponList = await res.json()
+    
     return weaponList
 }

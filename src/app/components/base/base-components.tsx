@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
@@ -87,16 +87,27 @@ export function DefaultSearchModal() {
 
 export function Search ({onClick, placeholderText, query, setQuery}: SearchProps) {
   // TODO: Need to define the type of query in the SearchProps for clarity
-  const onChange = (e:any) => {
-    if (query && setQuery) {
-      let _query = {...query, query: e.target.value || ""}
-      setQuery(_query)
-    }
+  const [personalSearch, setPersonalSearch] = useState<string>('')
+
+  const debounceSearch = (e:any) => {
+    setPersonalSearch(e.target.value)
   }
+
+  useEffect(() => {
+    // If the query is still being crafted, don't set it just yet
+    const debounceTimer = setTimeout(() => {
+      if (query && setQuery) {
+        let _query = {...query, query: personalSearch || ""}
+        setQuery(_query)
+      }
+    }, 1000)
+
+    return () => clearTimeout(debounceTimer)
+  }, [personalSearch])
 
   return (
     <div className="flex bg-nordoceanblue rounded">
-        <input type='search' value={query.query} placeholder={placeholderText} className="grow pl-1 rounded text-black h-[27px]" onChange={onChange} autoFocus />
+        <input type='search' value={personalSearch} onChange={debounceSearch} placeholder={placeholderText} className="grow pl-1 rounded text-black h-[27px]"  autoFocus />
         <button className="px-3 text-white" onClick={onClick}><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</button>
     </div>
   )

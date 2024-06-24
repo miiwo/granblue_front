@@ -33,17 +33,12 @@ export function useWeaponListData() {
             setData(weaponListResult)
         }
 
-        // If the query is still being crafted, don't call the API yet
-        let timer = setTimeout(() => {
-            if (query.query) {
-                fetchData().catch((error:any) => {
-                    // DO SOMETHING ON ERROR
-                    console.log("There was an error :(")
-                })
-            }
-        }, 1000)
-
-       return () => clearTimeout(timer)
+        if (query.query) {
+            fetchData().catch((error:any) => {
+                // DO SOMETHING ON ERROR
+                console.log("There was an error :(")
+            })
+        }
         
     }, [query])
 
@@ -55,16 +50,13 @@ export function useWeaponData(id: string) {
     const [query, setQuery] = useState<string>(id)
 
     useEffect(() => {
-        const fetchData = async (value:string) => {
+        const fetchData = async () => {
             const response = await fetchWeapons(`/${query}`)
             const weaponResult = adaptToWeaponModel(response)
             setData(weaponResult)
-            //const rawData = await fetchWeapons(`/${value}`)
-            //const weaponResult = adaptToWeaponModel(rawData)
-            //setWeapon(weaponResult)
         }
 
-        fetchData('a').catch((error:any) => {
+        fetchData().catch((error:any) => {
             // DO SOMETHING ON ERROR. ERROR IM LOOKING FOR IS NETWORK
             console.log("There was an error :(")
         })
