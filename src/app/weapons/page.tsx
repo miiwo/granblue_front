@@ -8,36 +8,14 @@ import Link from 'next/link'
 
 
 export default function WeaponPage() {
-    const [weaponList, refetchData] = useWeaponListData()
-    const [query, setQuery] = useState('')
-    const [searchBy, setSearchBy] = useState('name')
-
-    const onClick = () => {
-        switch (searchBy) {
-            case 'name':
-                refetchData(searchBy, query)
-                break
-            default:
-                break
-        }
-    }
-
-    useEffect(() => {
-        let timer = setTimeout(() => {
-            if (query) {
-                refetchData(searchBy, query)
-            }
-        }, 1000)
-
-        return () => clearTimeout(timer)
-    }, [query])
+    const [weaponList, query, setQuery] = useWeaponListData()
 
     return (
         <div>
             <div className="flex flex-col gap-3 bg-nordtwo shadow-md pb-4 pt-1 2xl:items-center">
                 <h1 className="font-bold text-2xl underline underline-offset-4 mb-3 pt-3 text-center">Weapons</h1>
                 <div className="bg-nordtwo rounded mx-3 py-5 px-3 2xl:w-2/4">
-                    <Search onClick={onClick} placeholderText='Search weapons...' query={query} setQuery={setQuery} />
+                    <Search placeholderText='Search weapons...' query={query} setQuery={setQuery} />
                 </div>
 
                 <div className="flex flex-row items-center 2xl:w-2/4">

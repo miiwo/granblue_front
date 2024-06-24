@@ -25,10 +25,10 @@ interface ModalMeta {
 }
 
 export interface SearchProps {
-  query?: string
+  query?: any
   placeholderText?: string
   onClick?: () => void
-  setQuery?: (q:string) => void
+  setQuery?: (q:any) => void
 }
 
 
@@ -86,10 +86,17 @@ export function DefaultSearchModal() {
 }
 
 export function Search ({onClick, placeholderText, query, setQuery}: SearchProps) {
+  // TODO: Need to define the type of query in the SearchProps for clarity
+  const onChange = (e:any) => {
+    if (query && setQuery) {
+      let _query = {...query, query: e.target.value || ""}
+      setQuery(_query)
+    }
+  }
 
   return (
     <div className="flex bg-nordoceanblue rounded">
-        <input type='search' value={query} placeholder={placeholderText} className="grow pl-1 rounded text-black h-[27px]" onChange={(e) => {setQuery ? setQuery(e.target.value) : () => {}}} autoFocus />
+        <input type='search' value={query.query} placeholder={placeholderText} className="grow pl-1 rounded text-black h-[27px]" onChange={onChange} autoFocus />
         <button className="px-3 text-white" onClick={onClick}><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</button>
     </div>
   )

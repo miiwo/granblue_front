@@ -11,27 +11,12 @@ import { useSummonData, useWeaponListData } from "../custom-hooks"
 export function GBFWepGridModal() {  
   const gbfContext = useContext(GBFWeaponGridContext)
   const router = useRouter()
-  const [weaponList, refetchData] = useWeaponListData()
-  const [query, setQuery] = useState('') // Consider putting this into a context?
-
-  const onClick = () => {
-    refetchData('name', query)
-  }
-
-  useEffect(() => {
-    let timer = setTimeout(() => {
-        if (query) {
-            refetchData('name', query)
-        }
-    }, 1000)
-
-    return () => clearTimeout(timer)
-  }, [query])
+  const [weaponList, query, setQuery] = useWeaponListData()
 
   return (
       <Modal title="GBF Weapons">
-          <Search onClick={onClick} placeholderText="Search weapons..." query={query} setQuery={setQuery} />
-          <div className="flex flex-col w-[100vw] 2xl:h-[40vh] overflow-y-auto mt-5 text-black pl-4 md:pl-0">
+          <Search placeholderText="Search weapons..." query={query} setQuery={setQuery} />
+          <div className="flex flex-col w-[90vw] lg:w-[45vw] 2xl:h-[40vh] overflow-y-auto mt-5 text-black pl-4 md:pl-0">
           {weaponList.map( item => {
             return (
                 <Tile key={item.name} customStyle="text-left ease-out duration-300 hover:bg-nordblue" onClick={() => {gbfContext.setWeaponToTile(item); router.back()}}>

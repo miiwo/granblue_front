@@ -17,59 +17,36 @@ const summonList = [
 // CUSTOM HOOK
 export function useWeaponListData() {
     const [data, setData] = useState<any[]>([])
-
-    const refetchData = async (searchby:string, value:string) => {
-        const res = await fetchWeapons(value == '' ? '' : `?${searchby}=${value}`)
-        const processing = res.map((data:any, i:number) => {
-            let weapon = adaptToWeaponModel(data)
-            weapon.id = i
-            return weapon
-            /*return {
-                name: data.Name, 
-                id: i, 
-                skillLevel: 10, 
-                element: data.Element,
-                weptype: data.WeaponType,
-                description: data.Description,
-                ouginame: data.OugiName,
-                ougidescription: data.OugiDesc,
-                skills: data.Skills ? adaptToCalculatorModel(data.Skills, 10) : []
-            }*/
-        })
-        setData(processing)
-    }
+    const [query, setQuery] = useState<{ [key: string]: string}>({
+        query: "",
+        searchby: "name"
+    })
 
     useEffect(() => {
         const fetchData = async () => {
-            const temp = await fetchWeapons('')
-            const temp_two = temp.map((data:any, i:number) => {
+            const response = await fetchWeapons(`?${query.searchby}=${query.query}`)
+            const weaponListResult = response.map((data:any, i:number) => {
                 let weapon = adaptToWeaponModel(data)
                 weapon.id = i
                 return weapon
-                /*return {
-                    name: data.Name, 
-                    id: i, 
-                    skillLevel: 10, 
-                    element: data.Element,
-                    weptype: data.WeaponType,
-                    description: data.Description,
-                    ouginame: data.OugiName,
-                    ougidescription: data.OugiDesc,
-                    skills: data.Skills ? adaptToSkillModel(data.Skills, 10) : []
-                }*/
             })
-            setData(temp_two)
+            setData(weaponListResult)
         }
 
-        try {
-            fetchData()
-        } catch(err) {
-            // DO SOMETHING ON ERROR. ERROR IM LOOKING FOR IS NETWORK ERROR
-        }
+        let timer = setTimeout(() => {
+            if (query.query) {
+                fetchData().catch((error:any) => {
+                    // DO SOMETHING ON ERROR
+                    console.log("There was an error :(")
+                })
+            }
+        }, 1000)
+
+       return () => clearTimeout(timer)
         
-    }, [])
+    }, [query])
 
-    return [data, refetchData] as const
+    return [data, query, setQuery] as const
 }
 
 export function useWeaponData(id: string, setWeapon: any) {
@@ -167,3 +144,34 @@ function adaptToSkillModel(skills:any[], level:number) {
     })
 }
 
+function useDataTemplate(url: string) {
+    const [query, setQuery] = useState<{ [key: string]: string}>({
+        query: "blah"
+    })
+    const [data, setData] = useState<any[]>([])
+    const [loading, setLoading] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
+    // const [token, setToken] = useState<CancelTokenSource>(undefined)
+
+    useEffect(() => {
+        //const dataURL = url
+        async function fetchData() {
+            setError("")
+            setLoading(true)
+            setData([])
+
+            //const response = await fetchWeapons(dataURL)
+            //setData(response)
+            setLoading(false)
+        }
+
+        fetchData().catch((error : any) => {
+            if (error.message) {
+                const msg: string = error.message
+                setError(msg)
+            }
+        })
+    }, [query])
+
+    return [data, query, setQuery, loading, error] as const
+}
