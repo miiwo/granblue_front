@@ -2,30 +2,13 @@
 
 import { Weapon } from "@/app/calc/gbfcalcContext"
 import { Search } from "@/app/components/base/base-components"
-import { useWeaponData } from "@/app/components/custom-hooks"
+import { useWeaponData, useWeaponListData } from "@/app/components/custom-hooks"
 import Image from 'next/image'
 import { useState } from "react"
 
 export default function Page({ params }: { params: { slug: string} }) {
-
-    const weaponSkills = [
-        {name: 'Skill 1', type: 'magna', strength: 20, description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-        {name: 'Skill 2', type: 'magna', strength: 20, description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-        {name: 'Skill 3', type: 'magna', strength: 20, description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'},
-    ]
-
-    /*const [weapon, setWeapon] = useState<Weapon | any | null>({
-        id: 0,
-        name: 'CPR',
-        element: 'Wind',
-        ougi_name: 'Zephium',
-        ougi_desc: 'This is where the ougi description goes. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Commodo quis imperdiet massa tincidunt nunc pulvinar sapien. In fermentum posuere urna nec tincidunt praesent.',
-        skillLevel: 10,
-        skills: weaponSkills
-    })*/
-    const [weapon, setWeapon] = useState<Weapon>()
-    useWeaponData(params.slug, setWeapon)
-
+    const weapon = useWeaponData(params.slug)
+    const [weaponSearchList, query, setQuery] = useWeaponListData()
     
     const searchOtherWeapons = () => {
         // Retrieve information for the one weapon
@@ -41,8 +24,13 @@ export default function Page({ params }: { params: { slug: string} }) {
 
     return (
         <div className="mx-6">
-            <Search onClick={searchOtherWeapons} />
-            <div className="z-20">Suggestions dropdown list appears here.</div>
+            <Search onClick={searchOtherWeapons} query={query} setQuery={setQuery} />
+            <div className="z-20">
+                Suggestions dropdown list appears here.
+                {weaponSearchList.map((item, i) => {
+                    return <p key={i}>{item.name}</p>
+                })}
+                </div>
 
             <div className="grid md:grid-row-6 md:grid-cols-5 mt-12 gap-5">
                 <div className="md:row-span-3 md:col-span-2 place-self-center bg-nordtwo">

@@ -33,6 +33,7 @@ export function useWeaponListData() {
             setData(weaponListResult)
         }
 
+        // If the query is still being crafted, don't call the API yet
         let timer = setTimeout(() => {
             if (query.query) {
                 fetchData().catch((error:any) => {
@@ -49,22 +50,28 @@ export function useWeaponListData() {
     return [data, query, setQuery] as const
 }
 
-export function useWeaponData(id: string, setWeapon: any) {
+export function useWeaponData(id: string) {
+    const [data, setData] = useState<Weapon | null>(null)
+    const [query, setQuery] = useState<string>(id)
 
     useEffect(() => {
         const fetchData = async (value:string) => {
-            const rawData = await fetchWeapons(`/${value}`)
-            const weaponResult = adaptToWeaponModel(rawData)
-            setWeapon(weaponResult)
+            const response = await fetchWeapons(`/${query}`)
+            const weaponResult = adaptToWeaponModel(response)
+            setData(weaponResult)
+            //const rawData = await fetchWeapons(`/${value}`)
+            //const weaponResult = adaptToWeaponModel(rawData)
+            //setWeapon(weaponResult)
         }
 
-        try {
-            fetchData(id)
-        } catch(err) {
+        fetchData('a').catch((error:any) => {
             // DO SOMETHING ON ERROR. ERROR IM LOOKING FOR IS NETWORK
-        }
+            console.log("There was an error :(")
+        })
         
-    }, [id])
+    }, [query])
+
+    return data
 }
 
 export function useSummonData() {
