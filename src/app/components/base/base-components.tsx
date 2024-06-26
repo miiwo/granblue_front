@@ -152,6 +152,16 @@ export function ToggleButton () {
   )
 }
 
+export function LoadingSpinner() {
+  return (
+    <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-e-transparent align-[-0.125em] text-surface motion-reduce:animate-[spin_1.5s_linear_infinite] dark:text-white mx-auto" role="status">
+      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+      Loading...
+      </span>
+    </div>
+  )
+}
+
 /*export function AnimatedRadioGroup({radioName, selectedColor, elementList, classNameList}: {radioName: string, selectedColor: string, elementList: string[], classNameList: string[]}) {
   const elementWidth = 100 / elementList.length
   const animationClassNames = elementList.map((item, i) => {

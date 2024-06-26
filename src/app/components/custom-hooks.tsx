@@ -21,9 +21,11 @@ export function useWeaponListData() {
         query: "",
         searchby: "name"
     })
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true)
             const response = await fetchWeapons(`?${query.searchby}=${query.query}`)
             const weaponListResult = response.map((data:any, i:number) => {
                 let weapon = adaptToWeaponModel(data)
@@ -31,6 +33,7 @@ export function useWeaponListData() {
                 return weapon
             })
             setData(weaponListResult)
+            setIsLoading(false)
         }
 
         if (query.query) {
@@ -42,7 +45,7 @@ export function useWeaponListData() {
         
     }, [query])
 
-    return [data, query, setQuery] as const
+    return [data, isLoading, query, setQuery] as const
 }
 
 export function useWeaponData(id: string) {

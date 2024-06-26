@@ -1,13 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { Search } from '../components/base/base-components'
+import { LoadingSpinner, Search } from '../components/base/base-components'
 import { useWeaponListData } from '../components/custom-hooks'
 import Link from 'next/link'
 
 
 export default function WeaponPage() {
-    const [weaponList, query, setQuery] = useWeaponListData()
+    const [weaponList, isLoading, query, setQuery] = useWeaponListData()
 
     return (
         <div>
@@ -123,7 +123,8 @@ export default function WeaponPage() {
             </div>
 
             <div className="flex flex-col gap-3 mt-5 mx-3 2xl:items-center">
-                {weaponList.map((wep, i) => {
+                {isLoading && <LoadingSpinner />}
+                {!isLoading && weaponList.map((wep, i) => {
                     return (
                         <Link key={i} href= {`/weapons/${encodeURIComponent(wep.name)}`} className="gap-3 bg-nordtwo hover:bg-nordzero ease-in duration-300 shadow-sm rounded-md pl-3 py-4 2xl:w-2/4">
                             <button className='flex flex-row gap-3 items-center'>
