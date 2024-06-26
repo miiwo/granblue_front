@@ -38,7 +38,7 @@ export function WeaponGridTile({basepath, weapon, weaponlink, customStyle}: GBFT
 
   return (
       <Tile onClick={onClick} customStyle={customStyle}>
-        { weapon ? weapon.name : <Image src={emptyImage} alt="Picture of weapon in grid" />}
+        { weapon ? weapon.name : <Image src={emptyImage} alt="Picture of weapon in grid" sizes="25vw" width={250} height={200} />}
       </Tile>
   )
 }
