@@ -54,7 +54,7 @@ export function SummonTile({basepath, summon, link}:SummonTileProps) {
 
   return (
     <Tile onClick={onClick}>
-      { summon ? <div className='flex w-[250px] h-[150px] items-center justify-center'>{summon.name}</div> : <Image src={tileImage} alt='Weapon Tile' width={250} height={150} />}
+      { summon ? <div className='flex w-[250px] h-[150px] items-center justify-center'>{summon.name}</div> : <Image src={tileImage} alt='Weapon Tile' sizes="25vw" width={250} height={200} />}
     </Tile>
   )
 }

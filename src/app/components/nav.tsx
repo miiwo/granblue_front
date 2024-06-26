@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons"
 import Link from 'next/link'
+import Image from "next/image"
 
 const navItems = {
   '/': {
@@ -59,6 +60,7 @@ export function Navbar() {
           id="nav"
         >
           <Link href="/" className='flex-grow text-2xl pl-5 py-1 pr-2 m-1'>Skyfaring Domain</Link>
+          { /*<Image src="/moon_stars.svg" alt="Dark mode icon" className="dark:invert" width={25} height={12} /> */ }
           
           <div className="flex flex-row space-x-0 md:pr-10">
             {Object.entries(navItems).map(([path, { name }]) => {
