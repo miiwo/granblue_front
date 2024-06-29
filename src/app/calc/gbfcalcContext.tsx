@@ -368,6 +368,8 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
             magna_summon += summon.strength/100
         } else if (summon.type === 'Optimus') {
             normal_summon += summon.strength/100
+        } else if (summon.type === 'Elemental') {
+            ele_summon += summon.strength/100
         }
     }
     // Summon strength must be of 100, 120, 150, etc. Not 1.5 or 1.2
@@ -551,7 +553,7 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     }
 
     
-    // Do exalto shit
+    // Add exalto and cap them if need be
     magna_summon += m_exalto > 100 ? 1 : m_exalto/100
     normal_summon += o_exalto > 90 ? 0.9 : o_exalto/100
 
