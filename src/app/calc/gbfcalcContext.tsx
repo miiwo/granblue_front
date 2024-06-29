@@ -358,6 +358,8 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     let o_awakening = 0
     let e_awakening = 0
 
+    let ele_grid = 0
+
     // Summon things
     let magna_summon = 1 
     let normal_summon = 1
@@ -505,7 +507,7 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
             o_awakening += 0.35 // Hard coding for the time being to check on things
             if (weapon.name?.includes('Mk II')) {
                 e_awakening += .1
-                ele_summon += .15
+                ele_grid += .15
             }
         }
         
@@ -566,8 +568,9 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
     // CAPPED WEAPON SKILLS
     magna_enm_atk = (magna_enm_atk > 8 ? 8 : magna_enm_atk) * magna_summon
     normal_enm_atk = (normal_enm_atk > 8 ? 8 : normal_enm_atk) * normal_summon
-    // Until I can determine element attack coming from grid
-    ele_summon = ele_summon > 1.4 ? 1.4 : ele_summon
+    // ELEMENTAL THINGS
+    ele_grid = ele_grid < 1.4 ? ele_grid : 1.4
+    ele_summon += ele_grid
     //CRIT and TA are capped, but since they are not part of the damage formula, I will show them past their cap
 
     m_ta_rate = m_ta_rate*magna_summon
