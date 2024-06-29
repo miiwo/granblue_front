@@ -10,7 +10,7 @@ const summonList = [
     {name: 'Elemental 150', id: 3, type: 'Elemental', strength: 150},
     {name: 'Magna 140', id: 4, type: 'Magna', strength: 140},
     {name: 'Magna 150', id: 5, type: 'Magna', strength: 150},
-    {name: 'Magna 150', id: 6, type: 'Magna', strength: 160},
+    {name: 'Magna 160', id: 6, type: 'Magna', strength: 160},
     {name: 'Magna 170', id: 7, type: 'Magna', strength: 170},
 ]
 
