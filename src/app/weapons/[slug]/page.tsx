@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 export default function Page({ params }: { params: { slug: string} }) {
     const weapon = useWeaponData(params.slug)
-    const [weaponSearchList, query, setQuery] = useWeaponListData()
+    const [weaponSearchList, isLoading, query, setQuery] = useWeaponListData()
 
     // Set some sort of loading state
     if (!weapon) {
