@@ -46,8 +46,20 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
                     </div>
 
                     <div className="col-span-2 bg-nordtwo rounded shadow-md mt-5 px-5 py-5 mb-5">
-                        <h2 className="font-bold text-xl mb-6">Damage Mods</h2>
+                        <h2 className="font-bold text-xl mb-6">Important Mods</h2>
                         <ActiveModTable />
+                    </div>
+
+                    <div className="col-span-2 bg-nordtwo rounded shadow-md px-3 py-3 mb-5 flex flex-col gap-3">
+                        <h3 className="font-bold">Damage Formula Explanation</h3>
+                        <p>The damage formula depends on: Magna -insert magna symbol here-, Normal -insert optimus symbol here-, and EX mods.
+                            Multiplying the boosts you have between them leads to greater strength! You&apos;ll be surprised when the in-game calculator reports lower power but your experience in raids is different!
+                            Take for example this: -insert example here-
+                            You can get Elemental boosts from summons or Progression / Mk II Revans Awakening weapons.
+                            There are extra items that contribute but are reliant on your HP, they are Stamina and Enmity.
+                            These are the basics of the general damage formula.
+                            There are other nuances such as your team comp which would favor other weapons moreso: skill supplemental, special CA specs, amplify NA, etc. This goes outside the explanations here.
+                        </p>
                     </div>
 
                     <div className="col-span-2 bg-nordtwo rounded shadow-md px-3 py-3 mb-5 flex flex-col gap-3">
