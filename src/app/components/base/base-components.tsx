@@ -107,8 +107,7 @@ export function Search ({onClick, placeholderText, query, setQuery}: SearchProps
 
   return (
     <div className="flex bg-nordoceanblue rounded">
-        <input type='search' value={personalSearch} onChange={debounceSearch} placeholder={placeholderText} className="grow pl-1 rounded text-black h-[27px]"  autoFocus />
-        <button className="px-3 text-white" onClick={onClick}><FontAwesomeIcon icon={faMagnifyingGlass} /> Search</button>
+        <input type='search' value={personalSearch} onChange={debounceSearch} placeholder={placeholderText} className="grow px-3 rounded text-black h-[27px]"  autoFocus />
     </div>
   )
 }
