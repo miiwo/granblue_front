@@ -58,21 +58,3 @@ export function SummonTile({basepath, summon, link}:SummonTileProps) {
     </Tile>
   )
 }
-
-/*export function GBFTile(item: Weapon | Summon) {
-  let display, tileImage = ''
-
-  if ('weaponProperty' in item) {
-    display = item.name
-    tileImage = '/empty_wep_slot.png'
-  } else if ('summonProperty' in item) {
-    display = item.name
-    tileImage = '/empty_summon_slot.png'
-  }
-
-  return (
-    <Tile>
-      { item ? display : <Image src={tileImage} alt='GBF Image Tile' width={150} height={150} />}
-    </Tile>
-  )
-}*/

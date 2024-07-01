@@ -3,18 +3,18 @@
 import { MutableRefObject, createContext, useRef, useState } from 'react'
 
 // TYPES & INTERFACES
-export type Weapon = {
-    name: string | undefined,
-    id: number,
-    skills?: Skills[],
-    series?: string,
-    skillLevel: number,
-    weaponProperty?: string,
-    element: string,
-    weptype: string,
-    description: string,
-    ougi_name: string,
-    ougi_desc: string,
+export interface Weapon {
+    name: string
+    id: number
+    element: string
+    weptype: string
+    series?: string
+    description: string
+    ougi_name: string
+    ougi_desc: string
+    skills?: Skills[]
+    skillLevel: number
+    awakening?: {}
 }
 
 export type Skills = {
@@ -30,10 +30,9 @@ export type Summon = {
     id: number,
     type: string,
     strength: number,
-    summonProperty?: string
 }
 
-export type WeaponGrid = Record<string, Weapon | undefined>
+export type WeaponGrid = Record<string, {weapon: Weapon, config: {}} | undefined>
 export type SummonGrid = Record<string, Summon | undefined>
 export type DMGFormulaPiece = Record<string, {num: number, mulx: string} | undefined>
 
@@ -172,11 +171,11 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
         let _grid: any
         let _sumGrid: any
         if (keyname.current) {
-            _grid = {...grid, [keyname.current]: weapon}
+            _grid = {...grid, [keyname.current]: {weapon: weapon, config: {}}}
             setGrid(_grid)
 
             _sumGrid = summonGrid
-            const _dmgMods = calculateGridMods(Object.keys(_grid).map<Weapon>(key => _grid[key]), 
+            const _dmgMods = calculateGridMods(Object.keys(_grid).map(key => _grid[key]), 
                                                 Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
                                                 hp.current)
             console.log(_grid)
@@ -227,7 +226,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             setSummonGrid(_sumGrid)
 
             _grid = grid
-            const _dmgMods = calculateGridMods(Object.keys(_grid).map<Weapon>(key => _grid[key]), 
+            const _dmgMods = calculateGridMods(Object.keys(_grid).map(key => _grid[key]), 
                                                 Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
                                                 hp.current)
             console.log(_dmgMods)
@@ -270,7 +269,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
     }
 
     const updateDamageCalcs = () => {
-        const _dmgMods = calculateGridMods(Object.keys(grid).map<Weapon|undefined>(key => grid[key]), 
+        const _dmgMods = calculateGridMods(Object.keys(grid).map(key => grid[key]), 
                                             Object.keys(summonGrid).map<Summon|undefined>(key => summonGrid[key]), 
                                             hp.current)
 
@@ -331,7 +330,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
     )
 }
 
-export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList: (Summon|undefined)[], hp: number) => {
+export const calculateGridMods = (weaponList: ({weapon: Weapon, config: {}} | undefined)[], summonList: (Summon|undefined)[], hp: number) => {
     let magna_atk = 0
     let normal_atk = 0
     let ex_atk = 0
@@ -499,10 +498,24 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
                     break
             }
         }
+
+        if (skill.stat.includes('unique')) {
+            if (skill.name.includes('Vivification')) {
+                // Calculate all other magna weapons and apply
+            } else if (skill.name.includes('Voltage')) {
+
+            } else if (skill.name.includes('Splendor')) {
+                // Celestial Weapon
+            }
+        }
     }
 
     // TODO: Flesh this out more
-    const awakeningCalculate = (weapon: Weapon) => {
+    const awakeningCalculate = (wep: any) => {
+        let weapon = wep.weapon
+        let config = wep.config
+
+        
         if (weapon.name?.includes('Forbidden Agastia')) {
             o_awakening += 0.35 // Hard coding for the time being to check on things
             if (weapon.name?.includes('Mk II')) {
@@ -531,22 +544,22 @@ export const calculateGridMods = (weaponList: (Weapon | undefined)[], summonList
         if (wep) {
 
             // Skip if no skills
-            if (!wep.skills) {
+            if (!wep.weapon.skills) {
                 continue
             }
 
             // Skill 1
-            if (wep.skills[0]) {
-                skillCalculate(wep.skills[0], wep.name, wep.skillLevel)
+            if (wep.weapon.skills[0]) {
+                skillCalculate(wep.weapon.skills[0], wep.weapon.name, wep.weapon.skillLevel)
             }
             // Skill 2
-            if (wep.skills[1]) {
-                skillCalculate(wep.skills[1], wep.name, wep.skillLevel)
+            if (wep.weapon.skills[1]) {
+                skillCalculate(wep.weapon.skills[1], wep.weapon.name, wep.weapon.skillLevel)
             }
 
             // Skill 3
-            if (wep.skills[2]) {
-                skillCalculate(wep.skills[2], wep.name, wep.skillLevel)
+            if (wep.weapon.skills[2]) {
+                skillCalculate(wep.weapon.skills[2], wep.weapon.name, wep.weapon.skillLevel)
             }
 
             // Awakening

@@ -6,18 +6,18 @@ import { SummonTile, WeaponGridTile } from "./gbf_tile"
 
 export function WeaponGrid() {
     const { grid } = useContext(GBFWeaponGridContext)
-    let mainhand: Weapon | undefined, rest
+    let mainhand: {weapon: Weapon, config: {}} | undefined, rest
     ({ 'wepOne': mainhand, ...rest} = grid) // Destructuring assignment
     
     
     return (
         <div className="grid grid-rows-3 grid-cols-4 place-items-center">
             <div className="row-span-3 place-self-start">
-                <WeaponGridTile basepath="/calc" weapon={mainhand} weaponlink="wepOne" />
+                <WeaponGridTile basepath="/calc" weapon={mainhand?.weapon} weaponlink="wepOne" />
             </div>
             {Object.keys(rest).map((keyName:string) => {
                 return (
-                    <WeaponGridTile key={keyName} weaponlink={keyName} basepath={"/calc"} weapon={grid[keyName]} />
+                    <WeaponGridTile key={keyName} weaponlink={keyName} basepath={"/calc"} weapon={grid[keyName]?.weapon} />
                 )
             })}
         </div>
