@@ -1,10 +1,11 @@
 'use client'
 
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
+import Link from "next/link"
 
 // INTERFACES / SIGNATURES
 interface TileProps {
@@ -29,6 +30,11 @@ export interface SearchProps {
   placeholderText?: string
   onClick?: () => void
   setQuery?: (q:any) => void
+}
+
+interface NavBarLinkProps {
+  link: string
+  name: string
 }
 
 
@@ -159,6 +165,30 @@ export function LoadingSpinner() {
       </span>
     </div>
   )
+}
+
+export function NavBarLink({link, name}: NavBarLinkProps) {
+  const pathname = usePathname()
+  const isActive = (href:string) => pathname === href
+
+  if (isActive(link)) {
+    return (
+      <Link key={link} href={link}
+        className="transition-all hover:text-neutral-200 dark:hover:text-nordblue text-nordblue flex align-middle relative py-1 px-2 m-1"
+        >
+        {name}
+      </Link>
+    )
+  } else {
+    return (
+      <Link href={link}
+        className="transition-all hover:text-neutral-200 dark:hover:text-nordblue flex align-middle relative py-1 px-2 m-1"
+        >
+        {name}
+      </Link>
+    )
+  }
+  
 }
 
 /*export function AnimatedRadioGroup({radioName, selectedColor, elementList, classNameList}: {radioName: string, selectedColor: string, elementList: string[], classNameList: string[]}) {

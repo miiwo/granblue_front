@@ -2,6 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons"
 import Link from 'next/link'
 import Image from "next/image"
+import { usePathname } from 'next/navigation'
+import { NavBarLink } from './base/base-components'
 
 const navItems = {
   '/': {
@@ -52,6 +54,8 @@ return <div>onClick={() => setDarkMode(!darkMode)}</div>
 const navDirection = navDirectionRight
 
 export function Navbar() {
+  //const isActive = (href:string) => router.pathname === href
+  
   return (
     <aside className="-ml-[8px] mb-16 tracking-tight">
       <div className="lg:sticky lg:top-20 bg-nordzero pb-4">
@@ -65,13 +69,7 @@ export function Navbar() {
           <div className="flex flex-row space-x-0 md:pr-10">
             {Object.entries(navItems).map(([path, { name }]) => {
               return (
-                <Link
-                  key={path}
-                  href={path}
-                  className="transition-all hover:text-neutral-200 dark:hover:text-nordblue flex align-middle relative py-1 px-2 m-1"
-                >
-                  {name}
-                </Link>
+                <NavBarLink key={path} link={path} name={name} />
               )
             })}
           </div>
