@@ -100,7 +100,8 @@ function adaptToWeaponModel(data:any) : Weapon {
             ougi_name: data.OugiName,
             ougi_desc: data.OugiDesc,
             skills: data.Skills ? adaptToSkillModel(data.Skills, skill_level) : [],
-            awakening: {"atk": {"ex atk": 30, "hp": 30, "norm atk": 20}, "def": {"hp": 50}}
+            awakening: {"atk": {"ex atk": 30, "hp": 30, "norm atk": 20}, "def": {"hp": 50}},
+            picture: `data:image/jpg;base64,${data.Image64}`
     }
 }
 

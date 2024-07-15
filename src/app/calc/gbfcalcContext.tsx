@@ -15,6 +15,7 @@ export interface Weapon {
     skills?: Skills[]
     skillLevel: number
     awakening?: {}
+    picture?: any //Base64 string
 }
 
 export type Skills = {
