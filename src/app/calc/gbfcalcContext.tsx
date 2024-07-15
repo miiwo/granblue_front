@@ -171,7 +171,15 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
         let _grid: any
         let _sumGrid: any
         if (keyname.current) {
-            _grid = {...grid, [keyname.current]: {weapon: weapon, config: {}}}
+            // Add dropdown fields for tiles
+            let c : {[key: string]: any } = {
+                skillLevel: 1
+            }
+            if (weapon.awakening) {
+                c['awakeningType'] = 'atk'
+            }
+            
+            _grid = {...grid, [keyname.current]: {weapon: weapon, config: c}}
             setGrid(_grid)
 
             _sumGrid = summonGrid
@@ -524,10 +532,16 @@ export const calculateGridMods = (weaponList: ({weapon: Weapon, config: {}} | un
             }
         }
         
-        /*if (awakening == null) {
-            return
+        if (weapon.awakening) {
+            let selectedAwakening = weapon.awakening['atk']
+            if (selectedAwakening['ex atk']) {
+                e_awakening += selectedAwakening['ex atk']/100
+            }
+            if (selectedAwakening['norm atk']) {
+                o_awakening += selectedAwakening['norm atk']/100
+            }
         }
-        if (awakening['atk']) {
+        /*if (awakening['atk']) {
             switch (awakening['atk'].type) {
                 case 'ex main':
                     break

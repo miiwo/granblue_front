@@ -37,8 +37,9 @@ export function WeaponGridTile({basepath, weapon, weaponlink, customStyle}: GBFT
   }
 
   return (
-      <Tile onClick={onClick} customStyle={customStyle}>
-        { weapon ? weapon.name : <Image src={emptyImage} alt="Picture of weapon in grid" sizes="25vw" width={250} height={200} />}
+      <Tile customStyle={customStyle}>
+        { weapon ? <div onClick={onClick}>{weapon.name}</div> : <Image src={emptyImage} onClick={onClick} alt="Picture of weapon in grid" sizes="25vw" width={250} height={200} />}
+        { weapon && weapon.awakening && <select className='px-10 text-nordzero'><option value="atk">ATK</option><option value="def">DEF</option></select> }
       </Tile>
   )
 }

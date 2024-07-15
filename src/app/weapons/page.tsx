@@ -70,7 +70,7 @@ export default function WeaponPage() {
                     
                 </div>
 
-                <div className="flex flex-row items-center 2xl:w-[60vw] 2xl:pl-[125px] self-center md:w-[89vw]">
+                <div className="flex flex-row items-center 2xl:w-[60vw] 2xl:pl-[125px] 2xl:self-center md:w-[89vw]">
                     <span className='basis-32 text-right pr-5 2xl:pr-4 bg-nordtwo'>Weapon Type:</span>
                     <div className='rounded overflow-x-auto'>
                         <fieldset className='flex relative rounded-lg bg-slate-700 gap-3 w-[1500px] md:w-[1300px] lg:w-[1140px] 2xl:w-[1200px] text-center place-items-center'>
