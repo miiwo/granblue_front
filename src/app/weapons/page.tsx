@@ -14,6 +14,16 @@ export default function WeaponPage() {
         setQuery(_query)
     }
 
+    const elementQuerySwitch = (s: string) => {
+        let _query = {...query, element: s}
+        setQuery(_query)
+    }
+
+    const wepTypeQuerySwitch = (s: string) => {
+        let _query = {...query, wep_type: s}
+        setQuery(_query)
+    }
+
     return (
         <div>
             <div className="flex flex-col gap-3 bg-nordtwo shadow-md pb-4 pt-1 2xl:items-center">
@@ -49,24 +59,25 @@ export default function WeaponPage() {
                     <div className='rounded overflow-x-auto'>
                         <fieldset className='flex relative gap-3 rounded-lg bg-slate-700 w-[600px] md:w-[600px] lg:w-[820px] text-center'>
                             <input id="elementRadioAny" type="radio" name="elementRadio" value="Any" defaultChecked className='hidden peer/Any'/>
-                            <label htmlFor="elementRadioAny" className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Any</label>
+                            <label htmlFor="elementRadioAny" onClick={() => elementQuerySwitch('')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Any</label>
+
                             <input id="elementRadioFire" type="radio" name="elementRadio" value="Fire" defaultChecked className='hidden peer/Fire' />
-                            <label htmlFor="elementRadioFire" className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Fire</label>
+                            <label htmlFor="elementRadioFire" onClick={() => elementQuerySwitch('fire')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Fire</label>
 
                             <input id="elementRadioWater" type="radio" name="elementRadio" value="Water" className='hidden peer/Water' />
-                            <label htmlFor='elementRadioWater' className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Water</label>
+                            <label htmlFor='elementRadioWater' onClick={() => elementQuerySwitch('water')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Water</label>
 
                             <input id="elementRadioEarth" type="radio" name="elementRadio" value="Earth" className='hidden peer/Earth' />
-                            <label htmlFor='elementRadioEarth' className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Earth</label>
+                            <label htmlFor='elementRadioEarth' onClick={() => elementQuerySwitch('earth')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Earth</label>
 
                             <input id="elementRadioWind" type="radio" name="elementRadio" value="Wind" className='hidden peer/Wind' />
-                            <label htmlFor='elementRadioWind' className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Wind</label>
+                            <label htmlFor='elementRadioWind' onClick={() => elementQuerySwitch('wind')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Wind</label>
 
                             <input id="elementRadioLight" type="radio" name="elementRadio" value="Light" className='hidden peer/Light' />
-                            <label htmlFor='elementRadioLight' className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Light</label>
+                            <label htmlFor='elementRadioLight' onClick={() => elementQuerySwitch('light')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Light</label>
 
                             <input id="elementRadioDark" type="radio" name="elementRadio" value="Dark" className='hidden peer/Dark' />
-                            <label htmlFor='elementRadioDark' className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Dark</label>
+                            <label htmlFor='elementRadioDark' onClick={() => elementQuerySwitch('dark')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Dark</label>
 
 
                             <div className='flex w-[14.29%] px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/Any:translate-x-[0%] peer-checked/Fire:translate-x-[100%] peer-checked/Water:translate-x-[200%] peer-checked/Earth:translate-x-[300%] peer-checked/Wind:translate-x-[400%] peer-checked/Light:translate-x-[500%] peer-checked/Dark:translate-x-[600%]'></div>
@@ -80,37 +91,37 @@ export default function WeaponPage() {
                     <div className='rounded overflow-x-auto'>
                         <fieldset className='flex relative rounded-lg bg-slate-700 gap-3 w-[1500px] md:w-[1300px] lg:w-[1140px] 2xl:w-[1200px] text-center place-items-center'>
                             <input id="wepTypeRadioAny" type="radio" name="wepTypeRadio" value="Any" defaultChecked className='hidden peer/Any' />
-                            <label htmlFor="wepTypeRadioAny" className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Any</label>
+                            <label htmlFor="wepTypeRadioAny" onClick={() => wepTypeQuerySwitch('')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Any</label>
 
                             <input id="wepTypeRadioSpear" type="radio" name="wepTypeRadio" value="Spear" defaultChecked className='hidden peer/Spear' />
-                            <label htmlFor="wepTypeRadioSpear" className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Spear</label>
+                            <label htmlFor="wepTypeRadioSpear" onClick={() => wepTypeQuerySwitch('spear')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Spear</label>
 
                             <input id="wepTypeRadioBow" type="radio" name="wepTypeRadio" value="Bow" className='hidden peer/Bow' />
-                            <label htmlFor='wepTypeRadioBow' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Bow</label>
+                            <label htmlFor='wepTypeRadioBow' onClick={() => wepTypeQuerySwitch('bow')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Bow</label>
 
                             <input id="wepTypeRadioAxe" type="radio" name="wepTypeRadio" value="Axe" className='hidden peer/Axe' />
-                            <label htmlFor='wepTypeRadioAxe' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Axe</label>
+                            <label htmlFor='wepTypeRadioAxe' onClick={() => wepTypeQuerySwitch('axe')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Axe</label>
 
                             <input id="wepTypeRadioDagger" type="radio" name="wepTypeRadio" value="Dagger" className='hidden peer/Dagger' />
-                            <label htmlFor='wepTypeRadioDagger' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Dagger</label>
+                            <label htmlFor='wepTypeRadioDagger' onClick={() => wepTypeQuerySwitch('dagger')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Dagger</label>
 
                             <input id="wepTypeRadioStaff" type="radio" name="wepTypeRadio" value="Staff" className='hidden peer/Staff' />
-                            <label htmlFor='wepTypeRadioStaff' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Staff</label>
+                            <label htmlFor='wepTypeRadioStaff' onClick={() => wepTypeQuerySwitch('staff')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Staff</label>
 
                             <input id="wepTypeRadioMelee" type="radio" name="wepTypeRadio" value="Melee" className='hidden peer/Melee' />
-                            <label htmlFor='wepTypeRadioMelee' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Melee</label>
+                            <label htmlFor='wepTypeRadioMelee' onClick={() => wepTypeQuerySwitch('melee')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Melee</label>
 
                             <input id="wepTypeRadioSword" type="radio" name="wepTypeRadio" value="Sword" className='hidden peer/Sword' />
-                            <label htmlFor='wepTypeRadioSword' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Sword</label>
+                            <label htmlFor='wepTypeRadioSword' onClick={() => wepTypeQuerySwitch('sword')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Sword</label>
 
                             <input id="wepTypeRadioKatana" type="radio" name="wepTypeRadio" value="Katana" className='hidden peer/Katana' />
-                            <label htmlFor='wepTypeRadioKatana' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Katana</label>
+                            <label htmlFor='wepTypeRadioKatana' onClick={() => wepTypeQuerySwitch('katana')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Katana</label>
 
                             <input id="wepTypeRadioHarp" type="radio" name="wepTypeRadio" value="Harp" className='hidden peer/Harp' />
-                            <label htmlFor='wepTypeRadioHarp' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Harp</label>
+                            <label htmlFor='wepTypeRadioHarp' onClick={() => wepTypeQuerySwitch('harp')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Harp</label>
 
                             <input id="wepTypeRadioGun" type="radio" name="wepTypeRadio" value="Gun" className='hidden peer/Gun' />
-                            <label htmlFor='wepTypeRadioGun' className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Gun</label>
+                            <label htmlFor='wepTypeRadioGun' onClick={() => wepTypeQuerySwitch('gun')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Gun</label>
 
 
 

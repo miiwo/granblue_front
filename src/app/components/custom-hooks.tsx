@@ -19,14 +19,16 @@ export function useWeaponListData() {
     const [data, setData] = useState<any[]>([])
     const [query, setQuery] = useState<{ [key: string]: string}>({
         query: "",
-        searchby: "name" // value can be: name, ca_desc, skill
+        searchby: "name", // value can be: name, ca_desc, skill
+        element: "",
+        wep_type: ""
     })
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true)
-            const response = await fetchWeapons(`?${query.searchby}=${query.query}`)
+            const response = await fetchWeapons(`?${query.searchby}=${query.query}${query.element !== "" ? "&element="+query.element : ""}${query.wep_type !== "" ? "&wep_type="+query.wep_type : ""}`)
             const weaponListResult = response.map((data:any, i:number) => {
                 let weapon = adaptToWeaponModel(data)
                 weapon.id = i
