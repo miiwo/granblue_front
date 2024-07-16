@@ -19,7 +19,7 @@ export function useWeaponListData() {
     const [data, setData] = useState<any[]>([])
     const [query, setQuery] = useState<{ [key: string]: string}>({
         query: "",
-        searchby: "name"
+        searchby: "name" // value can be: name, ca_desc, skill
     })
     const [isLoading, setIsLoading] = useState<boolean>(false)
 

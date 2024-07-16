@@ -9,6 +9,11 @@ import Link from 'next/link'
 export default function WeaponPage() {
     const [weaponList, isLoading, query, setQuery] = useWeaponListData()
 
+    const searchQuerySwitch = (s: string) => {
+        let _query = {...query, searchby: s}
+        setQuery(_query)
+    }
+
     return (
         <div>
             <div className="flex flex-col gap-3 bg-nordtwo shadow-md pb-4 pt-1 2xl:items-center">
@@ -22,13 +27,13 @@ export default function WeaponPage() {
                     <div className='overflow-x-auto rounded-lg'>
                         <fieldset className="shrink flex relative gap-3 rounded-lg bg-slate-700 w-96 text-center md:w-[500px]">
                             <input id="wep_name" type="radio" name="weapon_search_filters" value="name" defaultChecked className='hidden peer/name' />
-                            <label htmlFor="wep_name" className="w-1/3 z-10 cursor-pointer px-3 rounded-lg">Name</label>
+                            <label htmlFor="wep_name" onClick={() => searchQuerySwitch('name')} className="w-1/3 z-10 cursor-pointer px-3 rounded-lg">Name</label>
 
                             <input id="wep_skill" type="radio" name="weapon_search_filters" value="skill" className='hidden peer/skill' />
-                            <label htmlFor='wep_skill' className="w-1/3 z-10 cursor-pointer px-3 rounded-lg">Weapon Skill</label>
+                            <label htmlFor='wep_skill' onClick={() => searchQuerySwitch('skill')} className="w-1/3 z-10 cursor-pointer px-3 rounded-lg">Weapon Skill</label>
 
                             <input id="wep_ougi" type="radio" name="weapon_search_filters" value="ca" className='hidden peer/ca' />
-                            <label htmlFor='wep_ougi' className="w-1/3 z-10 cursor-pointer px-3 rounded-lg select-none truncate">Ougi</label>
+                            <label htmlFor='wep_ougi' onClick={() => searchQuerySwitch('ca_desc')} className="w-1/3 z-10 cursor-pointer px-3 rounded-lg select-none truncate">Ougi</label>
 
 
                             <div className='flex w-1/3 px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/ca:translate-x-[200%] peer-checked/skill:translate-x-[100%]'></div>
@@ -128,7 +133,7 @@ export default function WeaponPage() {
                     return (
                         <Link key={i} href= {`/weapons/${encodeURIComponent(wep.name)}`} className="gap-3 bg-nordtwo hover:bg-nordzero ease-in duration-300 shadow-sm rounded-md pl-3 py-4 2xl:w-2/4">
                             <button className='flex flex-row gap-3 items-center'>
-                                <Image src="/empty_wep_slot.png" alt="Image of weapon" width={150} height={75} />
+                                {wep.picture !== 'data:image/jpg;base64,' ? <img src={wep.picture} alt="Image of Weapon" width={150} height={75} /> : <Image src="/empty_wep_slot.png" alt="Image of weapon" width={150} height={75} />}
                                 <span className="content-center">{wep.name}</span>
                             </button>
                         </Link>
