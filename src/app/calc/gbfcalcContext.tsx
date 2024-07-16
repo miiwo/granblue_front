@@ -187,7 +187,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             const _dmgMods = calculateGridMods(Object.keys(_grid).map(key => _grid[key]), 
                                                 Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
                                                 hp.current)
-            console.log(_grid)
+            //console.log(_grid)
             setDmgFormulaMods({
                 'Total': {
                     num: _dmgMods.total,
@@ -238,8 +238,8 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             const _dmgMods = calculateGridMods(Object.keys(_grid).map(key => _grid[key]), 
                                                 Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
                                                 hp.current)
-            console.log(_dmgMods)
-            console.log(_sumGrid)
+            //console.log(_dmgMods)
+            //console.log(_sumGrid)
             setDmgFormulaMods({
                 'Total': {
                     num: _dmgMods.total,
@@ -282,7 +282,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                                             Object.keys(summonGrid).map<Summon|undefined>(key => summonGrid[key]), 
                                             hp.current)
 
-        console.log(_dmgMods)                                  
+        //console.log(_dmgMods)                                  
         setDmgFormulaMods({
             'Total': {
                 num: _dmgMods.total,
