@@ -61,7 +61,7 @@ export default function WeaponPage() {
                             <input id="elementRadioAny" type="radio" name="elementRadio" value="Any" defaultChecked className='hidden peer/Any'/>
                             <label htmlFor="elementRadioAny" onClick={() => elementQuerySwitch('')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Any</label>
 
-                            <input id="elementRadioFire" type="radio" name="elementRadio" value="Fire" defaultChecked className='hidden peer/Fire' />
+                            <input id="elementRadioFire" type="radio" name="elementRadio" value="Fire" className='hidden peer/Fire' />
                             <label htmlFor="elementRadioFire" onClick={() => elementQuerySwitch('fire')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Fire</label>
 
                             <input id="elementRadioWater" type="radio" name="elementRadio" value="Water" className='hidden peer/Water' />
@@ -93,7 +93,7 @@ export default function WeaponPage() {
                             <input id="wepTypeRadioAny" type="radio" name="wepTypeRadio" value="Any" defaultChecked className='hidden peer/Any' />
                             <label htmlFor="wepTypeRadioAny" onClick={() => wepTypeQuerySwitch('')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Any</label>
 
-                            <input id="wepTypeRadioSpear" type="radio" name="wepTypeRadio" value="Spear" defaultChecked className='hidden peer/Spear' />
+                            <input id="wepTypeRadioSpear" type="radio" name="wepTypeRadio" value="Spear" className='hidden peer/Spear' />
                             <label htmlFor="wepTypeRadioSpear" onClick={() => wepTypeQuerySwitch('spear')} className="w-[9.09%] z-10 cursor-pointer px-3 rounded-lg">Spear</label>
 
                             <input id="wepTypeRadioBow" type="radio" name="wepTypeRadio" value="Bow" className='hidden peer/Bow' />
