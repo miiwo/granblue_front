@@ -149,6 +149,14 @@ function adaptToSkillModel(skills:any[], level:number) {
     })
 }
 
+function adaptToAwakeningModel(awakenings:any[]) {
+    return awakenings.map((awakening: any) => {
+        return {
+            
+        }
+    })
+}
+
 function useDataTemplate(url: string) {
     const [query, setQuery] = useState<{ [key: string]: string}>({
         query: "blah"

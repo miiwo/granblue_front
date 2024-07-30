@@ -14,7 +14,7 @@ export interface Weapon {
     ougi_desc: string
     skills?: Skills[]
     skillLevel: number
-    awakening?: {}
+    awakening?: {[key: string]: {[key:string]: number}}
     picture?: any //Base64 string
 }
 
@@ -26,6 +26,12 @@ export type Skills = {
     stat: string,
 }
 
+export type Awakenings = {
+    name: string,
+    stat_affected: string,
+    strength: string,
+}
+
 export type Summon = {
     name: string | undefined,
     id: number,
@@ -33,7 +39,7 @@ export type Summon = {
     strength: number,
 }
 
-export type WeaponGrid = Record<string, {weapon: Weapon, config: {}} | undefined>
+export type WeaponGrid = Record<string, {weapon: Weapon, config: {[key:string]:any}} | undefined>
 export type SummonGrid = Record<string, Summon | undefined>
 export type DMGFormulaPiece = Record<string, {num: number, mulx: string} | undefined>
 
@@ -54,6 +60,7 @@ interface GBFWeaponGridContextData {
     setWeaponToTile: (weapon: Weapon) => void
     setSummonToTile: (summon: Summon) => void
     updateDamageCalcs: () => void
+    setAwakeningToTile: (awakening: string) => void
 }
 
 // INITIAL VARIABLE DATA
@@ -140,6 +147,7 @@ export const GBFWeaponGridContext = createContext<GBFWeaponGridContextData>({
     setWeaponToTile: (weapon) => {},
     setSummonToTile: (summon) => {},
     updateDamageCalcs: () => {},
+    setAwakeningToTile: (awakening) => {}
 })
 
 // PROVIDER
@@ -318,6 +326,63 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             'TA Rate': _dmgMods.ta,
         })
     }
+
+    const setAwakeningToTile = (awakening: string) => {
+
+        // SET AWAKENING
+        let c : {[key: string]: any } = {
+            skillLevel: 1
+        }
+        c['awakeningType'] = awakening
+            
+        // GRID STUFF
+        if (keyname.current) {
+            const currentWeapon = grid[keyname.current]?.weapon as Weapon
+            let _grid = {...grid, [keyname.current]: {weapon: currentWeapon, config: c}}
+            setGrid(_grid)
+            console.log(_grid)
+            
+            // I need to do the calculations with the temporary updated grid because it takes slightly longer for the state to persist until i want a change to show immedietely (Consider refactoring the updateDamageCalcs to take in a parameter so this can be done, i've rewritten this several times now)
+            let _sumGrid:any = summonGrid
+            const _dmgMods = calculateGridMods(Object.keys(_grid).map(key => _grid[key]), 
+                                                Object.keys(_sumGrid).map<Summon>(key => _sumGrid[key]), 
+                                                hp.current)
+            setDmgFormulaMods({
+                'Total': {
+                    num: _dmgMods.total,
+                    mulx: '=',
+                  },
+                  'Magna': {
+                      num: roundTo( ((1+(_dmgMods.magna/100)) * (1+(_dmgMods.magna_enm/100)) * (1+(_dmgMods.magna_stam/100)))*100 - 100, 2),
+                      mulx: 'x',
+                    },
+                  'Normal': {
+                    num: roundTo( ((1+(_dmgMods.normal/100)) * (1+(_dmgMods.normal_enm/100)) * (1+(_dmgMods.normal_stam/100)))*100 - 100, 2),
+                    mulx: 'x',
+                  },
+                  'EX': {
+                    num: _dmgMods.ex,
+                    mulx: 'x',
+                  },
+                  'Elemental': {
+                      num: roundTo((_dmgMods.elemental-1)*100, 2),
+                      mulx: '',
+                  }
+            })
+
+            setUtilityMods({
+                'Might': _dmgMods.normal,
+                'Omega Might': _dmgMods.magna,
+                'EX Might': _dmgMods.ex,
+                'Stamina': _dmgMods.normal_stam,
+                'Omega Stamina': _dmgMods.magna_stam,
+                'Enmity': _dmgMods.normal_enm,
+                'Omega Enmity': _dmgMods.magna_enm,
+                'Crit': _dmgMods.crit,
+                'TA Rate': _dmgMods.ta,
+            })
+        }
+    }
     return (
         <GBFWeaponGridContext.Provider value={{
             grid,
@@ -332,6 +397,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
             setWeaponToTile,
             setSummonToTile,
             updateDamageCalcs,
+            setAwakeningToTile,
         }}
         >
             {children}
@@ -534,7 +600,7 @@ export const calculateGridMods = (weaponList: ({weapon: Weapon, config: {}} | un
         }
         
         if (weapon.awakening) {
-            let selectedAwakening = weapon.awakening['atk']
+            let selectedAwakening = weapon.awakening[config.awakeningType]
             if (selectedAwakening['ex atk']) {
                 e_awakening += selectedAwakening['ex atk']/100
             }
@@ -542,16 +608,6 @@ export const calculateGridMods = (weaponList: ({weapon: Weapon, config: {}} | un
                 o_awakening += selectedAwakening['norm atk']/100
             }
         }
-        /*if (awakening['atk']) {
-            switch (awakening['atk'].type) {
-                case 'ex main':
-                    break
-                case 'normal':
-                    break
-                default:
-                    break
-            }
-        }*/
     }
 
     // Sum up all the grid mods

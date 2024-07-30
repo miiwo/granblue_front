@@ -39,7 +39,14 @@ export function WeaponGridTile({basepath, weapon, weaponlink, customStyle}: GBFT
   return (
       <Tile customStyle={customStyle}>
         { weapon ? <div onClick={onClick}><img src={weapon.picture} alt={weapon.name} className='h-[75px] w-[200px] content-center'/></div> : <Image src={emptyImage} onClick={onClick} alt="Picture of weapon in grid" sizes="25vw" width={250} height={200} />}
-        { weapon && weapon.awakening && <select className='px-[59px] text-nordzero'><option value="atk">ATK</option><option value="def">DEF</option></select> }
+        { weapon && weapon.awakening && 
+          <select className='px-[59px] text-nordzero'  onChange={(e) => gbfContext.setAwakeningToTile(e.target.value)}>
+            {Object.keys(weapon.awakening).map((key:string, i:number) => {
+              return (
+                <option key={"wep_awakening_" + weapon.id + "_" + i} value={key}>{key.toUpperCase()}</option>
+              )
+            })}
+          </select> }
       </Tile>
   )
 }
