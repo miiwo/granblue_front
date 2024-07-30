@@ -185,7 +185,7 @@ export function GBFWeaponGridContextProvider( {children}:GBFWeaponGridContextPro
                 skillLevel: 1
             }
             if (weapon.awakening) {
-                c['awakeningType'] = 'atk'
+                c['selectedAwakening'] = 'atk'
             }
             
             _grid = {...grid, [keyname.current]: {weapon: weapon, config: c}}

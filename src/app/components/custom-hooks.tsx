@@ -42,6 +42,7 @@ export function useWeaponListData() {
             fetchData().catch((error:any) => {
                 // DO SOMETHING ON ERROR
                 console.log("There was an error :(")
+                console.log(error)
             })
         }
         
@@ -102,7 +103,7 @@ function adaptToWeaponModel(data:any) : Weapon {
             ougi_name: data.OugiName,
             ougi_desc: data.OugiDesc,
             skills: data.Skills ? adaptToSkillModel(data.Skills, skill_level) : [],
-            awakening: {"atk": {"ex atk": 30, "hp": 30, "norm atk": 20}, "def": {"hp": 50}},
+            awakening: data.Awakening ? adaptToAwakeningModel(data.Awakening) : undefined, // {"atk": {"ex atk": 30, "hp": 30, "norm atk": 20}, "def": {"hp": 50}},
             picture: `data:image/jpg;base64,${data.Image64}`
     }
 }
@@ -150,11 +151,20 @@ function adaptToSkillModel(skills:any[], level:number) {
 }
 
 function adaptToAwakeningModel(awakenings:any[]) {
-    return awakenings.map((awakening: any) => {
-        return {
-            
+    let result_awakening : {[key:string]: any} = {}
+    for (const awakening of awakenings) {
+        // break down the stat affected + strength
+        const stats = awakening.StatAffected.split("/")
+        const strengths = awakening.Strength.split("/")
+
+        result_awakening[awakening.Name] = {}
+
+        for (var index in stats) {
+            result_awakening[awakening.Name][stats[index]] = strengths[index]
         }
-    })
+    }
+
+    return result_awakening
 }
 
 function useDataTemplate(url: string) {
