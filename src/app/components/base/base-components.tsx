@@ -112,12 +112,13 @@ export function Search ({onClick, placeholderText, query, setQuery}: SearchProps
   }, [personalSearch])
 
   return (
-    <div className="flex bg-nordoceanblue rounded">
-        <input type='search' value={personalSearch} onChange={debounceSearch} placeholder={placeholderText} className="grow px-3 rounded text-black h-[27px]"  autoFocus />
+    <div className="flex relative bg-nordoceanblue rounded">
+        <FontAwesomeIcon className="absolute top-3.5 left-2 text-nordwhite" icon={faMagnifyingGlass} />
+        <input type='search' value={personalSearch} onChange={debounceSearch} placeholder={placeholderText} className="grow ps-8 pe-3 py-5 rounded text-black h-[27px] border border-nordblue bg-nordzero"  autoFocus />
     </div>
   )
 }
-
+// rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none ring-2 ring-gray-500 disabled:cursor-not-allowed disabled:opacity-50 focus:ring-gray-700
 export function DefaultSearch({onClick, placeholderText}: SearchProps) {
   return (
       <>
