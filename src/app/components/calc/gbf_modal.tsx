@@ -15,7 +15,7 @@ export function GBFWepGridModal() {
 
   return (
       <Modal title="GBF Weapons">
-          <Search placeholderText="Search weapons..." query={query} setQuery={setQuery} />
+          <Search placeholderText="Search weapons..." query={query} setQuery={setQuery} searchInputClassName="text-black" />
           <div className="flex flex-col w-[90vw] lg:w-full h-[10vh] 2xl:h-[40vh] overflow-y-auto mt-5 text-black pl-4 md:pl-0">
             {isLoading && <LoadingSpinner />}
           {!isLoading && weaponList.map( item => {

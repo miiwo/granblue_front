@@ -29,7 +29,7 @@ export default function WeaponPage() {
             <div className="flex flex-col gap-3 bg-nordtwo shadow-md pb-4 pt-1 2xl:items-center">
                 <h1 className="font-bold text-2xl underline underline-offset-4 mb-3 pt-3 text-center">Weapons</h1>
                 <div className="bg-nordtwo rounded mx-3 py-5 px-3 2xl:w-2/4">
-                    <Search placeholderText='Search weapons...' query={query} setQuery={setQuery} />
+                    <Search placeholderText='Search weapons...' query={query} setQuery={setQuery} searchInputClassName='border-nordblue bg-nordzero text-nordwhite' />
                 </div>
 
                 <div className="flex flex-row items-center 2xl:w-2/4">
@@ -46,7 +46,7 @@ export default function WeaponPage() {
                             <label htmlFor='wep_ougi' onClick={() => searchQuerySwitch('ca_desc')} className="w-1/3 z-10 cursor-pointer px-3 rounded-lg select-none truncate">Ougi</label>
 
 
-                            <div className='flex w-1/3 px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/ca:translate-x-[200%] peer-checked/skill:translate-x-[100%]'></div>
+                            <div className='flex w-1/3 px-3 rounded-lg bg-nordzero z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/ca:translate-x-[200%] peer-checked/skill:translate-x-[100%]'></div>
                             
                         </fieldset>
                     </div>
@@ -80,7 +80,7 @@ export default function WeaponPage() {
                             <label htmlFor='elementRadioDark' onClick={() => elementQuerySwitch('dark')} className="w-[14.29%] z-10 cursor-pointer px-3 rounded-lg">Dark</label>
 
 
-                            <div className='flex w-[14.29%] px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/Any:translate-x-[0%] peer-checked/Fire:translate-x-[100%] peer-checked/Water:translate-x-[200%] peer-checked/Earth:translate-x-[300%] peer-checked/Wind:translate-x-[400%] peer-checked/Light:translate-x-[500%] peer-checked/Dark:translate-x-[600%]'></div>
+                            <div className='flex w-[14.29%] px-3 rounded-lg bg-nordzero z-[9] h-full p-0 select-none truncate absolute transform transition-transform peer-checked/Any:translate-x-[0%] peer-checked/Fire:translate-x-[100%] peer-checked/Water:translate-x-[200%] peer-checked/Earth:translate-x-[300%] peer-checked/Wind:translate-x-[400%] peer-checked/Light:translate-x-[500%] peer-checked/Dark:translate-x-[600%]'></div>
                         </fieldset>
                     </div>
                     
@@ -125,7 +125,7 @@ export default function WeaponPage() {
 
 
 
-                            <div className='flex w-[9.09%] px-3 rounded-lg bg-nordred z-[9] h-full p-0 select-none truncate absolute transform transition-transform 
+                            <div className='flex w-[9.09%] px-3 rounded-lg bg-nordzero z-[9] h-full p-0 select-none truncate absolute transform transition-transform 
                             peer-checked/Any:translate-x-[0%] peer-checked/Spear:translate-x-[100%] peer-checked/Bow:translate-x-[200%] 
                             peer-checked/Axe:translate-x-[300%] peer-checked/Dagger:translate-x-[400%] peer-checked/Staff:translate-x-[500%] 
                             peer-checked/Melee:translate-x-[600%] peer-checked/Sword:translate-x-[700%] peer-checked/Katana:translate-x-[800%]

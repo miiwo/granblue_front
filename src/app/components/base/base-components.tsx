@@ -7,6 +7,8 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import Link from "next/link"
 
+import classNames from "classnames"
+
 // INTERFACES / SIGNATURES
 interface TileProps {
     onClick?: () => void,
@@ -30,6 +32,8 @@ export interface SearchProps {
   placeholderText?: string
   onClick?: () => void
   setQuery?: (q:any) => void
+  searchInputClassName?: string
+  searchIconColor?: string
 }
 
 interface NavBarLinkProps {
@@ -83,15 +87,13 @@ export function Modal({title, children}: ModalMeta) {
   )
 }
 
-export function DefaultSearchModal() {
-  return (
-      <Modal>
-          <DefaultSearch />
-      </Modal>
-  )
-}
+export function Search ({searchInputClassName, searchIconColor, placeholderText, query, setQuery}: SearchProps) {
 
-export function Search ({onClick, placeholderText, query, setQuery}: SearchProps) {
+  const searchInputClassNames = classNames(
+    "grow ps-8 pe-3 py-5 h-[27px] rounded border focus:outline-none",
+    searchInputClassName
+  )
+  const searchIcon = searchIconColor ? classNames("absolute top-3.5 left-2", searchIconColor) : 'absolute top-3.5 left-2 text-nordwhite'
   // TODO: Need to define the type of query in the SearchProps for clarity
   const [personalSearch, setPersonalSearch] = useState<string>('')
 
@@ -112,9 +114,9 @@ export function Search ({onClick, placeholderText, query, setQuery}: SearchProps
   }, [personalSearch])
 
   return (
-    <div className="flex relative bg-nordoceanblue rounded">
-        <FontAwesomeIcon className="absolute top-3.5 left-2 text-nordwhite" icon={faMagnifyingGlass} />
-        <input type='search' value={personalSearch} onChange={debounceSearch} placeholder={placeholderText} className="grow ps-8 pe-3 py-5 rounded text-black h-[27px] border border-nordblue bg-nordzero"  autoFocus />
+    <div className="flex relative rounded">
+        <FontAwesomeIcon icon={faMagnifyingGlass} className={searchIcon} />
+        <input type='search' value={personalSearch} onChange={debounceSearch} placeholder={placeholderText} className={searchInputClassNames} autoFocus />
     </div>
   )
 }
