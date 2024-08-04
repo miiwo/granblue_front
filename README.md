@@ -19,6 +19,20 @@
 - Calculator that determines mod strength for weapons that a player doesn't own
 - Responsive Design with mobile-first mindset
 
+## Dev Installation
+1. Clone this repo.
+2. Use node package manager of choice to install dependencies.
+3. Run the `dev` script in `package.json` with your node package manager of choice.
+
+Code and view changes in real-time at `http://localhost:3000` on any browser.
+
+## Docker Image
+Ensure you have Docker CE installed on your host machine.
+
+`docker build -f Dockerfile.dev -t gbf-webapp:dev .`
+
+`docker run -d -p <port>:<port> gbf-webapp:dev`
+
 ## Issues?
 If there are any issues, please [raise an issue](https://github.com/miiwo/granblue_front/issues) on the project page, and I'll look into it!
 
