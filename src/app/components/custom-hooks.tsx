@@ -64,6 +64,7 @@ export function useWeaponData(id: string) {
         fetchData().catch((error:any) => {
             // DO SOMETHING ON ERROR. ERROR IM LOOKING FOR IS NETWORK
             console.log("There was an error :(")
+            console.log(error)
         })
         
     }, [id])

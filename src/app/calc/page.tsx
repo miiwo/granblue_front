@@ -6,6 +6,11 @@ import { SummonGrid, WeaponGrid } from "../components/calc/gbf-grids"
 import { GBFMCElement, GBFSlider } from "../components/calc/gbf-hp"
 import { DMGFormula } from "../components/calc/gbf-dmg-formula"
 import { ActiveModTable } from "../components/calc/gbf-active-mods"
+import Image from "next/image"
+
+import magnaAtk from "../../../public/magna_atk_weapon_skill.png"
+import exAtk from "../../../public/ex_atk_weapon_skill.png"
+import normAtk from "../../../public/normal_atk_weapon_skill.png"
 
 
 type SearchParamProps = {
@@ -52,11 +57,11 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
 
                     <div className="col-span-2 bg-nordtwo rounded shadow-md px-3 py-3 mb-5 flex flex-col gap-3">
                         <h3 className="font-bold">Damage Formula Explanation</h3>
-                        <p>The damage formula depends on: Magna -insert magna symbol here-, Normal -insert optimus symbol here-, and EX mods.
+                        <p className="flex flex-row">The damage formula depends on: Magna <Image src={magnaAtk} alt="magna weapon skill" width={50} height={50} unoptimized />, Normal <Image src={normAtk} alt="normal weapon skill" width={100} height={100} />, and EX <Image src={exAtk} alt="ex weapon skill" width={100} height={100} /> mods.
                             Multiplying the boosts you have between them leads to greater strength! You&apos;ll be surprised when the in-game calculator reports lower power but your experience in raids is different!
                             Take for example this: -insert example here-
-                            You can get Elemental boosts from summons or Progression / Mk II Revans Awakening weapons.
-                            There are extra items that contribute but are reliant on your HP, they are Stamina and Enmity.
+                            You can get Elemental boosts from Summons, Progression, or Mk II Revans Awakening weapons.
+                            There are extra weapon skills that contribute to power but are reliant on your HP. They are Stamina and Enmity.
                             These are the basics of the general damage formula.
                             There are other nuances such as your team comp which would favor other weapons moreso: skill supplemental, special CA specs, amplify NA, etc. This goes outside the explanations here.
                         </p>

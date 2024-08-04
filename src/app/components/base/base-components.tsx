@@ -28,12 +28,13 @@ interface ModalMeta {
 }
 
 export interface SearchProps {
-  query?: any
   placeholderText?: string
-  onClick?: () => void
-  setQuery?: (q:any) => void
+  query?: any
   searchInputClassName?: string
   searchIconColor?: string
+  onClick?: () => void
+  setQuery?: (q:any) => void
+
 }
 
 interface NavBarLinkProps {
