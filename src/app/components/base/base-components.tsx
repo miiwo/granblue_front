@@ -8,6 +8,7 @@ import React from "react"
 import Link from "next/link"
 
 import classNames from "classnames"
+import Image from "next/image"
 
 // INTERFACES / SIGNATURES
 interface TileProps {
@@ -40,6 +41,12 @@ export interface SearchProps {
 interface NavBarLinkProps {
   link: string
   name: string
+}
+
+interface MyImageProps {
+  src: any
+  width: number
+  height: number
 }
 
 
@@ -192,7 +199,17 @@ export function NavBarLink({link, name}: NavBarLinkProps) {
       </Link>
     )
   }
-  
+}
+
+export function InlineImage({src, width, height}: MyImageProps) {
+  const inlineClass = classNames(
+    "relative inline-flex",
+    `w-[${width}px]`, `h-[${height}px]`
+  )
+
+  return (
+    <span className={inlineClass}><Image src={src} alt="some image" fill /></span>
+  )
 }
 
 /*export function AnimatedRadioGroup({radioName, selectedColor, elementList, classNameList}: {radioName: string, selectedColor: string, elementList: string[], classNameList: string[]}) {
