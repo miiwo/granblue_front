@@ -53,14 +53,10 @@ export default function CalculatorPage({ searchParams }: SearchParamProps) {
 
                     <div className="col-span-2 bg-nordtwo rounded shadow-md px-3 py-3 mb-5 flex flex-col gap-3">
                         <h3 className="font-bold">Damage Formula Explanation</h3>
-                        <p>The damage formula depends on: Magna <InlineImage src={"/normal_atk_weapon_skill.png"} width={25} height={25} />, Normal <InlineImage src={"/normal_atk_weapon_skill.png"} width={25} height={25} />, and EX <InlineImage src={"/ex_atk_weapon_skill.png"} width={25} height={25} /> mods.
-                            Multiplying the boosts you have between them leads to greater strength! You&apos;ll be surprised when the in-game calculator reports lower power but your experience in raids is different!
-                            Take for example this: -insert example here-
-                            You can get Elemental boosts from Summons, Progression, or Mk II Revans Awakening weapons.
-                            There are extra weapon skills that contribute to power but are reliant on your HP. They are Stamina and Enmity.
-                            These are the basics of the general damage formula.
-                            There are other nuances such as your team comp which would favor other weapons moreso: skill supplemental, special CA specs, amplify NA, etc. This goes outside the explanations here.
-                        </p>
+                        <p>The damage formula depends on: Magna <InlineImage src={"/magna_atk_weapon_skill.png"} width={25} height={25} />, Normal <InlineImage src={"/normal_atk_weapon_skill.png"} width={25} height={25} />, and EX <InlineImage src={"/ex_atk_weapon_skill.png"} width={25} height={25} /> mods. Multiplying the boosts you have between them leads to greater strength! You&apos;ll be surprised when the in-game calculator reports lower power but your experience in raids is different! </p>
+                        <p>Take for example this: -insert example here- You can get Elemental boosts from Summons, Progression, or Mk II Revans Awakening weapons.</p>
+                        <p>There are extra weapon skills that contribute to power but are reliant on your HP. They are Stamina and Enmity. </p>
+                        <p>These are the basics of the general damage formula. There are other nuances such as your team comp which would favor other weapons moreso: skill supplemental, special CA specs, amplify NA, etc. This goes outside the explanations here.</p>
                     </div>
 
                     <div className="col-span-2 bg-nordtwo rounded shadow-md px-3 py-3 mb-5 flex flex-col gap-3">
