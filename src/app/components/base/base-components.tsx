@@ -45,8 +45,8 @@ interface NavBarLinkProps {
 
 interface MyImageProps {
   src: any
-  width: number
-  height: number
+  width: string
+  height: string
 }
 
 
@@ -202,9 +202,13 @@ export function NavBarLink({link, name}: NavBarLinkProps) {
 }
 
 export function InlineImage({src, width, height}: MyImageProps) {
-
+  const inlineClass = classNames(
+    "relative inline-flex",
+    width,
+    height
+  )
   return (
-    <span className="relative inline-flex w-[25px] h-[25px]"><Image src={src} alt="some image" fill /></span>
+    <span className={inlineClass}><Image src={src} alt="some image" fill /></span>
   )
 }
 
